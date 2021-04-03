@@ -21,6 +21,7 @@ public class ARTapToPlaceObject : MonoBehaviour
     
     public GameObject placementIndicator;
     public GameObject objectToPlace;
+    public GameObject farmPlane;
     // public GameObject generatedGround;
 
     void Start()
@@ -47,7 +48,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     private void PlaceObject()
     {
-        Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+        farmPlane = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
     }
 
     private void UpdatePlacementPose()
