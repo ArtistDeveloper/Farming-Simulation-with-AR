@@ -17,13 +17,16 @@ public class Farmer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.touchCount > 0)
+        if (farmPlane != null)
         {
-            GameObject.Find("debug").SetActive(true);
-            farmPlane = GameObject.Find("Interaction").GetComponent<ARTapToPlaceObject>().farmPlane;
-            Vector3 yUpperPos = farmPlane.transform.position;
-            yUpperPos.y += yUpperPos.y + 1.5f;
-            Instantiate(farmer, yUpperPos, farmPlane.transform.rotation);
+            if (Input.touchCount > 0)
+            {
+                GameObject.FindWithTag("DebugText").SetActive(true);
+                farmPlane = GameObject.Find("Interaction").GetComponent<ARTapToPlaceObject>().farmPlane;
+                Vector3 yUpperPos = farmPlane.transform.position;
+                yUpperPos.y += yUpperPos.y + 1.5f;
+                Instantiate(farmer, yUpperPos, farmPlane.transform.rotation);
+            }
         }
     }
 }

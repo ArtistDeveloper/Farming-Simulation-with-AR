@@ -2440,51 +2440,6 @@ Transform:
   m_Father: {fileID: 427961980}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &520375516
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 520375518}
-  - component: {fileID: 520375517}
-  m_Layer: 0
-  m_Name: FarmerManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &520375517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 520375516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8ceeadabdf415a4b91d1ba03928fad6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  farmer: {fileID: 7003436961936023173, guid: 767b5f9195c2e2a4787fab48b6333220, type: 3}
-  debugText: {fileID: 0}
---- !u!4 &520375518
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 520375516}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 413, y: 206.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &538821879 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2512685354069492384, guid: f15c712ccb71d1241b782c203de9549d, type: 3}
@@ -7061,6 +7016,7 @@ MonoBehaviour:
   placementIndicator: {fileID: 1793704640}
   objectToPlace: {fileID: 2816551072992678588, guid: b046662125851284c91cdbb518eca40f, type: 3}
   farmPlane: {fileID: 0}
+  farmer: {fileID: 7003436961936023173, guid: 767b5f9195c2e2a4787fab48b6333220, type: 3}
 --- !u!4 &1361143846
 Transform:
   m_ObjectHideFlags: 0

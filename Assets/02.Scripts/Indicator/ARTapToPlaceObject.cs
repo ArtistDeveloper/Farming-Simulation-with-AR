@@ -22,7 +22,8 @@ public class ARTapToPlaceObject : MonoBehaviour
     public GameObject placementIndicator;
     public GameObject objectToPlace;
     public GameObject farmPlane;
-    // public GameObject generatedGround;
+
+    public GameObject farmer;
 
     void Start()
     {
@@ -42,8 +43,22 @@ public class ARTapToPlaceObject : MonoBehaviour
             {
                PlaceObject();
                IsPlane = false;
+               Vector3 yUpperPos = farmPlane.transform.position;
+               yUpperPos.y += yUpperPos.y + 1.5f;
+               Instantiate(farmer, yUpperPos, farmPlane.transform.rotation);   
             }
         }
+        //farmer 객체 띄우기 테스트 코드
+        // else
+        // {
+        //     if (Input.touchCount > 0)
+        //     {
+        //         GameObject.Find("debug").SetActive(true);
+        //         Vector3 yUpperPos = farmPlane.transform.position;
+        //         yUpperPos.y += yUpperPos.y + 1.5f;
+        //         Instantiate(farmer, yUpperPos, farmPlane.transform.rotation);   
+        //     }
+        // }
     }
 
     private void PlaceObject()
@@ -85,5 +100,4 @@ public class ARTapToPlaceObject : MonoBehaviour
             placementIndicator.SetActive(false);
         }
     }
-
 }
