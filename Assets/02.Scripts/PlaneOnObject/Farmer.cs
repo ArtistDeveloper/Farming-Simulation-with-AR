@@ -2,31 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ArIndicator;
 
-public class Farmer : MonoBehaviour
+namespace PlaneOnObject
 {
-    public GameObject farmer;
-    private GameObject farmPlane;
-    public Text debugText;
-
-    void Start()
+    public class Farmer : MonoBehaviour
     {
-        debugText.text = "터치되고 있습니다.";
-    }
+        public GameObject farmer;
+        private Transform farmPlanePosition;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (farmPlane != null)
+        void Start()
         {
-            if (Input.touchCount > 0)
-            {
-                GameObject.FindWithTag("DebugText").SetActive(true);
-                farmPlane = GameObject.Find("Interaction").GetComponent<ARTapToPlaceObject>().farmPlane;
-                Vector3 yUpperPos = farmPlane.transform.position;
-                yUpperPos.y += yUpperPos.y + 1.5f;
-                Instantiate(farmer, yUpperPos, farmPlane.transform.rotation);
-            }
+            
         }
+
+        // Update is called once per frame
+        void Update()
+        {
+            farmPlanePosition = GameObject.Find("Interaction").GetComponent<ARTapToPlaceObject>().farmPlanePosition;
+            Vector3 yUpperPos = farmPlanePosition.position;
+            yUpperPos.y += yUpperPos.y + 0.5f;
+            Instantiate(farmer, yUpperPos, farmPlanePosition.rotation);
+
+            // if (farmPlane != null)
+            // {
+            //     Vector3 yUpperPos = farmPlane.transform.position;
+            //     yUpperPos.y += yUpperPos.y + 0.5f;
+            //     Instantiate(farmer, yUpperPos, farmPlane.transform.rotation);
+            // }
+            
+        }
+
+        //public void FarmerInstantiate()
+        //{
+        //    farmPlane = GameObject.Find("Interaction").GetComponent<ARTapToPlaceObject>().farmPlane;
+        //    Vector3 yUpperPos = farmPlane.transform.position;
+        //    yUpperPos.y += yUpperPos.y + 0.5f;
+        //    Instantiate(farmer, yUpperPos, farmPlane.transform.rotation); 
+
+        //    //텍스트띄우기
+        //    GameObject.Find("DebugText").SetActive(true);
+        //}
     }
 }
