@@ -28,6 +28,7 @@ namespace ArIndicator
         //test코드들
         public GameObject farmer;
         public Farmer farmerScript;
+        public GameObject farmPlane;
 
         public bool isPlane = false;
 
@@ -48,7 +49,7 @@ namespace ArIndicator
             {
                 if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    GameObject.Find("UI").transform.Find("DebugText").gameObject.SetActive(true);
+                    // GameObject.Find("UI").transform.Find("DebugText").gameObject.SetActive(true);
                     PlaceObject();
                     // // Vector3 yUpperPos = _farmPlane.transform.position;
                     // // yUpperPos.y += yUpperPos.y + 1.5f;
@@ -61,8 +62,8 @@ namespace ArIndicator
 
         private void PlaceObject()
         {
-            farmPlanePosition = Instantiate(objectToPlace, placementPose.position, placementPose.rotation).GetComponent<Transform>();
-            
+            // farmPlanePosition = Instantiate(objectToPlace, placementPose.position, placementPose.rotation).GetComponent<Transform>();
+            farmPlane = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
         }
 
         private void UpdatePlacementPose()

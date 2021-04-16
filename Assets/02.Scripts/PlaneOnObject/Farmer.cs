@@ -10,6 +10,7 @@ namespace PlaneOnObject
     {
         public GameObject farmer;
         private Transform farmPlanePosition;
+        private GameObject farmPlane;
 
         void Start()
         {
@@ -19,10 +20,20 @@ namespace PlaneOnObject
         // Update is called once per frame
         void Update()
         {
-            farmPlanePosition = GameObject.Find("Interaction").GetComponent<ARTapToPlaceObject>().farmPlanePosition;
-            Vector3 yUpperPos = farmPlanePosition.position;
-            yUpperPos.y += yUpperPos.y + 0.5f;
-            Instantiate(farmer, yUpperPos, farmPlanePosition.rotation);
+            if (farmPlane != null)
+            {
+                GameObject.Find("UI").transform.Find("DebugText").gameObject.SetActive(true);
+                farmPlane = GameObject.Find("Interaction").GetComponent<ARTapToPlaceObject>().farmPlane;
+                Vector3 yUpperPos = farmPlane.transform.position;
+                yUpperPos.y += yUpperPos.y + 0.5f;
+                Instantiate(farmer, yUpperPos, farmPlanePosition.rotation);
+            }
+            else GameObject.Find("UI").transform.Find("DebugText").gameObject.SetActive(true);
+            // farmPlane = GameObject.Find("Interaction").GetComponent<ARTapToPlaceObject>().farmPlane;
+            // Vector3 yUpperPos = farmPlanePosition.position;
+            // yUpperPos.y += yUpperPos.y + 0.5f;
+            // Instantiate(farmer, yUpperPos, farmPlanePosition.rotation);
+            
 
             // if (farmPlane != null)
             // {
