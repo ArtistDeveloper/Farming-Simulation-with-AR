@@ -8,51 +8,31 @@ namespace PlaneOnObject
 {
     public class Farmer : MonoBehaviour
     {
-        public GameObject farmer;
-        private Transform farmPlanePosition;
-        private GameObject farmPlane;
+        //static영역이라 프리팹에 할당되기 이전에 초기화되서 farmer가 안뜨는 듯
+        public GameObject farmerPrefab;
+        public static GameObject staticFarmer; 
+        
 
         void Start()
         {
-            
+            staticFarmer = farmerPrefab;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (farmPlane != null)
-            {
-                GameObject.Find("UI").transform.Find("DebugText").gameObject.SetActive(true);
-                farmPlane = GameObject.Find("Interaction").GetComponent<ARTapToPlaceObject>().farmPlane;
-                Vector3 yUpperPos = farmPlane.transform.position;
-                yUpperPos.y += yUpperPos.y + 0.5f;
-                Instantiate(farmer, yUpperPos, farmPlanePosition.rotation);
-            }
-            else GameObject.Find("UI").transform.Find("DebugText").gameObject.SetActive(true);
-            // farmPlane = GameObject.Find("Interaction").GetComponent<ARTapToPlaceObject>().farmPlane;
-            // Vector3 yUpperPos = farmPlanePosition.position;
-            // yUpperPos.y += yUpperPos.y + 0.5f;
-            // Instantiate(farmer, yUpperPos, farmPlanePosition.rotation);
-            
 
-            // if (farmPlane != null)
-            // {
-            //     Vector3 yUpperPos = farmPlane.transform.position;
-            //     yUpperPos.y += yUpperPos.y + 0.5f;
-            //     Instantiate(farmer, yUpperPos, farmPlane.transform.rotation);
-            // }
-            
         }
 
-        //public void FarmerInstantiate()
-        //{
-        //    farmPlane = GameObject.Find("Interaction").GetComponent<ARTapToPlaceObject>().farmPlane;
-        //    Vector3 yUpperPos = farmPlane.transform.position;
-        //    yUpperPos.y += yUpperPos.y + 0.5f;
-        //    Instantiate(farmer, yUpperPos, farmPlane.transform.rotation); 
+        public static void FarmerInstantiate(Transform parentTransform, GameObject DebugText)
+        {
+           Transform farmPlaneTransform = parentTransform;
+           Vector3 yUpperPos = farmPlaneTransform.position;
+           yUpperPos.y += yUpperPos.y + 0.5f;
+           Instantiate(staticFarmer, yUpperPos, farmPlaneTransform.rotation); 
 
-        //    //텍스트띄우기
-        //    GameObject.Find("DebugText").SetActive(true);
-        //}
+           //텍스트띄우기
+           //DebugText.SetActive(true);
+        }
     }
 }

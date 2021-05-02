@@ -13,7 +13,6 @@ public class DirtBlock : MonoBehaviour
     public Material wetTexture;
     public Material dryTexture;
 
-    //이게 crop의 종류를 정해줌. 현재는 연습용으로 수박 하나 밖에 없는 상황임.
     public GameObject crop ;
     private CropLogic cropLogic;
 
@@ -21,16 +20,13 @@ public class DirtBlock : MonoBehaviour
     {
         //물을 준 상태
         waterLevel = maxWater;
-        cropLogic = transform.parent.GetComponentInChildren<CropLogic>();
+        cropLogic = transform.parent.GetComponentInChildren<CropLogic>();       
     }
 
     void Update()
     {
-        // if(cropLogic == null){
-        //     //cropLogic = GetComponentInChildren<CropLogic>();
-        // }
-
         waterLevel -= hydrationRate * Time.deltaTime;
+
 
         if(waterLevel < 0) {
             waterLevel = 0;
@@ -53,18 +49,18 @@ public class DirtBlock : MonoBehaviour
         if(cropDestroy){
             //List안에 썩지 않은 Crop들을 다 넣어서 한번에 없애기 위해 이렇게 작성을 했음.
             CropLogic[] cropList = GetComponentsInChildren<CropLogic>(true);
-                if(cropList != null){  
-                for(int i = 0;i<cropList.Length; i++){ 
-                    if(cropList[i] != transform){           
-                            Destroy(cropList[i].gameObject);   
-                        }
+            if(cropList != null){  
+            for(int i = 0;i<cropList.Length; i++){ 
+                if(cropList[i] != transform){           
+                        Destroy(cropList[i].gameObject);   
+                        Destroy(gameObject);
                     }
                 }
+            }
         }
 
-
-        //E를 누르면 물을 주는 것임.
-        //그래서 현재 E를 누르면 땅이 물을 뿌린것 처럼 약간 까매지고 다시 fade ouy 되서 drt된다. 
+        //w를 누르면 물을 주는 것임.
+        //그래서 현재 w를 누르면 땅이 물을 뿌린것 처럼 약간 까매지고 다시 fade out 되서 drt된다. 
         if(Input.GetKeyDown(KeyCode.W)){
             waterLevel = maxWater;
             fadeLevel = 0;
@@ -73,11 +69,11 @@ public class DirtBlock : MonoBehaviour
                 cropLogic.StopWither();
             }
         }
-        //Debug.Log(Time.time);
     }
 
     public void CropWither()
     {
         cropDestroy = true;
     }
+
 }

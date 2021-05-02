@@ -41,11 +41,9 @@ public class Farm : MonoBehaviour
                 block.x = x;
                 block.z = z;
                 block.blockPrefab = blockData.blockPrefab;
-                //Debug.Log("여긴 되냐?"); //여긴 된다 씹새야
-
-                
-                Crop crop = new Crop();
-                CropData cropData = cropTypes[0]; //배열 안에 0번쨰 있는 것을 소환!
+               
+                CropValue crop = new CropValue();
+                CropData cropData = cropTypes[0]; //배열 안에 0번쨰 있는 crop을 소환!
                     
                 crop.maxGrowth = cropData.maxGrowth;
                 crop.growthRate = cropData.growthRate;
@@ -85,7 +83,7 @@ public class Farm : MonoBehaviour
                         blockSlot.transform.SetParent(go.transform);   
 
                         if(block.slot.slotType == BlockSlockType.CROP){
-                            Crop crop = (Crop) block.slot;
+                            CropValue crop = (CropValue) block.slot;
 
                             CropLogic cropLogic = blockSlot.GetComponentInChildren<CropLogic>();
                             cropLogic.maxGrowth = crop.maxGrowth;

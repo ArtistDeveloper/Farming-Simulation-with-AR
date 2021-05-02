@@ -12,31 +12,24 @@ namespace ArIndicator
 {
     public class ARTapToPlaceObject : MonoBehaviour
     {
-        // ARSessionOrigin은 현실세상과 상호작용할 떄 중요한 역할을 한다.(구버전)
-        // private ARSessionOrigin arOrigin;
+        // ARSessionOrigin은 현실세상과 상호작용할 떄 중요한 역할을 한다.(구버전에서 사용)
         
         // 카메라가 가리키는 위치를 확인 및 공간에서 해당 위치를 나타 내기 위해 가상 물체를 배치할 수 있는 위치가 있는지 확인위함.
         // Pose는 3D포인트에 대해 position과 rotation으로 나타낸다.
         private Pose placementPose;
         private ARRaycastManager arRaycastManager;
         private bool placementPoseIsValid = false;
-        public Transform farmPlanePosition; //생성된 뒤에 값 살아있음.
         
-        public GameObject placementIndicator;
-        public GameObject objectToPlace;
-        
-        //test코드들
-        public GameObject farmer;
-        public Farmer farmerScript;
-        public GameObject farmPlane;
-
+        public Transform farmPlaneTransform; //생성된 뒤에 값 살아있음.
+        public GameObject placementIndicator; 
+        public GameObject objectToPlacePrefab; // Plane Prefab
+        public GameObject farmPlane; // 설치된 plane이 저장되는 변수
         public bool isPlane = false;
 
         void Start()
         {
             // arOrigin = FindObjectOfType<ARSessionOrigin>();
             arRaycastManager = FindObjectOfType<ARRaycastManager>();
-            farmerScript = new Farmer();
         }
 
         void Update()
@@ -45,25 +38,28 @@ namespace ArIndicator
             UpdatePlacementIndicator(); //Pose에 따른 visual적인 변화를 실시간 Update
 
             //IsPlane : 땅바닥이 설치되어 있다는 소리. 한 개만 설치가능하다.
-            if (!isPlane)
+            if (!farmPlane)
             {
                 if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    // GameObject.Find("UI").transform.Find("DebugText").gameObject.SetActive(true);
                     PlaceObject();
-                    // // Vector3 yUpperPos = _farmPlane.transform.position;
-                    // // yUpperPos.y += yUpperPos.y + 1.5f;
-                    // // Instantiate(farmer, yUpperPos, _farmPlane.transform.rotation); 
-                    // farmerScript.FarmerInstantiate();
+                    Farmer.FarmerInstantiate(farmPlaneTransform, GameObject.Find("UI").transform.FindChild("DebugText").gameObject);
                     isPlane = true;
+                }
+            }
+            else 
+            {
+                if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+                    // GameObject.Find("UI").transform.FindChild("DebugText").gameObject.SetActive(true);
                 }
             }
         }
 
         private void PlaceObject()
         {
-            // farmPlanePosition = Instantiate(objectToPlace, placementPose.position, placementPose.rotation).GetComponent<Transform>();
-            farmPlane = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+            farmPlane = Instantiate(objectToPlacePrefab, placementPose.position, placementPose.rotation);
+            farmPlaneTransform = farmPlane.GetComponent<Transform>();
         }
 
         private void UpdatePlacementPose()

@@ -18,12 +18,10 @@ public static class PlayerSaveManager
         //교체 사항
         PlayerSaveData[] playerSaveDatas = new PlayerSaveData[players.Length];
         for(int i = 0; i<players.Length; ++i){
-            //Debug.Log(players[i]);
             playerSaveDatas[i] = new PlayerSaveData(players[i]);
         }
 
         AllPlayersData data = new AllPlayersData(playerSaveDatas);
-
         formatter.Serialize(stream, data);
         stream.Close();
     }

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - DebugText
+  - Crop
   layers:
   - Default
   - TransparentFX

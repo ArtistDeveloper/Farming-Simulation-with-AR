@@ -108,9 +108,11 @@ GameObject:
   - component: {fileID: 4061910914869398327}
   - component: {fileID: 4070100253136703081}
   - component: {fileID: -5616710786244857184}
+  - component: {fileID: 8244629299219306442}
+  - component: {fileID: 7354027325530006982}
   m_Layer: 0
   m_Name: Crop
-  m_TagString: Untagged
+  m_TagString: Crop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,6 +195,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxGrowth: 100
   growthLevel: 0
-  growthRate: 10
+  growthRate: 0.5
+  maxHealth: 100
+  witheredPrefab: {fileID: 0}
   health: 100
   witerRate: 10
+--- !u!114 &8244629299219306442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4047630678412987775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038b0f69a7dbaea459adf1c40e251f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  growDoneCube: {fileID: 5645562139872423392, guid: 7f72de31e12c888468145869cee20540, type: 3}
+--- !u!114 &7354027325530006982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4047630678412987775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 610844479ecaafe4185a5abb4d6ce555, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeMaxGrowInterval: 60
+  remainGrowTime: 60
