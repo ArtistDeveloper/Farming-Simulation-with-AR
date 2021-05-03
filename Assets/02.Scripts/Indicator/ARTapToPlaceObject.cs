@@ -26,6 +26,10 @@ namespace ArIndicator
         public GameObject farmPlane; // 설치된 plane이 저장되는 변수
         public bool isPlane = false;
 
+        //다른 오브젝트 생성을 위한 Delegate
+        public delegate void PlaneOnObjectDelegate(Transform planeTransform);
+        public PlaneOnObjectDelegate planeOnObjectDelegate;
+
         void Start()
         {
             // arOrigin = FindObjectOfType<ARSessionOrigin>();
@@ -43,7 +47,8 @@ namespace ArIndicator
                 if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
                 {
                     PlaceObject();
-                    Farmer.FarmerInstantiate(farmPlaneTransform, GameObject.Find("UI").transform.FindChild("DebugText").gameObject);
+                    // Farmer.FarmerInstantiate(farmPlaneTransform);
+                    planeOnObjectDelegate.Invoke(farmPlaneTransform);
                     isPlane = true;
                 }
             }

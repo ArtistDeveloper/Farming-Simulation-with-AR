@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DebugText
   - Crop
+  - ARinteraction
   layers:
   - Default
   - TransparentFX
