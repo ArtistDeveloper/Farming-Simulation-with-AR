@@ -15,7 +15,7 @@ namespace PlaneOnObject
         void Awake()
         {
             ARTapToPlaceObject aRTapToPlace = GameObject.FindGameObjectWithTag("ARinteraction").GetComponent<ARTapToPlaceObject>();
-            aRTapToPlace.planeOnObjectDelegate = FarmerInstantiate;
+            aRTapToPlace.planeOnObjectDelegate += FarmerInstantiate;
         }        
 
         void Start()
