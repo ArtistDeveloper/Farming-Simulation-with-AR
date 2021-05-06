@@ -18,7 +18,11 @@ public class Testing : MonoBehaviour
 
     public void GirdValueInstantiate(Transform parentTransform)
     {
-        grid = new Grid(4, 2, 10f, parentTransform.position);
+        // Vector3 originPos = parentTransform.position;
+        // originPos += new Vector3(-10, 1, -10);
+        //plane의 scale은 2,2,2이고 원점은 0, 0, 0에서 시작한다 가정했을 때 x와 z가 -10만큼 뺴진 곳에서 시작해야 함.
+        Vector3 originPos = parentTransform.position + new Vector3(-10f, 0.5f, -10f); 
+        grid = new Grid(4, 2, 2f, originPos);
         // new Grid(2, 5, 5f, new Vector3(0, 0, -20));
         // new Grid(10, 10, 20f, new Vector3(-100, 0, 20));
     }
