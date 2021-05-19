@@ -20,7 +20,7 @@ public class CropLogic : MonoBehaviour
 
     private DirtBlock dirtBlock;
     private CropState cropState;
-    private CropTime cropTime;
+    private CropGrowTime cropGrowTime;
 
     private float getRemainGrowTime;
     private float getTimeMaxGrowInterval;
@@ -29,12 +29,9 @@ public class CropLogic : MonoBehaviour
     {
         dirtBlock = transform.parent.GetComponent<DirtBlock>();
         cropState = transform.GetComponent<CropState>();
-        cropTime = transform.GetComponent<CropTime>();
+        cropGrowTime = transform.GetComponent<CropGrowTime>();
         health = maxHealth;
-        growthLevel = 0;
-
-        float getRemainGrowTime = cropTime.getRemainGrowTime();
-        float getTimeMaxGrowInterval = cropTime.getTimeMaxGrowInterval();
+        growthLevel = 0;     
     }
     
     void Update()
@@ -71,20 +68,22 @@ public class CropLogic : MonoBehaviour
             health = maxHealth;
         }
 
+        //RemainGrowTime과 MaxGrowInterval을 가져온다.
+        getRemainGrowTime = cropGrowTime.getRemainGrowTime();
+        getTimeMaxGrowInterval = cropGrowTime.getTimeMaxGrowInterval();
+        Debug.Log("CropLogic에서 getRemainGrowTime의 값 즉 들고온 Remain값: " + getRemainGrowTime);
+
         if(getRemainGrowTime <= 0){
             growthLevelMakeMax();
         }
-
-
-        if(growthLevel >= maxGrowth){
+        
+        if(growthLevel >= maxGrowth){ 
             ScaleCrop(0.0f);
-            return;
         }else{
             //작물이 점점 커지는 것.
-            float getRemainGrowTime = cropTime.getRemainGrowTime();
-            float getTimeMaxGrowInterval = cropTime.getTimeMaxGrowInterval();
-            float getResult = getRemainGrowTime / getTimeMaxGrowInterval;  
-            //Debug.Log("계산값 : " + getRemainGrowTime / getTimeMaxGrowInterval);           
+            getRemainGrowTime = cropGrowTime.getRemainGrowTime();
+            getTimeMaxGrowInterval = cropGrowTime.getTimeMaxGrowInterval();
+            float getResult = getRemainGrowTime / getTimeMaxGrowInterval;           
             ScaleCrop(getResult);
         }
 
@@ -109,10 +108,6 @@ public class CropLogic : MonoBehaviour
 
     public void growthLevelMakeMax(){
         growthLevel = maxGrowth;
-    }
-
-    private IEnumerator WaitGrowScale(){
-        yield return new WaitForSeconds(0.3f);
     }
 
 }

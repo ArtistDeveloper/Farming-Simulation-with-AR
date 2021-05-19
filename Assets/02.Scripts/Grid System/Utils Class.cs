@@ -22,9 +22,11 @@ public class UtilsClass
 
         GameObject gameObject = new GameObject("World_Text", typeof(TextMesh)); // TextMesh컴포넌트를 가진 게임오브젝트 생성
         Transform transform = gameObject.transform; // 이 문장을 통해 gameObject.transform에 대한 레퍼런스가 transform 변수에 저장됨. (즉, 게임오브젝트 위치와 동기화)
-        transform.SetParent(parent, false); //parent값이 null로 들어오면, 부모 게임오브젝트가 없음.
+        // transform.SetParent(parent, false); //parent값이 null로 들어오면, 부모 게임오브젝트가 없음.
         transform.localPosition = localPosition; // WorldText게임오브젝트의 localPosition 정해주기
-        transform.localEulerAngles = new Vector3(90, 0, 0); //숫자를 눕히려고 임의로 추가한 코드
+        // transform.localEulerAngles = new Vector3(90, 0, 0); //숫자를 눕히려고 임의로 추가한 코드 //원본
+        transform.localEulerAngles = parent.localEulerAngles;
+        transform.localEulerAngles = transform.localEulerAngles + new Vector3(90, 0, 0);
 
         TextMesh textMesh = gameObject.GetComponent<TextMesh>();
         textMesh.anchor = textAnchor;

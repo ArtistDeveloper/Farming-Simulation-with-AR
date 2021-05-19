@@ -26,7 +26,6 @@ public static class PlayerSaveManager
         stream.Close();
     }
 
-
     public static AllPlayersData Load(){
         try{
          BinaryFormatter formatter = new BinaryFormatter();

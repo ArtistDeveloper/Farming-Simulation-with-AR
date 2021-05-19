@@ -5,19 +5,14 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System;
 
-// 참고 자료입니다.
-//이게 SaveSystem
+//Save를 할 떄 어떻게 되냐면
+
 
 public static class CropSaveManager
 {
-    public static void Save(CropTime[] crops){ 
-        if("Crop Save.bin" != null){
-            File.Delete("Crop Save.bin");
-            Debug.Log("Crop Save 삭제 완료");
-        }
-
+    public static void Save(CropGrowTime[] crops){ 
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Path.Combine(Application.dataPath, "Crop Save.bin ");
+        string path = Path.Combine(Application.dataPath, "Crop Save.bin");
         
         FileStream stream =File.Create(path);
 
@@ -35,18 +30,17 @@ public static class CropSaveManager
 
     public static AllCropsData Load(){
         try{
-         BinaryFormatter formatter = new BinaryFormatter();
-         string path = Path.Combine(Application.dataPath, "Crop Save.bin");
-         FileStream stream = File.OpenRead(path);
-         AllCropsData data = (AllCropsData)formatter.Deserialize(stream);
-         stream.Close();
-         return data;
-
-         }
-         catch(Exception e){
-             Debug.Log(e.Message);
-             return default;
-         }
+            BinaryFormatter formatter = new BinaryFormatter();
+            string path = Path.Combine(Application.dataPath, "Crop Save.bin");
+            FileStream stream = File.OpenRead(path);
+            AllCropsData data = (AllCropsData)formatter.Deserialize(stream);
+            stream.Close();
+            return data;
+        }
+        catch(Exception e){
+            Debug.Log(e.Message);
+            return default;
+        }
      }
 
 }

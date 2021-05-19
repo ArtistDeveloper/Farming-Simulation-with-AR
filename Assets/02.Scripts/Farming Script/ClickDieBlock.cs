@@ -5,16 +5,11 @@ using UnityEngine;
 public class ClickDieBlock : MonoBehaviour
 {
     public GameObject parent;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R)){
+        if(Input.GetKeyDown(KeyCode.R)){        //이걸 터치로 바꾸면 됌.
             Destroy(parent);
             Destroy(gameObject);          
         }

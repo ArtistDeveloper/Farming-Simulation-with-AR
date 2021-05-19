@@ -7,6 +7,9 @@ TagManager:
   - DebugText
   - Crop
   - ARinteraction
+  - SaveManager
+  - Farm
+  - BBG
   layers:
   - Default
   - TransparentFX

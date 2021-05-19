@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,18 +14,37 @@ public class Farm : MonoBehaviour
     //blockIndex값이 1이면 잔디가 나오게 설정을 해놓았음 - 혹시 식물에 따라 키우는 곳이 다를까봐 해놓은 설정임. 
     //1 - 35:23 - 삭제하지마시오 그리고 언제든지 block추가 가능합니다.
     public int blockIndex = 0;
+    private GameObject farmLoad;
+    public bool isDistroy = false;
 
     public CropData[] cropTypes;
 
-    void Start()
-    {
-        blocks = new Block[height, width];
-        GenerateFarm(width, height);
+    void Awake(){
+        blocks = new Block[height, width];          //이리로 생성하니까 crop Tag 추출이 된다.
+        if(!this.transform.Find("Block (0,0,0)")){
+            GenerateFarm(width, height);
+            Debug.Log("Gen됌.");
+        }
     }
 
-    void Update()
-    {
+    void Update(){
 
+        if(!this.transform.Find("Block (0,0,0)").Find("Asparagus(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Beet(Clone)") && 
+        !this.transform.Find("Block (0,0,0)").Find("Broccoll(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Carrot(Clone)")&& 
+        !this.transform.Find("Block (0,0,0)").Find("Lettuce(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Onion(Clone)") &&
+        !this.transform.Find("Block (0,0,0)").Find("Potato(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Pumpkin(Clone)") &&
+        !this.transform.Find("Block (0,0,0)").Find("Watermelon(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Wheat(Clone)")){    //Crop이 있는지 없는지 확인함.
+            Debug.Log("Crop 다 재배 또는 삭제됨");
+            Destroy(this);
+        }
+
+        if(isDistroy){
+            Destroy(this.gameObject);           //Destoty(this)하면 스크립트만 삭제됨. 지금이 상태는 저 머냐 gameObject 삭제.
+        }
+    }
+
+    void OnDisable(){
+        isDistroy = true;
     }
 
     public void GenerateFarm(float width, float height)
@@ -53,7 +73,6 @@ public class Farm : MonoBehaviour
                 block.slot = crop;
                 block.slot.slotType = BlockSlockType.CROP;
                 
-
                 blocks[z,x] = block;
                                   
             }
@@ -68,17 +87,16 @@ public class Farm : MonoBehaviour
             for(int x = 0; x < blocks.GetLength(1); x++)
             {
                 Block block = blocks[z, x];
-                Vector3 blockPos = new Vector3(block.x, 0, block.z);        //여기 값을 바꾸면 밭의 위치도 함께 바껴서 수박의 위치는 바뀌지 않음.
-                //Vector3 cropPos = blockPos + new Vector3(-0.5f, 0.2f, 0.8f);
-                
+                Vector3 blockPos = new Vector3(block.x, 0, block.z);                      
 
                 //go의 의미는 밭이 생성되는 위치를 의미한다. Inmstantiate가 block.blockPrefab을 복제해서 Vector위치에 놓는다.
                 GameObject go = Instantiate(block.blockPrefab, blockPos, Quaternion.identity);
                 go.transform.SetParent(world);
-                go.name = block.name +"  (" + x + ","+ 0 + "," + z + ")";      //형성되는 밭의 위치를 명확하게 보여주기 위해서 이걸 사용했음.
+                go.name = block.name +" (" + x + ","+ 0 + "," + z + ")";      //형성되는 밭의 위치를 명확하게 보여주기 위해서 이걸 사용했음.
 
+                //crop 나타나는 함수.
                 for(int i=0; i<5; i++){  
-                    for(int j=0; j<4; j++){        
+                    for(int j=0; j<4; j++){
                         GameObject blockSlot = Instantiate(block.slot.slotPrefab, blockPos + new Vector3(-4.5f + i, 0.18f, 1.0f + j), Quaternion.identity);     //bidge 추가 내용 2 - 40:16
                         blockSlot.transform.SetParent(go.transform);   
 

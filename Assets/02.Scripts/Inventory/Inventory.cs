@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
     #endregion
 
     public delegate void OnBoxCountChange(int val);
-    public OnBoxCountChange OnBoxCountChang;
+    public OnBoxCountChange onBoxCountChange;
 
     private int boxCount;
 
@@ -22,7 +22,7 @@ public class Inventory : MonoBehaviour
         get => boxCount;
         set{
             boxCount=value;
-            OnBoxCountChang.Invoke(boxCount);
+            onBoxCountChange.Invoke(boxCount);
         }
     }
     

@@ -5,6 +5,7 @@ using UnityEngine.XR.ARFoundation;
 // using UnityEngine.Experimental.XR;
 using UnityEngine.XR.ARSubsystems;
 using PlaneOnObject;
+using UnityEngine.UI;
 
 //버전이 바뀌면서 ARSessionOring의 RayCast함수가 ARRayCastManager클래스로 따로 빠졌다.
 
@@ -13,58 +14,49 @@ namespace ArIndicator
     public class ARTapToPlaceObject : MonoBehaviour
     {
         // ARSessionOrigin은 현실세상과 상호작용할 떄 중요한 역할을 한다.(구버전에서 사용)
-        
+
         // 카메라가 가리키는 위치를 확인 및 공간에서 해당 위치를 나타 내기 위해 가상 물체를 배치할 수 있는 위치가 있는지 확인위함.
         // Pose는 3D포인트에 대해 position과 rotation으로 나타낸다.
         private Pose placementPose;
         private ARRaycastManager arRaycastManager;
+        private ARPlaneManager arPlaneManager;
         private bool placementPoseIsValid = false;
-        
-        public Transform farmPlaneTransform; //생성된 뒤에 값 살아있음.
-        public GameObject placementIndicator; 
-        public GameObject objectToPlacePrefab; // Plane Prefab
-        public GameObject farmPlane; // 설치된 plane이 저장되는 변수
-        public bool isPlane = false;
 
-        //다른 오브젝트 생성을 위한 Delegate
+        public Transform farmPlaneTransform;
+        public GameObject placementIndicator;
+        public GameObject objectToPlacePrefab; // Plane Prefab
+        private GameObject farmPlane; // 설치된 plane이 저장되는 변수
+
+        // FarmPlane이 생성됐을 때 호출할 Delegate chain
         public delegate void PlaneOnObjectDelegate(Transform planeTransform);
         public PlaneOnObjectDelegate planeOnObjectDelegate;
+
+        // [SerializeField] private Button installButton;
 
         void Start()
         {
             // arOrigin = FindObjectOfType<ARSessionOrigin>();
             arRaycastManager = FindObjectOfType<ARRaycastManager>();
+            arPlaneManager = FindObjectOfType<ARPlaneManager>();
         }
 
         void Update()
         {
             UpdatePlacementPose(); //Pose가 실시간 Update된다.
             UpdatePlacementIndicator(); //Pose에 따른 visual적인 변화를 실시간 Update
-
-            //IsPlane : 땅바닥이 설치되어 있다는 소리. 한 개만 설치가능하다.
-            if (!farmPlane)
-            {
-                if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-                {
-                    PlaceObject();
-                    // Farmer.FarmerInstantiate(farmPlaneTransform);
-                    planeOnObjectDelegate.Invoke(farmPlaneTransform);
-                    isPlane = true;
-                }
-            }
-            else 
-            {
-                if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-                {
-                    // GameObject.Find("UI").transform.FindChild("DebugText").gameObject.SetActive(true);
-                }
-            }
         }
 
-        private void PlaceObject()
+        public void PlaceObject()
         {
             farmPlane = Instantiate(objectToPlacePrefab, placementPose.position, placementPose.rotation);
             farmPlaneTransform = farmPlane.GetComponent<Transform>();
+            planeOnObjectDelegate.Invoke(farmPlaneTransform);
+            DisableIndicator();
+        }
+
+        private void DisableIndicator()
+        {
+            arPlaneManager.enabled = false;
         }
 
         private void UpdatePlacementPose()
@@ -96,7 +88,7 @@ namespace ArIndicator
                 placementIndicator.SetActive(true);
                 placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
             }
-            else 
+            else
             {
                 placementIndicator.SetActive(false);
             }

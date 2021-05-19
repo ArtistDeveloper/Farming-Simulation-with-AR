@@ -24,9 +24,6 @@ public class Player : MonoBehaviour
          //여기가 Vector3 pos파트임.
          for(int i=save.playerSaveDatas.Length-1; i>=0; i--){
             //Player[] playerSpawns = new Player[save.playerSaveDatas.Length];
-            //그냥 SaveManager에 Player Tag해주자.
-            //SaveManager위치는 무관함.
-            
             Vector3 position;
             position.x = save.playerSaveDatas[i].x;
             position.y = save.playerSaveDatas[i].y;
