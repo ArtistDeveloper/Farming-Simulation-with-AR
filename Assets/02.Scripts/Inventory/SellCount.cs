@@ -14,6 +14,8 @@ public class SellCount : MonoBehaviour
     private int ChageDia;
     //private Item[] itemprice; 상품가격정하면 필요
 
+    //Bliud에서 사용한 방법을 사용하면  crop받아오기 & 다이아 계산까지 할 수 있지 않을까?
+
     public void UpClick(){
 
         ChageCount = int.Parse(SellcountText.text);

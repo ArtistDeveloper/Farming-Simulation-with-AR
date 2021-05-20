@@ -71,7 +71,7 @@ public class CropLogic : MonoBehaviour
         //RemainGrowTime과 MaxGrowInterval을 가져온다.
         getRemainGrowTime = cropGrowTime.getRemainGrowTime();
         getTimeMaxGrowInterval = cropGrowTime.getTimeMaxGrowInterval();
-        Debug.Log("CropLogic에서 getRemainGrowTime의 값 즉 들고온 Remain값: " + getRemainGrowTime);
+       //Debug.Log("CropLogic에서 getRemainGrowTime의 값 즉 들고온 Remain값: " + getRemainGrowTime);
 
         if(getRemainGrowTime <= 0){
             growthLevelMakeMax();

@@ -7,10 +7,9 @@ public class Diamond : MonoBehaviour
 
     [SerializeField] private Text DiamainText;
 
-    // Start is called before the first frame update
     void Start()
     {
-        DiamainText.text="0";
+        DiamainText.text="5000000";
     }
 
     // Update is called once per frame

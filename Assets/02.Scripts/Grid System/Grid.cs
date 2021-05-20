@@ -3,18 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Grid
+public class Grid<TGridObject>
 {
+    // EventHandler : 이벤트가 발생했을 때 알려주는 역할 (delegate와 비슷함/ 이벤트는 대리자를 event한정자로 수식해서 만들기때문)
+    // event와 EventHandler의 차이는 외부에서 사용할 수 있냐 내부에서 사용할 수 있냐의 차이.
+    public event EventHandler<OnGridObjectChangedEventArgs> OnGridObjectChanged;
+    public class OnGridObjectChangedEventArgs : EventArgs
+    {
+        public int x;
+        public int z;
+    }
+
     private int width;
     private int height;
     private float cellSize;
     private Vector3 originPosition; //Grid의 시작점이 [0,0]이 아닐수도 있어서 사용하는 변수.
-    private int[,] gridArray;
+    private TGridObject[,] gridArray;
     private TextMesh[,] debugTextArray;
     private Transform planeTransform;
-    
 
-    public Grid(int width, int height, float cellSize, Vector3 originPosition, Transform planeTransform) 
+
+    // Func<in T1, in T2, in T3, out TResult>(T1 arg1, T2 arg2, T3 arg3)
+    // T1: Grid<TGridObject>, T2: int, T3: int, Out Type: TgridObject // 즉 createGridObject는 TgridObject의 타입이자 반환값이다.
+    public Grid(int width, int height, float cellSize, Vector3 originPosition, Transform planeTransform, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject)
     {
         this.width = width;
         this.height = height;
@@ -22,22 +33,38 @@ public class Grid
         this.originPosition = originPosition;
         this.planeTransform = planeTransform;
 
-        gridArray = new int[width, height];
         debugTextArray = new TextMesh[width, height]; //World에 뜨는 숫자
+        gridArray = new TGridObject[width, height]; // 여기선 int형 배열이 아닌 TgridObject형 배열로 만듬. 즉 인덱스마다 x, y, grid값이 있네 
+
+        // 
+        for (int x = 0; x < gridArray.GetLength(0); x++)
+        {
+            for (int z = 0; z < gridArray.GetLength(1); z++)
+            {
+                // 그리드값(자신)과, x, z값을 넣어 GridObject생성자를 호출하고 그렇게 생성된 객체를 girdArray배열에 넣게 된다.
+                gridArray[x, z] = createGridObject(this, x, z);
+            }
+        }
 
         //
-        for (int x = 0; x < gridArray.GetLength(0); x++) 
+        for (int x = 0; x < gridArray.GetLength(0); x++)
         {
-            for (int z = 0; z < gridArray.GetLength(1); z++) 
+            for (int z = 0; z < gridArray.GetLength(1); z++)
             {
-                debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z].ToString(), planeTransform, GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, 20, Color.white, TextAnchor.MiddleCenter);
-                Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z+1), Color.white, 100f);
-                Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x+1, z), Color.white, 100f);
+                debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z].ToString(), planeTransform, GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, 10, Color.white, TextAnchor.MiddleCenter);
+                Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);
+                Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
             }
             Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
             Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+
+            // OnGridObjectChanged Event에 익명함수를 등록하는 것 같음.
+            OnGridObjectChanged += (object sender, OnGridObjectChangedEventArgs eventArgs) =>
+            {
+                debugTextArray[eventArgs.x, eventArgs.z].text = gridArray[eventArgs.x, eventArgs.z]?.ToString();
+            };
         }
-        // SetValue(2, 1, 56); //혹시 NullReference가 난다면, TextMesh값이 debugTextArray에 들어가지 않아서 그런 것.
+        // SetValue(2, 1, 56); //혹시 NullReference가 난다면, TextMesh값이 debugTextArray에 들어가지 않아서 그런 F것.
     }
 
     //Gird셀의 위치들을 WorldPosition으로 변환시켜주는 작업. 
@@ -50,39 +77,50 @@ public class Grid
     public void GetXZ(Vector3 worldPosition, out int x, out int z)
     {
         x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize); //FlootToTint : 버림함수
-        z = Mathf.FloorToInt((worldPosition - originPosition).z / cellSize);        
+        z = Mathf.FloorToInt((worldPosition - originPosition).z / cellSize);
     }
 
-    public void SetValue(int x, int z, int value)
+    public void SetGridObject(int x, int z, TGridObject value) //SetValue함수였음.
     {
-        //x, y값이 유효한지 확인 (invalid한 값이면 잠재적 에러 요소임.) 여기서는 x, z값
-        if ((x >= 0) && (z >= 0) && (x < width) && (z < height))
+        if (x >= 0 && z >= 0 && x < width && z < height)
         {
-            gridArray[x, z] = value; //1행 2열
-            debugTextArray[x, z].text = gridArray[x, z].ToString();
+            gridArray[x, z] = value;
+            TriggerGridObjectChanged(x, z);
         }
     }
 
+    public void TriggerGridObjectChanged(int x, int z)
+    {
+        OnGridObjectChanged?.Invoke(this, new OnGridObjectChangedEventArgs { x = x, z = z });
+    }
+
     //x, y가 아닌 worldPositon을 받는 SetValue함수
-    public void SetValue(Vector3 worldPosition, int value) 
+    public void SetGridObject(Vector3 worldPosition, TGridObject value) //SetValue함수였음.
+    {
+        GetXZ(worldPosition, out int x, out int z);
+        SetGridObject(x, z, value);
+    }
+
+    public TGridObject GetGridObject(int x, int z) // GetValue였음
+    {
+        if (x >= 0 && z >= 0 && x < width && z < height)
+            return gridArray[x, z];
+        else
+            return default(TGridObject);
+    }
+
+    public TGridObject GetGridObject(Vector3 worldPosition) // GetValue였음
     {
         int x, z;
         GetXZ(worldPosition, out x, out z);
-        SetValue(x, z, value);
+        return GetGridObject(x, z);
     }
 
-    public int GetValue(int x, int z)
+    public Vector2Int ValidateGridPosition(Vector2Int gridPosition)
     {
-        if ((x >= 0) && (z >= 0) && (x < width) && (z < height))
-            return gridArray[x, z];
-        else
-            return -1;
+        return new Vector2Int(
+            Mathf.Clamp(gridPosition.x, 0, width - 1),
+            Mathf.Clamp(gridPosition.y, 0, height - 1)
+        );
     }
-
-    public int GetValue(Vector3 worldposition)
-    {
-        int x, z;
-        GetXZ(worldposition, out x, out z);
-        return GetValue(x, z);
-    }
-} 
+}
