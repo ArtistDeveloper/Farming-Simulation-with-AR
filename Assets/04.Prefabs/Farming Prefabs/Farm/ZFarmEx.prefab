@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 459131458093152156}
   - component: {fileID: 459131458093152157}
   m_Layer: 0
-  m_Name: AsparagusGen
+  m_Name: ZFarmEx
   m_TagString: Farm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,4 +53,12 @@ MonoBehaviour:
   isDistroy: 0
   cropTypes:
   - {fileID: 11400000, guid: 0ac46f73f94135a4ea2b93b92bd7e72f, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 6d711042a5e823e458044e6ea5f213fa, type: 2}
+  - {fileID: 11400000, guid: 405008034b94d0740b3725dbb1f6655f, type: 2}
+  - {fileID: 11400000, guid: 86420e63911f43b4996af83768eb97c4, type: 2}
+  - {fileID: 11400000, guid: 0929fe57058117b4aa9b949d9f370131, type: 2}
+  - {fileID: 11400000, guid: 6a5ad52047e18e442b1bba298099bc85, type: 2}
+  - {fileID: 11400000, guid: 69bdcab71de368e43802b6ead8993d90, type: 2}
+  - {fileID: 11400000, guid: 9f6517c31f5641d43996356b7c725def, type: 2}
+  - {fileID: 11400000, guid: 242f4f3176dd18c41bad865ab8537fd2, type: 2}
+  - {fileID: 11400000, guid: 88cd37bbc15f476499c339a8ec8d9ad1, type: 2}

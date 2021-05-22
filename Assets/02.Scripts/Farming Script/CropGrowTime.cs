@@ -68,11 +68,11 @@ public class CropGrowTime : MonoBehaviour
         m_AppQuitTime = cropTime.GetComponent<CropTime>().get_m_AppQuitTime();
         
         if(remainGrowTime != timeMaxGrowInterval){     
-            Debug.Log("킹준수 m_AppQuitTime이야: "+ m_AppQuitTime);     // - 이게 지금 초기값으로 들어옴.
+            //Debug.Log("킹준수 m_AppQuitTime이야: "+ m_AppQuitTime);     // - 이게 지금 초기값으로 들어옴.
             var timeDifferenceInSec = (int)((DateTime.Now.ToLocalTime() - m_AppQuitTime).TotalSeconds);    //지금 시간이랑 앱을 껐을 떄의 시간을 뺀 값이 들어가게 된다.
-            Debug.Log("킹준수 timeDiff계산해서 나온 timediff 이야  " + timeDifferenceInSec);
+            //Debug.Log("킹준수 timeDiff계산해서 나온 timediff 이야  " + timeDifferenceInSec);
             var remainTime = remainGrowTime - timeDifferenceInSec;  
-            Debug.Log("킹준수 timeDiff계산해서 나온 remainTime이야  " + remainTime);
+            //Debug.Log("킹준수 timeDiff계산해서 나온 remainTime이야  " + remainTime);
             if (remainTime <= timeMaxGrowInterval)      
             {
                 m_RechargeTimerCoroutine = StartCoroutine(DoRechargeTimer(remainTime, onFinish));

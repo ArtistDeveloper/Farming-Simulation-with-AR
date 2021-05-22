@@ -8,16 +8,21 @@ public class FarmSaveLoad : MonoBehaviour
 {
     public GameObject farmPrefab;
     private AllFarmsData save;
-    GameObject[] farms;
+    private int saveLength;
+    void Awake(){
+        LoadFarm();
+    }
 
     public void OnApplicationFocus(bool value){
         if(value){      //들어왔을 때 실행.
-            LoadFarm();     //원래 친구 삭제 후 복사해서 놓음.
-            Debug.Log("FarmSaveLoad함수 내의 Load");
+            //Debug.Log("Farm OnApplicationFocus true 실행");
+            //LoadFarm();     //원래 친구 삭제 후 복사해서 놓음.
+            //Debug.Log("Farm 로드");
         }else
         {
+            //Debug.Log("Farm OnApplicationFocus false 실행");
             SaveFarm();
-            Debug.Log("FarmSaveLoad함수 내의 Save");
+            //Debug.Log("Farm Save");
         }
     }
 
@@ -29,35 +34,42 @@ public class FarmSaveLoad : MonoBehaviour
 
 
     public void SaveFarm(){
-        FarmSaveDataDelete();
-        FarmSaveManager.Save(GameObject.FindObjectsOfType<Farm>());         //이건 잘 될거임 - 왜냐면 Tpye을 가져오기 때문에 Farm이라는 스크립트 다 있음.
+        FarmSaveManager.Save(GameObject.FindObjectsOfType<Farm>());         //
+        //Debug.Log("찾은 Farm의 개수"+GameObject.FindObjectsOfType<Farm>().Length);      //잘 됌.
     }
 
     public void LoadFarm(){
         save = FarmSaveManager.Load();
-        farms = GameObject.FindGameObjectsWithTag("Farm");  // Tag도 동일하게 되어 있음.
+        GameObject[] farms = GameObject.FindGameObjectsWithTag("Farm");
+        //Debug.Log("Farm Load에서 찾은 Farm의 개수 - 복사하는 개수: " + farms.Length);
+        //Debug.Log("그럼 farm Load에 있는 save의 데이터 개수: "+ save.farmSaveDatas.Length);
+        saveLength = farms.Length;
+
+        
         //태그 해줘야함! - 어려운거 아니니까 까먹지 말쟈~!
-
-        for(int i=0; i<=save.farmSaveDatas.Length-1; i++){       //int i=0; i <= save.cropSaveDatas.Length -1; i++    
+        //Debug.Log("Load for문 돌리는 길이: "+ save.farmSaveDatas.Length);
+        for(int i=save.farmSaveDatas.Length-1; i>=0; i--){       //int i=0; i <= save.cropSaveDatas.Length -1; i++    //int i=save.farmSaveDatas.Length-1; i>=0; i--
             Vector3 position;
-            position.x = save.farmSaveDatas[i].x;
+            position.x = save.farmSaveDatas[i].x;        //Mathf.Abs(i - save.farmSaveDatas.Length)
             position.y = save.farmSaveDatas[i].y;
-            position.z = save.farmSaveDatas[i].z;
-            farms[i].transform.position = position;     //포지션 관련
-                      
-            Farm farm = farms[i].GetComponent<Farm>();
-            farm.isDistroy = save.farmSaveDatas[i].isDistroy;  
+            position.z = save.farmSaveDatas[i].z;       //포지션 지정.
 
-            Instantiate(farms[i], new Vector3 (position.x, position.y, position.z), Quaternion.identity);   //-> 최초 Load에만 해야할 듯.  아니면 다 저장하고 삭제?
-            Destroy(farms[i]);          
+            int farmKindNumber = save.farmSaveDatas[i].saveFarmKindNumber;      //이렇게 해서 어떤 종류의 crop인지 들고옴.
+            //Debug.Log("Load에서 farmKindNum: "+farmKindNumber);
+           
+            GameObject genedFarm = Instantiate(farmPrefab, new Vector3 (save.farmSaveDatas[i].x, save.farmSaveDatas[i].y, save.farmSaveDatas[i].z), Quaternion.identity);  //position대로 가길 바람.
+            //Debug.Log("복사 됌");
+            Farm genManager = genedFarm.GetComponent<Farm>();           //복사된 Farm의 Farm 스크립트를 들고옴.
+            genManager.isDistroy = save.farmSaveDatas[i].isDistroy;
+            genManager.GenerateFarm(1, 1, farmKindNumber);
         }
-    }
 
-    public void FarmSaveDataDelete(){
-        if("Farm Save.bin" != null){
-            File.Delete("Farm Save.bin");
-        }else{
-            Debug.Log("Farm 저장 데이터가 없습니다.");
+        //여기 CropLoad해볼까?
+
+        for(int i = 0; i<saveLength; i++){
+            //Destroy(GameObject.FindObjectOfType<Farm>());     //이건 Farm이라는 스크립트 삭제.
+            //Destroy(GameObject.Find("ZFarmEx(Clone)"));       //이건 왠지 모르겠는데 삭제가 안됨.
+            Destroy(farms[i]);              // 이건 된다.
         }
     }
     

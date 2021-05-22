@@ -99,6 +99,7 @@ MonoBehaviour:
   x: 0
   z: 0
   housePrefab: {fileID: 4394757173609963674, guid: ea82cb06e60b0a34a935980dec5b5ab1, type: 3}
+  placedObjectTypeSO: {fileID: 11400000, guid: 21dfa6814a0572348a1e7a1c7322bdf7, type: 2}
 --- !u!54 &593282755026931265
 Rigidbody:
   m_ObjectHideFlags: 0

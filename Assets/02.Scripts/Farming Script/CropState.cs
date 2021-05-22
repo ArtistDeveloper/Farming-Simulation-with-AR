@@ -12,6 +12,7 @@ public class CropState : MonoBehaviour
 
     private bool waterPlz = false;      //물이 필요한지
     private bool growDone = false;      //다 자랐는지
+    [SerializeField]
     private bool canHarvest = false;    //재배 가능
     public string cropKind;             //잘 받아옴 -> 프리팹에 다 적어야함.
     public int cropCount;
@@ -26,18 +27,23 @@ public class CropState : MonoBehaviour
 
     void Update()
     {
-        if(growDone){       
-            GameObject.Instantiate(growDoneCube, cropPos + new Vector3 (0, 1.5f, 0f), Quaternion.identity).transform.parent = this.transform;
-            growDone = false;
-            canHarvest = true;
+        if(growDone){    
+            if(!transform.Find("DoneCube(Clone)")){
+                cropPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                GameObject.Instantiate(growDoneCube, cropPos + new Vector3 (0, 1.5f, 0f), Quaternion.identity).transform.parent = this.transform;
+                growDone = false;
+                canHarvest = true;
+            }
         }
 
         if(canHarvest && Input.GetKeyDown(KeyCode.Q)){      
             if(PlayerPrefs.HasKey(cropKind + "_Count")){
-            PlayerPrefs.SetInt(cropKind + "_Count", PlayerPrefs.GetInt(cropKind + "_Count") + 1);       //Q(채집)을 할 때 마다 저장을 하는 것임.
-            cropCountSave.LoadCropCountData();
-            Destroy(gameObject);            //된다.
+            //Debug.Log("PlayerPrefs 있음");
+                PlayerPrefs.SetInt(cropKind + "_Count", PlayerPrefs.GetInt(cropKind + "_Count") + 1);       //Q(채집)을 할 때 마다 저장을 하는 것임.
+                cropCountSave.LoadCropCountData();      //이거는 내가 스크립트를 꺼놔서 안됨. 키면 됨.
+                Destroy(gameObject);            //된다.
             }else{
+                //Debug.Log("PlayerPrefs 없음");
                 PlayerPrefs.SetInt(cropKind + "_Count", 1);
                 Debug.Log(PlayerPrefs.GetInt(cropKind+"_Count"));
                 Destroy(gameObject);

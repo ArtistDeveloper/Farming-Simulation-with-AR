@@ -52,17 +52,18 @@ public class Grid<TGridObject>
             for (int z = 0; z < gridArray.GetLength(1); z++)
             {
                 debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z].ToString(), planeTransform, GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, 10, Color.white, TextAnchor.MiddleCenter);
-                Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);
-                Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
+                // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);
+                // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
             }
-            Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-            Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+            // Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
+            // Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
 
             // OnGridObjectChanged Event에 익명함수를 등록하는 것 같음.
-            OnGridObjectChanged += (object sender, OnGridObjectChangedEventArgs eventArgs) =>
-            {
-                debugTextArray[eventArgs.x, eventArgs.z].text = gridArray[eventArgs.x, eventArgs.z]?.ToString();
-            };
+            // OnGridObjectChanged += (object sender, OnGridObjectChangedEventArgs eventArgs) =>
+            // {
+            //     // 호출된 그리드 셀의 to.string함수가 호출되어 debugTextArray.text에 반환된 x, z, tarnsform값을 넣는다.
+            //     // debugTextArray[eventArgs.x, eventArgs.z].text = gridArray[eventArgs.x, eventArgs.z]?.ToString();
+            // };
         }
         // SetValue(2, 1, 56); //혹시 NullReference가 난다면, TextMesh값이 debugTextArray에 들어가지 않아서 그런 F것.
     }

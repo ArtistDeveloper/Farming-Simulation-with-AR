@@ -7,33 +7,29 @@ public class Farm : MonoBehaviour
 {
     public Transform world;
     public BlockData[] blockTypes;   
-    public Block[,] blocks;
+    public Block[,] blocks = new Block[1, 1];
 
-    public int width = 5;       //5X5개로 설정이 되며 겹치게 나와서 결국에 보았을 때 10행이 형성됨.
-    public int height = 5;
+    public int width = 1;       //5X5개로 설정이 되며 겹치게 나와서 결국에 보았을 때 10행이 형성됨.
+    public int height = 1;
     //blockIndex값이 1이면 잔디가 나오게 설정을 해놓았음 - 혹시 식물에 따라 키우는 곳이 다를까봐 해놓은 설정임. 
     //1 - 35:23 - 삭제하지마시오 그리고 언제든지 block추가 가능합니다.
     public int blockIndex = 0;
     private GameObject farmLoad;
     public bool isDistroy = false;
+    public int saveFarmKindNumber;
 
     public CropData[] cropTypes;
 
     void Awake(){
         blocks = new Block[height, width];          //이리로 생성하니까 crop Tag 추출이 된다.
-        if(!this.transform.Find("Block (0,0,0)")){
-            GenerateFarm(width, height);
-            Debug.Log("Gen됌.");
-        }
     }
 
     void Update(){
-
-        if(!this.transform.Find("Block (0,0,0)").Find("Asparagus(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Beet(Clone)") && 
-        !this.transform.Find("Block (0,0,0)").Find("Broccoll(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Carrot(Clone)")&& 
-        !this.transform.Find("Block (0,0,0)").Find("Lettuce(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Onion(Clone)") &&
-        !this.transform.Find("Block (0,0,0)").Find("Potato(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Pumpkin(Clone)") &&
-        !this.transform.Find("Block (0,0,0)").Find("Watermelon(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Wheat(Clone)")){    //Crop이 있는지 없는지 확인함.
+        if(this.transform.Find("Block (0,0,0)").Find("Asparagus(Clone)") == null && this.transform.Find("Block (0,0,0)").Find("Beet(Clone)") == null && 
+        this.transform.Find("Block (0,0,0)").Find("Broccoll(Clone)") == null && this.transform.Find("Block (0,0,0)").Find("Carrot(Clone)") == null && 
+        this.transform.Find("Block (0,0,0)").Find("Lettuce(Clone)") == null && this.transform.Find("Block (0,0,0)").Find("Onion(Clone)") == null &&
+        this.transform.Find("Block (0,0,0)").Find("Potato(Clone)") == null && this.transform.Find("Block (0,0,0)").Find("Pumpkin(Clone)") == null &&
+        this.transform.Find("Block (0,0,0)").Find("Watermelon(Clone)") == null && this.transform.Find("Block (0,0,0)").Find("Wheat(Clone)")== null){    //Crop이 있는지 없는지 확인함.
             Debug.Log("Crop 다 재배 또는 삭제됨");
             Destroy(this);
         }
@@ -47,8 +43,9 @@ public class Farm : MonoBehaviour
         isDistroy = true;
     }
 
-    public void GenerateFarm(float width, float height)
+    public void GenerateFarm(float width, float height, int farmKindNumber)
     {
+        saveFarmKindNumber = farmKindNumber;
         for(int z=0; z<height; z++){
             for(int x=0; x<width; x++){
 
@@ -63,7 +60,7 @@ public class Farm : MonoBehaviour
                 block.blockPrefab = blockData.blockPrefab;
                
                 CropValue crop = new CropValue();
-                CropData cropData = cropTypes[0]; //배열 안에 0번쨰 있는 crop을 소환!
+                CropData cropData = cropTypes[farmKindNumber]; //배열 안에 0번쨰 있는 crop을 소환! 그러면 
                     
                 crop.maxGrowth = cropData.maxGrowth;
                 crop.growthRate = cropData.growthRate;

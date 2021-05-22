@@ -19,7 +19,7 @@ public static class FarmSaveManager
 
         //교체 사항
         FarmSaveData[] farmSaveDatas = new FarmSaveData[farms.Length];
-        for(int i = 0; i<farms.Length; ++i){
+        for(int i = 0; i<farms.Length; ++i){            //되는 코드 -> int i = 0; i<farms.Length; ++i // 차이 없음 ->int i = farms.Length-1; i>=0; i--
             farmSaveDatas[i] = new FarmSaveData(farms[i]);
         }
 

@@ -8,25 +8,21 @@ public class CropTime : CropSaveLoad
 {
     //이 이후에는 시간 관련 변수들
     private DateTime m_AppQuitTime = new DateTime(1970, 1, 1).ToLocalTime();  //이건 나가는 시간이고 꼭 필요함!
-    public CropGrowTime cropGrowTime;
-
     private CropLogic cropLogic;
-    void Awake(){
-        LoadCrop();
-        LoadAppQuitTime();  
-    }
-    
+
     //게임 초기화(Awake), 중간 이탈, 중간 복귀 시 실행되는 함수
     public void OnApplicationFocus(bool value){
         if (value)
         {  
+            Debug.Log("Crop OnApplicationFocus true 실행");
             LoadCrop();             //이까진 됐음.      - 잘 들고 온다.   
             //Debug.Log("Save된 Crop Time을 들고옴.");    
             LoadAppQuitTime();      //그래서 그만둔 시간만 들고옴.       - 잘들고 온다. 
-            //Debug.Log("Save된 앱을 끈 시간을 들고옴.");           
+            Debug.Log("Save된 앱을 끈 시간을 들고옴.");           
         }
         else    //이탈 시 실행
         {
+            Debug.Log("Crop OnApplicationFocus false 실행");
             SaveCrop();
             SaveAppQuitTime();
         }

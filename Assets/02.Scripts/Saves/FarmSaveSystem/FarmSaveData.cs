@@ -15,6 +15,7 @@ public class FarmSaveData
    public float z;
 
    public bool isDistroy;
+   public int saveFarmKindNumber;
    
    public FarmSaveData(Farm B){
       x = B.transform.position.x;
@@ -27,5 +28,6 @@ public class FarmSaveData
       position[2] = z;
 
       isDistroy = B.isDistroy;
+      saveFarmKindNumber = B.saveFarmKindNumber;
    }
 }

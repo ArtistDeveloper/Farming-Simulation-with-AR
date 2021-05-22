@@ -7,7 +7,7 @@ public class DestoryPlayerPrefs : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.DeleteKey("Watermelon_Count");
+        PlayerPrefs.DeleteAll();
     }
 
     // Update is called once per frame
