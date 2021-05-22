@@ -90,6 +90,7 @@ public class Grid<TGridObject>
         }
     }
 
+    // GridObject에 변경사항이 일어났을 때 알려주는 이벤트핸들러. 이를 통해 DebugTextArray의 값이 변화되어 들어간다.
     public void TriggerGridObjectChanged(int x, int z)
     {
         OnGridObjectChanged?.Invoke(this, new OnGridObjectChangedEventArgs { x = x, z = z });

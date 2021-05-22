@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   growDoneCube: {fileID: 5645562139872423392, guid: 7f72de31e12c888468145869cee20540, type: 3}
+  canHarvest: 0
   cropKind: Beet
   cropCount: 0
 --- !u!114 &-2575189342419555081
@@ -229,4 +230,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeMaxGrowInterval: 60
   remainGrowTime: 60
+  cropTime: {fileID: 0}
   witherOrGather: 0

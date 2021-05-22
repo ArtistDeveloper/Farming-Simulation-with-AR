@@ -43,7 +43,7 @@ public class GridBuildingSystem : MonoBehaviour
             this.z = z;
         }
 
-        // Grid의 x, y값을 받아와서 x, y에 해당하는 셀의 transform의 값을 넣는다.
+        // Grid의 x, y값을 받아와서 x, y에 해당하는 GridObject셀에 transform의 값을 넣는다.
         public void SetTransform(Transform transform)   
         {
             this.transform = transform;
@@ -55,6 +55,7 @@ public class GridBuildingSystem : MonoBehaviour
             transform = null;
         }
 
+        // transform이 null이면 true반환. !굳이 transform말고 bool값으로 해도 되지 않았을까? 일단 다음에 코드를 수정해보자.!
         public bool CanBuild()
         {
             return transform == null;
@@ -81,18 +82,31 @@ public class GridBuildingSystem : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            List<Vector2Int> gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x, z), PlacedObjectTypeSO.Dir.Down);
-
             touchPosition = TouchAR.GetWolrdMousePosition3D(); //3D프로젝트 마우스의 포지션을 가져오기.
-            GridObject gridobject = grid.GetGridObject(x, z);
+            
             grid.GetXZ(touchPosition, out x, out z);
 
-            if (gridobject.CanBuild())
+            List<Vector2Int> gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x, z), PlacedObjectTypeSO.Dir.Down);
+            
+            bool canBuild = true;
+            foreach (Vector2Int gridPosition in gridPositionList) 
+            {
+                // GridObject셀을 터치했을 때 그 오프셋부터 다른 범위부분에 Build할 수 없는 부분이 있으면 터치했던 GridObject셀은 false값으로 바뀌게 되어 instantiate하지 못하게 된다.
+                if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanBuild())
+                {
+                    canBuild = false;
+                    break;
+                }
+            }
+
+            GridObject gridobject = grid.GetGridObject(x, z);
+            if (canBuild)
             {
                 // GameObject builtTransform = Instantiate(housePrefab, grid.GetWorldPosition(x, z), Quaternion.identity);
                 GameObject builtTransform = Instantiate(placedObjectTypeSO.prefab, grid.GetWorldPosition(x, z), Quaternion.identity);
-                
-                //추가된 부분
+
+                // 건물 영역만큼 건물이 설치된 부위로 set하기.      
+                // farmPlane에서 터치한 x, z좌표에 해당하는 GridOvject셀을 가져와서 gridPosition만큼 설치된 부분으로 set한다.
                 foreach (Vector2Int gridPosition in gridPositionList)
                 {
                     grid.GetGridObject(gridPosition.x, gridPosition.y).SetTransform(builtTransform.transform);
