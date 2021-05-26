@@ -7,7 +7,7 @@ public class StartToGame : MonoBehaviour
 {
     public void OnClickTocuhToStart()
     {
-        SceneManager.LoadScene("Farming");
-        Debug.Log("씬 넘어감.");
+        SceneManager.LoadScene("Farming Simulation");
+        //Debug.Log("씬 넘어감.");
     }
 }

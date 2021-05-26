@@ -10,7 +10,9 @@ public class FarmSaveLoad : MonoBehaviour
     private AllFarmsData save;
     private int saveLength;
     void Awake(){
+        Debug.Log("LoadFarm 시작.");
         LoadFarm();
+        Debug.Log("LoadFarm 완료");
     }
 
     public void OnApplicationFocus(bool value){

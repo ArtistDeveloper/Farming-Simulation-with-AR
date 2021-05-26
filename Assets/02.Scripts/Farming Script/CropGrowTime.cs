@@ -20,26 +20,37 @@ public class CropGrowTime : MonoBehaviour
     private bool set_check = false;
     private GameObject cropTime;
     public bool witherOrGather = false;        //썩거나 뽑히면 true;
+    
+    private bool startBoolConduct = false;
 
     void Awake(){
         cropState = gameObject.GetComponent<CropState>();
     }
 
     void OnApplicationFocus(bool value){
+        Debug.Log("CropGrowTime의 OnApplication 실행");
         if (value)
         {   
             set_check = true;
         }
     }
 
-    void Start(){
-        cropTime = GameObject.FindWithTag("SaveManager");
-        m_AppQuitTime = cropTime.GetComponent<CropTime>().get_m_AppQuitTime();
-        SetRechargeScheduler();     //처음엔 여기서 시작.
-        set_check = false;
+    void Start(){       //이걸  Update로 옮기고...
+        // cropTime = GameObject.FindWithTag("SaveManager");       //이게 null은 아님.
+        // m_AppQuitTime = cropTime.GetComponent<CropTime>().get_m_AppQuitTime();
+        // SetRechargeScheduler();     //처음엔 여기서 시작.
+        // set_check = false;
     }
 
     void Update(){
+        if(!startBoolConduct){
+            startBoolConduct = true;
+            cropTime = GameObject.FindWithTag("SaveManager");       //이게 null은 아님.
+            m_AppQuitTime = cropTime.GetComponent<CropTime>().get_m_AppQuitTime();
+            SetRechargeScheduler();     //처음엔 여기서 시작.
+            set_check = false;
+        }
+
         if(set_check){
             SetRechargeScheduler();
             set_check = false;
@@ -56,7 +67,6 @@ public class CropGrowTime : MonoBehaviour
 
     public void SetRechargeScheduler(Action onFinish = null)
     {
-        Debug.Log("SetRe");
         if(m_AppQuitTime == check_m_AppQuitTime){       //여기 같으면 return하도록 했음 그냥.
                 Debug.Log("m_AppQuitTime: " + m_AppQuitTime);
                 return;
@@ -70,22 +80,23 @@ public class CropGrowTime : MonoBehaviour
         m_AppQuitTime = cropTime.GetComponent<CropTime>().get_m_AppQuitTime();
         
         if(remainGrowTime != timeMaxGrowInterval){     
-            //Debug.Log("킹준수 m_AppQuitTime이야: "+ m_AppQuitTime);     // - 이게 지금 초기값으로 들어옴.
+            Debug.Log("킹준수 m_AppQuitTime이야: "+ m_AppQuitTime);     // - 이게 지금 초기값으로 들어옴.
             var timeDifferenceInSec = (int)((DateTime.Now.ToLocalTime() - m_AppQuitTime).TotalSeconds);    //지금 시간이랑 앱을 껐을 떄의 시간을 뺀 값이 들어가게 된다.
-            //Debug.Log("킹준수 timeDiff계산해서 나온 timediff 이야  " + timeDifferenceInSec);
+            Debug.Log("킹준수 timeDiff계산해서 나온 timediff 이야  " + timeDifferenceInSec);
             var remainTime = remainGrowTime - timeDifferenceInSec;  
-            //Debug.Log("킹준수 timeDiff계산해서 나온 remainTime이야  " + remainTime);
+            Debug.Log("킹준수 timeDiff계산해서 나온 remainTime이야  " + remainTime);
             if (remainTime <= timeMaxGrowInterval)      
             {
-                Debug.Log("DoRechargeTimer 진입 전");
+                //Debug.Log("DoRechargeTimer 진입 전");
                 m_RechargeTimerCoroutine = StartCoroutine(DoRechargeTimer(remainTime, onFinish));
             }
         }else       //remainGrowTime == timeMaxGrowInterval로 새로 생겼다는 의미
         {
+            Debug.Log("처음 만들어짐");
             var remainTime = remainGrowTime;        //이게 들어가도 상관이 없는게 결국 Awake에서 timeMax로 조절을 해줘서 상관없음.
             if (remainTime <= timeMaxGrowInterval)      
             {
-                Debug.Log("DoRechargeTimer 진입 전");
+                //Debug.Log("DoRechargeTimer 진입 전");
                 m_RechargeTimerCoroutine = StartCoroutine(DoRechargeTimer(remainTime, onFinish));
             }
         }
@@ -93,7 +104,7 @@ public class CropGrowTime : MonoBehaviour
 
     private IEnumerator DoRechargeTimer(int remainTime, Action onFinish = null)
     {
-        Debug.Log("DoRechargeTimer 진입");
+        //Debug.Log("DoRechargeTimer 진입");
         if (remainTime <= 0)            //즉 남은시간이 없다. 다 자랐다.
         {
             remainGrowTime = 0;

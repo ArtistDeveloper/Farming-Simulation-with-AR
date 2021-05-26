@@ -63,4 +63,39 @@ public class PlacedObjectTypeSO : ScriptableObject
         }
         return gridPositionList;
     }
+
+    public int GetRotationAngle(Dir dir)
+    {
+        switch(dir)
+        {
+            default:
+            case Dir.Down: return 0;
+            case Dir.Left: return 90;
+            case Dir.Up: return 180;
+            case Dir.Right: return 270;
+        }
+        // switch(dir)
+        // {
+        //     default:
+        //     case Dir.Down: return 180;
+        //     case Dir.Left: return 270;
+        //     case Dir.Up: return 0;
+        //     case Dir.Right: return 90;
+        // }
+    }
+
+    // Left: 0, width인데, pivot이 오브젝트 위에 있어서 그냥 오브젝트만 돌리고 설치시키면 오브젝트는
+    // 그리드의 밑부분에 설치된 것 처럼 보이는데 사실 위의 영역을 먹고 있음. 그래서 width를 통해 
+    // 오브젝트의 가로만큼 offset을 위로 올려준만큼 설치하게 되면, 건물이 잘 설치됨.
+    public Vector2Int GetRotationOffset(Dir dir)
+    {
+        switch (dir)
+        {
+            default:
+            case Dir.Down: return new Vector2Int(0, 0);
+            case Dir.Left: return new Vector2Int(0, width);
+            case Dir.Up: return new Vector2Int(width, height);
+            case Dir.Right: return new Vector2Int(height, 0);
+        }
+    }
 }

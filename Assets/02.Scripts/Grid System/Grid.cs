@@ -20,23 +20,24 @@ public class Grid<TGridObject>
     private Vector3 originPosition; //Grid의 시작점이 [0,0]이 아닐수도 있어서 사용하는 변수.
     private TGridObject[,] gridArray;
     private TextMesh[,] debugTextArray;
-    private Transform planeTransform;
+    // private Transform planeTransform;
+    private Quaternion planeRotation;
 
 
     // Func<in T1, in T2, in T3, out TResult>(T1 arg1, T2 arg2, T3 arg3)
     // T1: Grid<TGridObject>, T2: int, T3: int, Out Type: TgridObject // 즉 createGridObject는 TgridObject의 타입이자 반환값이다.
-    public Grid(int width, int height, float cellSize, Vector3 originPosition, Transform planeTransform, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject)
+    public Grid(int width, int height, float cellSize, Vector3 originPosition, Quaternion planeRotation, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject)
     {
         this.width = width;
         this.height = height;
         this.cellSize = cellSize; //셀 사이즈를 통해 각 인덱스를 땅위에 올리기 위한 WorldPosition을 계산할 수 있다. // 2 (즉 한칸당 size를 2씩 차지함. 그러면 10x10해서 총 100개 들어감) 
         this.originPosition = originPosition;
-        this.planeTransform = planeTransform;
+        // this.planeTransform = planeTransform;
+        this.planeRotation = planeRotation;
 
         debugTextArray = new TextMesh[width, height]; //World에 뜨는 숫자
         gridArray = new TGridObject[width, height]; // 여기선 int형 배열이 아닌 TgridObject형 배열로 만듬. 즉 인덱스마다 x, y, grid값이 있네 
 
-        // 
         for (int x = 0; x < gridArray.GetLength(0); x++)
         {
             for (int z = 0; z < gridArray.GetLength(1); z++)
@@ -51,7 +52,7 @@ public class Grid<TGridObject>
         {
             for (int z = 0; z < gridArray.GetLength(1); z++)
             {
-                debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z].ToString(), planeTransform, GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, 10, Color.white, TextAnchor.MiddleCenter);
+                debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z].ToString(), planeRotation, GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, 10, Color.white, TextAnchor.MiddleCenter);
                 // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);
                 // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
             }
@@ -66,6 +67,12 @@ public class Grid<TGridObject>
             // };
         }
         // SetValue(2, 1, 56); //혹시 NullReference가 난다면, TextMesh값이 debugTextArray에 들어가지 않아서 그런 F것.
+    }
+
+    public float CellSize
+    {
+        get { return cellSize; }
+        set { cellSize = value; }
     }
 
     //Gird셀의 위치들을 WorldPosition으로 변환시켜주는 작업. 

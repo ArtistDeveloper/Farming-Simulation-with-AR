@@ -14,7 +14,12 @@ public class PlayerSaveData
    public float x;
    public float y;
    public float z;
-   
+
+   public float[] rotate;
+   public float rotateX;
+   public float rotateY;
+   public float rotateZ;
+ 
    public PlayerSaveData(Player B){
       HP = B.HealthPoint;
       AP = B.AttackPoint;
@@ -27,5 +32,15 @@ public class PlayerSaveData
       position[0] = x;
       position[1] = y;
       position[2] = z;
+
+      //각도
+      rotateX  = B.transform.eulerAngles.x;
+      rotateY = B.transform.eulerAngles.y;
+      rotateZ = B.transform.eulerAngles.z;
+
+      rotate = new float[3];
+      rotate[0] = rotateX;
+      rotate[1] = rotateY;
+      rotate[2] = rotateZ;
    }
 }

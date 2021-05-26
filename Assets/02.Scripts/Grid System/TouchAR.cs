@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TouchAR
 {
-    public static Vector3 GetWolrdMousePosition3D()
+    public static Vector3 GetWolrdTouchPosition3D()
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

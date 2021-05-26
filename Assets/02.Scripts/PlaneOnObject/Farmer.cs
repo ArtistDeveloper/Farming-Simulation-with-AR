@@ -12,11 +12,11 @@ namespace PlaneOnObject
         public GameObject farmerPrefab;
         public static GameObject staticFarmer; 
 
-        void Awake()
-        {
-            ARTapToPlaceObject aRTapToPlace = GameObject.FindGameObjectWithTag("ARinteraction").GetComponent<ARTapToPlaceObject>();
-            aRTapToPlace.planeOnObjectDelegate += FarmerInstantiate;
-        }        
+        // void Awake()
+        // {
+        //     ARTapToPlaceObject aRTapToPlace = GameObject.FindGameObjectWithTag("ARinteraction").GetComponent<ARTapToPlaceObject>();
+        //     aRTapToPlace.planeOnObjectDelegate += FarmerInstantiate;
+        // }        
 
         void Start()
         {

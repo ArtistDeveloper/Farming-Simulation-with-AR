@@ -27,8 +27,12 @@ namespace ArIndicator
         public GameObject objectToPlacePrefab; // Plane Prefab
         private GameObject farmPlane; // 설치된 plane이 저장되는 변수
 
+        private Vector3 paramPlaneTransformPosition;
+        private Quaternion paramRotation;
+
         // FarmPlane이 생성됐을 때 호출할 Delegate chain
-        public delegate void PlaneOnObjectDelegate(Transform planeTransform);
+        // public delegate void PlaneOnObjectDelegate(Transform planeTransform);
+        public delegate void PlaneOnObjectDelegate(Vector3 planeTransformPosition, Quaternion rotation);
         public PlaneOnObjectDelegate planeOnObjectDelegate;
 
         // [SerializeField] private Button installButton;
@@ -40,18 +44,29 @@ namespace ArIndicator
             arPlaneManager = FindObjectOfType<ARPlaneManager>();
         }
 
-        void Update()
+        void FixedUpdate() //FixedUpdate
         {
-            UpdatePlacementPose(); //Pose가 실시간 Update된다.
-            UpdatePlacementIndicator(); //Pose에 따른 visual적인 변화를 실시간 Update
+            if (farmPlane == null)
+            {
+                UpdatePlacementPose(); //Pose가 실시간 Update된다.
+                UpdatePlacementIndicator(); //Pose에 따른 visual적인 변화를 실시간 Update
+            }
         }
 
+        // farmplae생성 Button에 연결되어 있음 // 땅 중복생성 방지 해야됨.
+        // farmplane의 좌표가 아니라, placemnet.position과 rotation을 보내야하나
         public void PlaceObject()
         {
-            farmPlane = Instantiate(objectToPlacePrefab, placementPose.position, placementPose.rotation);
-            farmPlaneTransform = farmPlane.GetComponent<Transform>();
-            planeOnObjectDelegate.Invoke(farmPlaneTransform);
-            DisableIndicator();
+            if (farmPlane == null)
+            {
+                paramPlaneTransformPosition = placementPose.position;
+                paramRotation = placementPose.rotation;
+                // 바로 위 코드의 placementPose.position와 paramPlaneTransformPosition가 다를 수 있다 생각했음.
+                farmPlane = Instantiate(objectToPlacePrefab, paramPlaneTransformPosition, Quaternion.identity); 
+                farmPlaneTransform = farmPlane.GetComponent<Transform>();
+                planeOnObjectDelegate.Invoke(paramPlaneTransformPosition, Quaternion.identity);
+                DisableIndicator();
+            }
         }
 
         private void DisableIndicator()
