@@ -52,7 +52,7 @@ public class Grid<TGridObject>
         {
             for (int z = 0; z < gridArray.GetLength(1); z++)
             {
-                debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z].ToString(), planeRotation, GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, 10, Color.white, TextAnchor.MiddleCenter);
+                debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z].ToString(), planeRotation, GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, 5, Color.white, TextAnchor.MiddleCenter);
                 // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);
                 // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
             }

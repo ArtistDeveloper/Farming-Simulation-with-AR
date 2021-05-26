@@ -20,6 +20,7 @@ public class CropState : MonoBehaviour
     private Vector3 cropPos;
     private CropCountSave cropCountSave;
 
+   
     void Start(){
         cropPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         cropCountSave = GameObject.Find("SaveManager").GetComponent<CropCountSave>();
@@ -36,22 +37,31 @@ public class CropState : MonoBehaviour
             }
         }
 
-        if(canHarvest && Input.GetKeyDown(KeyCode.Q)){      
+        if(canHarvest && Input.GetKeyDown(KeyCode.Q)){  
+
             if(PlayerPrefs.HasKey(cropKind + "_Count")){
-            //Debug.Log("PlayerPrefs 있음");
+
+                //Debug.Log("PlayerPrefs 있음");
                 PlayerPrefs.SetInt(cropKind + "_Count", PlayerPrefs.GetInt(cropKind + "_Count") + 1);       //Q(채집)을 할 때 마다 저장을 하는 것임.
                 cropCountSave.LoadCropCountData();      //이거는 내가 스크립트를 꺼놔서 안됨. 키면 됨.
                 Destroy(gameObject);            //된다.
+
             }else{
+
                 //Debug.Log("PlayerPrefs 없음");
                 PlayerPrefs.SetInt(cropKind + "_Count", 1);
                 Debug.Log(PlayerPrefs.GetInt(cropKind+"_Count"));
                 Destroy(gameObject);
+                
             }           
         }
     }
 
+    
+
     public void GrowDone(){
         growDone = true;
     }
+
+    
 }

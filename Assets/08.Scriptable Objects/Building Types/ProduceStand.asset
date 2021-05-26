@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 455f4fbbe16f6674b9684e64855e83a5, type: 3}
-  m_Name: Building
+  m_Name: ProduceStand
   m_EditorClassIdentifier: 
   nameString: Building
   prefab: {fileID: 7122778901548558016, guid: 519fa847ad574604eb5ceda745741e58, type: 3}
   visual: {fileID: 0}
-  width: 3
-  height: 3
+  width: 2
+  height: 2

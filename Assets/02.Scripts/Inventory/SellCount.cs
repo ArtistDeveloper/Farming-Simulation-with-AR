@@ -12,17 +12,18 @@ public class SellCount : MonoBehaviour
     private int ChageCount;
     //private int MaxCount;
     private int ChageDia;
-    //private Item[] itemprice; 상품가격정하면 필요
-
-    //Bliud에서 사용한 방법을 사용하면  crop받아오기 & 다이아 계산까지 할 수 있지 않을까?
+    private int price;
+    
 
     public void UpClick(){
 
         ChageCount = int.Parse(SellcountText.text);
+
         ChageCount +=1;
         SellcountText.text="";
         SellcountText.text=ChageCount.ToString();
 
+        
 
         //작물 최대 갯수 받아올때 사용
        /* ChageCount = int.Parse(SellcountText.text);
@@ -36,19 +37,11 @@ public class SellCount : MonoBehaviour
             SellcountText.text=ChageCount.ToString();
         }*/
 
-        ChageDia=int.Parse(DiamondText.text);
-        ChageDia = ChageDia+1000;
+        ChageDia = int.Parse(DiamondText.text);
+        
+        ChageDia = ChageDia + price;
         DiamondText.text="";
         DiamondText.text=ChageDia.ToString();
-
-        
-        /*ChageDia=int.Parse(DiamondText.text);
-        
-        ChageDia = ChageDia+Item[i].itemprice;
-        DiamondText.text="";
-        DiamondText.text=ChageDia.ToString();
-        */
-
 
 
     }
@@ -63,13 +56,13 @@ public class SellCount : MonoBehaviour
             SellcountText.text=ChageCount.ToString();
 
             DiamondText.text="";
-            DiamondText.text=ChageDia.ToString();
+            DiamondText.text=price.ToString();
         }else{
             ChageCount -= 1;
             SellcountText.text="";
             SellcountText.text=ChageCount.ToString();
             
-            ChageDia = ChageDia-1000;
+            ChageDia = ChageDia-price;
             DiamondText.text="";
             DiamondText.text=ChageDia.ToString();
         }
@@ -78,13 +71,14 @@ public class SellCount : MonoBehaviour
 
     public void Zero(){
         SellcountText.text="1";
-        DiamondText.text="1000"; //crop마다 변경
+        price = int.Parse(DiamondText.text);
+
     }
    
     void Start()
     {
-        SellcountText.text="1";
-        DiamondText.text="1000";//crop마다 변경
+        //SellcountText.text="1";
+        price = int.Parse(DiamondText.text);
 
     }
 
@@ -93,5 +87,11 @@ public class SellCount : MonoBehaviour
         
 
         
+    }
+
+    public void ClickSell(){
+
+
+
     }
 }

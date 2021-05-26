@@ -13,7 +13,6 @@ public class PrefabCr : MonoBehaviour
     public GameObject dnf1;
     public GameObject dnf2;
     public GameObject dnf3;
-    public GameObject qkx;
     public GameObject wkehdck;
     public GameObject anfxodzm;
 
@@ -162,7 +161,7 @@ public class PrefabCr : MonoBehaviour
             }
         }
 
-         if(buildText.text=="비트를 심을까요?"){
+         if(buildText.text=="사탕무를 심을까요?"){
 
          useDia = int.Parse(DiamainText.text);
            if(useDia>1000)

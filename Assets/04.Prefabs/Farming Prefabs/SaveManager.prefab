@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6452229946442433977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6452229946442433981}
+  - component: {fileID: 6452229946442433982}
+  - component: {fileID: 6452229946442433980}
+  - component: {fileID: 6452229946442433983}
+  m_Layer: 0
+  m_Name: SaveManager
+  m_TagString: SaveManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6452229946442433981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6452229946442433977}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.6048727, y: 2.757185, z: -8.660883}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6452229946442433982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6452229946442433977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 610844479ecaafe4185a5abb4d6ce555, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6452229946442433980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6452229946442433977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b09bcdbf5f5cfba409e2aa179feed048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  farmPrefab: {fileID: 459131458093152154, guid: cd3840900e3332147827ef45bf9e93b6, type: 3}
+--- !u!114 &6452229946442433983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6452229946442433977}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7039bd75aae235841b7d9bd662c5de51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  watermelon: 0
+  watermelon_Text: {fileID: 0}
+  Carrot: 0
+  Carrot_Text: {fileID: 0}
+  Potato: 0
+  Potato_Text: {fileID: 0}
+  Asparagus: 0
+  Asparagus_Text: {fileID: 0}
+  Beet: 0
+  Beet_Text: {fileID: 0}
+  Pumkin: 0
+  Pumkin_Text: {fileID: 0}
+  Onion: 0
+  Onion_Text: {fileID: 0}
+  Lettuce: 0
+  Lettuce_Text: {fileID: 0}
+  Wheat: 0
+  Wheat_Text: {fileID: 0}
+  Broccoli: 0
+  Broccoli_Text: {fileID: 0}

@@ -15,13 +15,15 @@ public class GridBuildingSystem : MonoBehaviour
 
     // prefab
     [SerializeField] private GameObject housePrefab;
-    [SerializeField] private PlacedObjectTypeSO placedObjectTypeSO;
-    
+    [SerializeField] private static PlacedObjectTypeSO placedObjectTypeSO;
+    [SerializeField] private List<PlacedObjectTypeSO> placedObjectTypeSOList;
 
     private void Awake()
     {
         ARTapToPlaceObject aRTapToPlace = GameObject.FindGameObjectWithTag("ARinteraction").GetComponent<ARTapToPlaceObject>();
         aRTapToPlace.planeOnObjectDelegate += GirdValueInstantiate;
+
+        placedObjectTypeSO = placedObjectTypeSOList[0];
     }
 
     // struct와 비슷한 개념으로 사용함.
@@ -74,9 +76,9 @@ public class GridBuildingSystem : MonoBehaviour
     {
         //plane의 scale은 2,2,2이고 원점은 0, 0, 0에서 시작한다 가정했을 때 x와 z가 -10만큼 뺴진 곳에서 시작해야 함.
         Vector3 originPos = planeTransformPosition + new Vector3(-10f, 0.1f, -10f);
-        int gridWidth = 10;
-        int gridHeight = 10;
-        float cellSize = 2f;
+        int gridWidth = 20;
+        int gridHeight = 20;
+        float cellSize = 1f;
         grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, originPos, rotation, (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
     }
 
@@ -138,6 +140,13 @@ public class GridBuildingSystem : MonoBehaviour
         dir = PlacedObjectTypeSO.GetNextDir(dir);
         GameObject.Find("UI").transform.FindChild("DebugText").gameObject.SetActive(true);
     }
+
+    public void SelectBuilding(int number)
+    {
+        switch(number)
+        {
+            case 1: placedObjectTypeSO = placedObjectTypeSOList[number];
+            break;
+        }
+    }
 }
-
-
