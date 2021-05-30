@@ -44,7 +44,4 @@ public static class FarmSaveManager
              return default;
          }
     }
-
-
-
 }

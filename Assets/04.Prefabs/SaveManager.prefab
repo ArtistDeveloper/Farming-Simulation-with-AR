@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2323778460596007795
+--- !u!1 &497468618426012443
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2323778460596007799}
-  - component: {fileID: 2323778460596007796}
-  - component: {fileID: 2323778460596007798}
-  - component: {fileID: 2323778460596007797}
+  - component: {fileID: 497468618426012447}
+  - component: {fileID: 497468618426012444}
+  - component: {fileID: 497468618426012446}
+  - component: {fileID: 497468618426012445}
+  - component: {fileID: 4667907360855644533}
   m_Layer: 0
   m_Name: SaveManager
   m_TagString: SaveManager
@@ -19,13 +20,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2323778460596007799
+--- !u!4 &497468618426012447
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2323778460596007795}
+  m_GameObject: {fileID: 497468618426012443}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.6048727, y: 2.757185, z: -8.660883}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,38 +34,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2323778460596007796
+--- !u!114 &497468618426012444
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2323778460596007795}
+  m_GameObject: {fileID: 497468618426012443}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 610844479ecaafe4185a5abb4d6ce555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2323778460596007798
+--- !u!114 &497468618426012446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2323778460596007795}
+  m_GameObject: {fileID: 497468618426012443}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b09bcdbf5f5cfba409e2aa179feed048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   farmPrefab: {fileID: 459131458093152154, guid: cd3840900e3332147827ef45bf9e93b6, type: 3}
---- !u!114 &2323778460596007797
+--- !u!114 &497468618426012445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2323778460596007795}
+  m_GameObject: {fileID: 497468618426012443}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7039bd75aae235841b7d9bd662c5de51, type: 3}
@@ -90,3 +91,22 @@ MonoBehaviour:
   Wheat_Text: {fileID: 0}
   Broccoli: 0
   Broccoli_Text: {fileID: 0}
+--- !u!114 &4667907360855644533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497468618426012443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf46fbc290309464ca36e9f687a088b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingPrefab1: {fileID: 1858355190577810, guid: 9f951889d571d8d43a9afdc8caf44225, type: 3}
+  buildingPrefab2: {fileID: 1057578451854958, guid: 8241eb6e03c0f95458f2d4730bd50091, type: 3}
+  buildingPrefab3: {fileID: 1074158097585824, guid: fc3a1be4d0840704c87a581eca5dd285, type: 3}
+  buildingPrefab4: {fileID: 1716723942026276, guid: 55d2331c3937da3408ab5089a082a3db, type: 3}
+  buildingPrefab5: {fileID: 7122778901548558016, guid: 519fa847ad574604eb5ceda745741e58, type: 3}
+  buildingPrefab6: {fileID: 4394757173609963674, guid: ea82cb06e60b0a34a935980dec5b5ab1, type: 3}
+  buildingPrefab7: {fileID: 1626482067972224, guid: b811f3bb603012f47b6b2490d651f833, type: 3}

@@ -18,6 +18,19 @@ public class Farm : MonoBehaviour
     public bool isDistroy = false;
     public int saveFarmKindNumber;
 
+    //grid 변수
+    public int gridX = 1, gridZ = 1;
+
+    public void takeX(int x)
+    {
+        gridX = x;
+    }
+
+    public void takeZ(int z)
+    {
+        gridZ = z;
+    }
+
     public CropData[] cropTypes;
 
     void Awake(){

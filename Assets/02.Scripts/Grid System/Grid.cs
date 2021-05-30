@@ -42,7 +42,8 @@ public class Grid<TGridObject>
         {
             for (int z = 0; z < gridArray.GetLength(1); z++)
             {
-                // 그리드값(자신)과, x, z값을 넣어 GridObject생성자를 호출하고 그렇게 생성된 객체를 girdArray배열에 넣게 된다.
+                // 그리드(자신)과, x, z값을 넣어 GridObject생성자를 호출하고 그렇게 생성된 객체를 girdArray배열에 넣게 된다.
+                // 어쨌든 한 반복문 내에서 생성되는 것이니, 각 그리드 셀은 모두 같은 그리드를 가리킨다.
                 gridArray[x, z] = createGridObject(this, x, z);
             }
         }
@@ -78,7 +79,7 @@ public class Grid<TGridObject>
     //Gird셀의 위치들을 WorldPosition으로 변환시켜주는 작업. 
     public Vector3 GetWorldPosition(int x, int z)
     {
-        return new Vector3(x, 0, z) * cellSize + originPosition;
+        return new Vector3(x, 0, z) * cellSize + originPosition;        //재준 필요.
     }
 
     //좌표에 따른 Grid x,y값 반환. Point를 담은 struct를 반환해도 되겠지만 여기서는 out을 사용해봄.

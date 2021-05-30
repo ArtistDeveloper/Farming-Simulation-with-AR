@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6452229946442433982}
   - component: {fileID: 6452229946442433980}
   - component: {fileID: 6452229946442433983}
+  - component: {fileID: -6941721708306739241}
   m_Layer: 0
   m_Name: SaveManager
   m_TagString: SaveManager
@@ -90,3 +91,22 @@ MonoBehaviour:
   Wheat_Text: {fileID: 0}
   Broccoli: 0
   Broccoli_Text: {fileID: 0}
+--- !u!114 &-6941721708306739241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6452229946442433977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf46fbc290309464ca36e9f687a088b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingPrefab1: {fileID: 1858355190577810, guid: 9f951889d571d8d43a9afdc8caf44225, type: 3}
+  buildingPrefab2: {fileID: 1057578451854958, guid: 8241eb6e03c0f95458f2d4730bd50091, type: 3}
+  buildingPrefab3: {fileID: 1074158097585824, guid: fc3a1be4d0840704c87a581eca5dd285, type: 3}
+  buildingPrefab4: {fileID: 1716723942026276, guid: 55d2331c3937da3408ab5089a082a3db, type: 3}
+  buildingPrefab5: {fileID: 7122778901548558016, guid: 519fa847ad574604eb5ceda745741e58, type: 3}
+  buildingPrefab6: {fileID: 4394757173609963674, guid: ea82cb06e60b0a34a935980dec5b5ab1, type: 3}
+  buildingPrefab7: {fileID: 1626482067972224, guid: b811f3bb603012f47b6b2490d651f833, type: 3}

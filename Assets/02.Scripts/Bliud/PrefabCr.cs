@@ -354,12 +354,6 @@ public class PrefabCr : MonoBehaviour
         }
 
 
-        else{
-            Debug.Log("존재하지 않아.");
-        }
-
-
-
     }
 
 

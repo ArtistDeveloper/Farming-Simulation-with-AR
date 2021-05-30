@@ -47,6 +47,7 @@ public class CropGrowTime : MonoBehaviour
             startBoolConduct = true;
             cropTime = GameObject.FindWithTag("SaveManager");       //이게 null은 아님.
             m_AppQuitTime = cropTime.GetComponent<CropTime>().get_m_AppQuitTime();
+            Debug.Log("CropGrowTime에서의 m_AppQuitTime" + m_AppQuitTime);
             SetRechargeScheduler();     //처음엔 여기서 시작.
             set_check = false;
         }

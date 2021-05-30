@@ -12,7 +12,7 @@ public class InventoryUI : MonoBehaviour
 
     public Box[] boxes;
     public Transform boxHolder;
-    int boxCount=5; 
+    public int boxCount=5; 
 
     //이미지 보관
     [SerializeField] private Sprite Asparagus;
@@ -26,39 +26,14 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Sprite Watermelon;
     [SerializeField] private Sprite Wheat;
 
+    [SerializeField] public GameObject qnwhr;
+
+
     private string spritename;  //이미지이름
-
-    private int boxneercan=0;  //사용 가능한 칸
-    
-    //작물 개수 문자 변환
-    private string Asparagus_Text;
-    private string Beet_Text;
-    private string Broccoli_Text;
-    private string Carrot_Text;
-    private string Lettuce_Text;
-    private string Onion_Text;
-    private string Potato_Text;
-    private string Pumkin_Text;
-    private string Watermelon_Text;
-    private string Wheat_Text;
-
-
-    //작물 개수 보관
-    private int Asparagus_count;
-    private int Beet_count;
-    private int Broccoli_count;
-    private int Carrot_count;
-    private int Lettuce_count;
-    private int Onion_count;
-    private int Potato_count;
-    private int Pumkin_count;
-    private int Watermelon_count;
-    private int Wheat_count;
-
-    [SerializeField] GameObject qnwhr;
-
+   
+    public int boxneercan=0;  //사용 가능한 칸
   
-    private void Start()
+    public void Start()
     {
         inven=Inventory.instance;  
         boxes = boxHolder.GetComponentsInChildren<Box>();
@@ -70,11 +45,15 @@ public class InventoryUI : MonoBehaviour
                 boxes[i].GetComponent<Button>().interactable=false;
             }
         }
+        boxneercan=0;
         
-  }
+    }
 
-    private void Update()
+    public void BoxUpdate()
     {
+        
+        inven=Inventory.instance;  
+        boxes = boxHolder.GetComponentsInChildren<Box>();
         for(int i = 0; i<boxes.Length; i++){
                 if(i<boxCount){
                     boxes[i].GetComponent<Button>().interactable=true;
@@ -86,89 +65,42 @@ public class InventoryUI : MonoBehaviour
     }
 
     public void Cropharvesting(string cropkind){
-    
-    //GameObject.FindWithTag("In");
-    //CompareTag
-    // cropkind+"_count"++;
 
-        for(int i = 0; i<boxCount; i++){
+
+        Debug.Log("1단계"+cropkind);
+        int i = 0;
+        for(i = 0; i<boxCount; i++){
+            Debug.Log("2eksrP"+cropkind);
             if(boxes[i].GetComponent<Button>().CompareTag(cropkind))    // tag주워서 비교=true 해당 태그 붙어있으니  
             {
-                Debug.Log("있어!");
-
-                if(cropkind=="Watermelon"){  
-                    Watermelon_count = PlayerPrefs.GetInt("Watermelon_Count", 0);
-                    Watermelon_Text = Watermelon_count.ToString("0");
-                }
-            
-                if(cropkind=="Carrot"){
-                    Carrot_count = PlayerPrefs.GetInt("Carrot_Count", 0);
-                    Carrot_Text = Carrot_count.ToString("0");
-                }
-
-                if(cropkind=="Potato"){
-                    Potato_count = PlayerPrefs.GetInt("Potato_Count", 0);
-                    Potato_Text=Potato_count.ToString("0");
-                }
-
-                if(cropkind=="Asparagus"){
-                    Asparagus_count = PlayerPrefs.GetInt("Asparagus_Count", 0);
-                    Asparagus_Text=Asparagus_count.ToString("0");
-                }            
-
-                if(cropkind=="Beet"){
-                    Beet_count = PlayerPrefs.GetInt("Beet_Count", 0);
-                    Beet_Text=Beet_count.ToString("0");
-                }
-
-                if(cropkind=="Pumkin"){
-                    Pumkin_count = PlayerPrefs.GetInt("Pumkin_Count", 0);
-                    Pumkin_Text=Pumkin_count.ToString("0");
-                }
-
-                if(cropkind=="Onion"){
-                    Onion_count = PlayerPrefs.GetInt("Onion_Count", 0);
-                    Onion_Text=Onion_count.ToString("0");
-                }
-
-                if(cropkind=="Lettuce"){
-                    Lettuce_count = PlayerPrefs.GetInt("Lettuce_Count", 0);
-                    Lettuce_Text=Lettuce_count.ToString("0");
-                }
-
-                if(cropkind=="Wheat"){
-                    Wheat_count = PlayerPrefs.GetInt("Wheat_Count", 0);
-                    Wheat_Text=Wheat_count.ToString("0");
-                }
-
-                if(cropkind=="Broccoli"){
-                    Broccoli_count = PlayerPrefs.GetInt("Broccoli_Count", 0);
-                    Broccoli_Text=Broccoli_count.ToString("0");
-                }
+                Debug.Log("있어!"+cropkind);
+                i++;
 
             } 
             else
             {
-                if(boxneercan==boxCount)
-                {
-                    qnwhr.SetActive(true);
-                }
-                else
-                {//남아있는 칸에 
-                    for(int j = 0; j<boxCount; j++){
+                Debug.Log("없어"+cropkind);
+
+                    int j = 0;
+                    for(j = 0; j<boxCount; j=j+0){
+                        Debug.Log("여긴 왔어?"+cropkind);
                         if(boxes[j].GetComponent<Button>().CompareTag("In")){
+
                             if(cropkind=="Asparagus")
                             {
                                 boxes[j].GetComponent<Button>().image.sprite=Asparagus;
                                 boxes[j].GetComponent<Button>().tag="Asparagus";
                                 boxneercan++;
+                                Debug.Log(cropkind+"뢔ㄸ"+ boxneercan);
                                 j=boxCount;
+
                             }
                             else if(cropkind=="Beet")
                             {
                                 boxes[j].GetComponent<Button>().image.sprite=Beet;
                                 boxes[j].GetComponent<Button>().tag="Beet";
                                 boxneercan++;
+                                Debug.Log(cropkind+"뢔ㄸ"+ boxneercan);
                                 j=boxCount;
                             }
                             else if(cropkind=="Broccoli")
@@ -176,6 +108,7 @@ public class InventoryUI : MonoBehaviour
                                 boxes[j].GetComponent<Button>().image.sprite=Broccoli;
                                 boxes[j].GetComponent<Button>().tag="Broccoli";
                                 boxneercan++;
+                                Debug.Log(cropkind+"뢔ㄸ"+ boxneercan);
                                 j=boxCount;
                             }
                             else if(cropkind=="Carrot")
@@ -183,6 +116,7 @@ public class InventoryUI : MonoBehaviour
                                 boxes[j].GetComponent<Button>().image.sprite=Carrot;
                                 boxes[j].GetComponent<Button>().tag="Carrot";
                                 boxneercan++;
+                                Debug.Log(cropkind+"뢔ㄸ"+ boxneercan);
                                 j=boxCount;
                             }
                             else if(cropkind=="Lettuce")
@@ -190,6 +124,7 @@ public class InventoryUI : MonoBehaviour
                                 boxes[j].GetComponent<Button>().image.sprite=Lettuce;
                                 boxes[j].GetComponent<Button>().tag="Lettuce";
                                 boxneercan++;
+                                Debug.Log(cropkind+"뢔ㄸ"+ boxneercan);
                                 j=boxCount;
                             }
                             else if(cropkind=="Onion")
@@ -197,6 +132,7 @@ public class InventoryUI : MonoBehaviour
                                 boxes[j].GetComponent<Button>().image.sprite=Onion;
                                 boxes[j].GetComponent<Button>().tag="Onion";
                                 boxneercan++;
+                                Debug.Log(cropkind+"뢔ㄸ"+ boxneercan);
                                 j=boxCount;
                             }
                             else if(cropkind=="Potato")
@@ -204,13 +140,15 @@ public class InventoryUI : MonoBehaviour
                                 boxes[j].GetComponent<Button>().image.sprite=Potato;
                                 boxes[j].GetComponent<Button>().tag="Potato";
                                 boxneercan++;
+                                Debug.Log(cropkind+"뢔ㄸ"+ boxneercan);
                                 j=boxCount;
                             }
-                            else if(cropkind=="Pumkin")
+                            else if(cropkind=="Pumpkin")
                             {
                                 boxes[j].GetComponent<Button>().image.sprite=Pumkin;
-                                boxes[j].GetComponent<Button>().tag="Pumkin";
+                                boxes[j].GetComponent<Button>().tag="Pumpkin";
                                 boxneercan++;
+                                Debug.Log(cropkind+"뢔ㄸ"+ boxneercan);
                                 j=boxCount;
                             }
                             else if(cropkind=="Watermelon")
@@ -218,6 +156,7 @@ public class InventoryUI : MonoBehaviour
                                 boxes[j].GetComponent<Button>().image.sprite=Watermelon;
                                 boxes[j].GetComponent<Button>().tag="Watermelon";
                                 boxneercan++;
+                                Debug.Log(cropkind+"뢔ㄸ"+ boxneercan);
                                 j=boxCount;
                             }
                             else if(cropkind=="Wheat")
@@ -225,30 +164,30 @@ public class InventoryUI : MonoBehaviour
                                 boxes[j].GetComponent<Button>().image.sprite=Wheat;
                                 boxes[j].GetComponent<Button>().tag="Wheat";
                                 boxneercan++;
+                                Debug.Log(cropkind+"뢔ㄸ"+ boxneercan);
                                 j=boxCount;
                             }
+                        
                         }
-                
+                        else if(boxes[j].GetComponent<Button>().CompareTag(cropkind))
+                        {
+                            j=boxCount;
+                        }
+                        else
+                        {
+                            Debug.Log("In도 아니고 크롭도 아니네");
+                            j++;
+                        }
+                        
                     }
+                    
                 
-                }
 
-            }    
+           }  i=i+10;
         }
 
     } // Cropharvesting 끝
 
-    public void WatermelonSell(){
-
-        if(Watermelon_count<0){
-            
-        }
-
-
-
-
-
-    }
 
 
 

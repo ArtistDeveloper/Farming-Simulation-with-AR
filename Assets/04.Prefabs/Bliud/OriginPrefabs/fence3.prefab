@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 33882207777498482}
   - component: {fileID: 23707636491594684}
   - component: {fileID: 64550696622155162}
+  - component: {fileID: 7390738887053278342}
   m_Layer: 0
-  m_Name: FancyGate1
-  m_TagString: Untagged
+  m_Name: fence3
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,6 +98,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43099537449986442, guid: 98a68bb041cff884ba11a2f53f43804d, type: 2}
+--- !u!114 &7390738887053278342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716723942026276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2db211b1023581438bf5465c8ea1660, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingKind: 4
 --- !u!1 &1940476889614672
 GameObject:
   m_ObjectHideFlags: 0

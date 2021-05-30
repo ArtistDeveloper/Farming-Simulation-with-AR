@@ -9,7 +9,7 @@ public class FarmSaveLoad : MonoBehaviour
     public GameObject farmPrefab;
     private AllFarmsData save;
     private int saveLength;
-    void Awake(){
+    void OnEnable(){       //원래 Awake
         Debug.Log("LoadFarm 시작.");
         LoadFarm();
         Debug.Log("LoadFarm 완료");
@@ -51,15 +51,23 @@ public class FarmSaveLoad : MonoBehaviour
         //태그 해줘야함! - 어려운거 아니니까 까먹지 말쟈~!
         //Debug.Log("Load for문 돌리는 길이: "+ save.farmSaveDatas.Length);
         for(int i=save.farmSaveDatas.Length-1; i>=0; i--){       //int i=0; i <= save.cropSaveDatas.Length -1; i++    //int i=save.farmSaveDatas.Length-1; i>=0; i--
-            Vector3 position;
-            position.x = save.farmSaveDatas[i].x;        //Mathf.Abs(i - save.farmSaveDatas.Length)
-            position.y = save.farmSaveDatas[i].y;
-            position.z = save.farmSaveDatas[i].z;       //포지션 지정.
+            // Vector3 position;
+            // position.x = save.farmSaveDatas[i].x;        //Mathf.Abs(i - save.farmSaveDatas.Length)
+            // position.y = save.farmSaveDatas[i].y;
+            // position.z = save.farmSaveDatas[i].z;       //포지션 지정.
+
+            int gridX = save.farmSaveDatas[i].gridX;
+            int gridZ = save.farmSaveDatas[i].gridZ;
+            Vector3 originPos = new Vector3(1, 1, 1);
+            originPos = GameObject.FindObjectOfType<GridBuildingSystem>().GetComponent<GridBuildingSystem>().originPos;
 
             int farmKindNumber = save.farmSaveDatas[i].saveFarmKindNumber;      //이렇게 해서 어떤 종류의 crop인지 들고옴.
             //Debug.Log("Load에서 farmKindNum: "+farmKindNumber);
+
+            Quaternion rotate = Quaternion.identity;
+            rotate.eulerAngles = new Vector3(save.farmSaveDatas[i].rotateX, save.farmSaveDatas[i].rotateY, save.farmSaveDatas[i].rotateZ);
            
-            GameObject genedFarm = Instantiate(farmPrefab, new Vector3 (save.farmSaveDatas[i].x, save.farmSaveDatas[i].y, save.farmSaveDatas[i].z), Quaternion.identity);  //position대로 가길 바람.
+            GameObject genedFarm = Instantiate(farmPrefab, new Vector3 (gridX, 0, gridZ) * 1.0f + originPos, rotate);  //position대로 가길 바람.
             //Debug.Log("복사 됌");
             Farm genManager = genedFarm.GetComponent<Farm>();           //복사된 Farm의 Farm 스크립트를 들고옴.
             genManager.isDistroy = save.farmSaveDatas[i].isDistroy;

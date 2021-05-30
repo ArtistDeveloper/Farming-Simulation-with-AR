@@ -10,16 +10,6 @@ TagManager:
   - SaveManager
   - Farm
   - BBG
-  - In0
-  - In1
-  - In2
-  - In3
-  - In4
-  - In5
-  - In6
-  - In7
-  - In8
-  - In9
   - In
   - Beet
   - Asparagus
@@ -28,9 +18,11 @@ TagManager:
   - Lettuce
   - Onion
   - Potato
-  - Pumkin
   - Watermelon
   - Wheat
+  - Building
+  - Pumpkin
+  - SaveManagerParent
   layers:
   - Default
   - TransparentFX
@@ -38,7 +30,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Preview
   - 
   - 
   - 

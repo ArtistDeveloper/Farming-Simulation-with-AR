@@ -52,7 +52,7 @@ public class Box : MonoBehaviour
                 Beet.SetActive(true);
                 Debug.Log("비트에요");
             }
-            if(GetComponent<Button>().CompareTag("Pumkin")){
+            if(GetComponent<Button>().CompareTag("Pumpkin")){
                 Pumkin.SetActive(true);
                 Debug.Log("호박");
             }

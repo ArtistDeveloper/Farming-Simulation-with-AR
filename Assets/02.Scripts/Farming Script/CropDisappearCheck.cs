@@ -13,11 +13,11 @@ public class CropDisappearCheck : MonoBehaviour
     
     void Update()
     {      
-        if(!this.transform.Find("Block (0,0,0)").Find("Asparagus(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Beet(Clone)") && 
-        !this.transform.Find("Block (0,0,0)").Find("Broccoll(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Carrot(Clone)")&& 
-        !this.transform.Find("Block (0,0,0)").Find("Lettuce(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Onion(Clone)") &&
-        !this.transform.Find("Block (0,0,0)").Find("Potato(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Pumpkin(Clone)") &&
-        !this.transform.Find("Block (0,0,0)").Find("Watermelon(Clone)") && !this.transform.Find("Block (0,0,0)").Find("Wheat(Clone)")){    //Crop이 있는지 없는지 확인함.
+        if(this.transform.Find("Block (0,0,0)").Find("Asparagus(Clone)") == null && this.transform.Find("Block (0,0,0)").Find("Beet(Clone)") == null && 
+        this.transform.Find("Block (0,0,0)").Find("Broccoll(Clone)") == null && this.transform.Find("Block (0,0,0)").Find("Carrot(Clone)") == null&& 
+        this.transform.Find("Block (0,0,0)").Find("Lettuce(Clone)") == null&& this.transform.Find("Block (0,0,0)").Find("Onion(Clone)") == null&&
+        this.transform.Find("Block (0,0,0)").Find("Potato(Clone)") == null && this.transform.Find("Block (0,0,0)").Find("Pumpkin(Clone)") == null &&
+        this.transform.Find("Block (0,0,0)").Find("Watermelon(Clone)") == null && this.transform.Find("Block (0,0,0)").Find("Wheat(Clone)")== null){    //Crop이 있는지 없는지 확인함.
             Debug.Log("Crop 없는거 찾음.");    //된다! - 이게 문제점이 하나 생각은 나는데 일단 보류함.
                                                     //문제점이 뭐냐면 다 뽑는게 아니라 일부만 뽑으면 나머지 부분에서 RenderFarm이 되서 0부터 시작하는 Crop이 생길 수 있다.
                                                     //근데 일단 진행하도록 하겠음.

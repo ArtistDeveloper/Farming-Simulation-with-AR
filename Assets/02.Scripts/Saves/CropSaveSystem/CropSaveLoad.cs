@@ -21,12 +21,12 @@ public class CropSaveLoad : MonoBehaviour
         for(int i=0; i<=save.cropSaveDatas.Length-1; i++){      //int i=save.farmSaveDatas.Length-1; i>=0; i--  //int i=0; i<=save.cropSaveDatas.Length-1; i++
             CropGrowTime cropGrowTime = crops[i].GetComponent<CropGrowTime>();
             if(crops[i].name == save.cropSaveDatas[save.cropSaveDatas.Length-1-i].cropname){        //같은 친구다.
-                Debug.Log("이름 똑같음!!");
+                //Debug.Log("이름 똑같음!!");
                 //Debug.Log("Load함수에 있는 "+crops[i].name+"의 remainGrowTime : " + save.cropSaveDatas[save.cropSaveDatas.Length-1-i].remainGrowTimeSave);
                 cropGrowTime.remainGrowTime = save.cropSaveDatas[save.cropSaveDatas.Length-1-i].remainGrowTimeSave;
                 cropGrowTime.witherOrGather = save.cropSaveDatas[save.cropSaveDatas.Length-1-i].witherOrGather;
             }else{
-                Debug.Log("이름 다름!!");
+                //Debug.Log("이름 다름!!");
             }
         }
         Debug.Log("CropSaveLoad의 Load 끝 즉 remainGrowTime이 Crop에 전해짐.");
