@@ -19,7 +19,7 @@ public class Farm : MonoBehaviour
     public int saveFarmKindNumber;
 
     //grid 변수
-    public int gridX = 1, gridZ = 1;
+    public int gridX, gridZ;
 
     public void takeX(int x)
     {

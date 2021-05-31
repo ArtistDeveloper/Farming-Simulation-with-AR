@@ -12,10 +12,10 @@ public class CropTime : CropSaveLoad
     private bool frist = true;
     void Start(){
         LoadAppQuitTime();
-        Debug.Log("CropTime에서 LaodApplication 수행");
+        //Debug.Log("CropTime에서 LaodApplication 수행");
         //Debug.Log("CropTime에서 LoadAppQuitTime 실행 후 값: "+ m_AppQuitTime);
         LoadCrop();
-        Debug.Log("LaodCrop Awake에서 실행.");
+        //Debug.Log("LaodCrop Awake에서 실행.");
     }
 
     //게임 초기화(Awake), 중간 이탈, 중간 복귀 시 실행되는 함수
@@ -23,9 +23,9 @@ public class CropTime : CropSaveLoad
         if (value)
         {  
             if(frist != true){
-                Debug.Log("Crop OnApplicationFocus true 실행");
+                //Debug.Log("Crop OnApplicationFocus true 실행");
                 LoadCrop();             //이까진 됐음.      - 잘 들고 온다.   
-                Debug.Log("Save된 Crop Time을 들고옴.");    
+                //Debug.Log("Save된 Crop Time을 들고옴.");    
                 LoadAppQuitTime();      //그래서 그만둔 시간만 들고옴.       - 잘들고 온다. 
             }else{
                 frist = false;

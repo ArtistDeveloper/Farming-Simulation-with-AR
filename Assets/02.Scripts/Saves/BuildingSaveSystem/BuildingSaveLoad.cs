@@ -5,7 +5,7 @@ using UnityEngine;
 public class BuildingSaveLoad : MonoBehaviour
 {
     public GameObject buildingPrefab1, buildingPrefab2, buildingPrefab3, buildingPrefab4, 
-                      buildingPrefab5, buildingPrefab6, buildingPrefab7;
+                      buildingPrefab5, buildingPrefab6, buildingPrefab7, buildingPrefab8, buildingPrefab9;
     private AllBuildingData save;
     private int saveLength;
     void Start(){       //원래 Awake
@@ -56,6 +56,7 @@ public class BuildingSaveLoad : MonoBehaviour
             int gridX = save.buildingSaveDatas[i].gridX;
             int gridZ = save.buildingSaveDatas[i].gridZ;
             Vector3 originPos = GameObject.FindObjectOfType<GridBuildingSystem>().GetComponent<GridBuildingSystem>().originPos;
+            Debug.Log("Building originPos: " + originPos);
 
             Quaternion rotate = Quaternion.identity;
             rotate.eulerAngles = new Vector3(save.buildingSaveDatas[i].rotateX, save.buildingSaveDatas[i].rotateY, save.buildingSaveDatas[i].rotateZ); 
@@ -63,19 +64,42 @@ public class BuildingSaveLoad : MonoBehaviour
             //Debug.Log("Load에서 buildingKindNum: "+buildingKindNumber);
             if(buildingKind == 1){                          
                 GameObject genedBuilding = Instantiate(buildingPrefab1, new Vector3 (gridX, 0, gridZ) * 1.0f + originPos, rotate);  //position대로 가길 바람.
+                genedBuilding.GetComponent<Building>().gridX = gridX;
+                genedBuilding.GetComponent<Building>().gridZ = gridZ;
             } else if(buildingKind == 2){
                 GameObject genedBuilding = Instantiate(buildingPrefab2, new Vector3 (gridX, 0, gridZ) * 1.0f + originPos, rotate);
+                genedBuilding.GetComponent<Building>().gridX = gridX;
+                genedBuilding.GetComponent<Building>().gridZ = gridZ;
             } else if(buildingKind == 3){
                 GameObject genedBuilding = Instantiate(buildingPrefab3, new Vector3 (gridX, 0, gridZ) * 1.0f + originPos, rotate);
+                genedBuilding.GetComponent<Building>().gridX = gridX;
+                genedBuilding.GetComponent<Building>().gridZ = gridZ;
             } else if(buildingKind == 4){
                 GameObject genedBuilding = Instantiate(buildingPrefab4, new Vector3 (gridX, 0, gridZ) * 1.0f + originPos, rotate);
+                genedBuilding.GetComponent<Building>().gridX = gridX;
+                genedBuilding.GetComponent<Building>().gridZ = gridZ;
             } else if(buildingKind == 5){
                 GameObject genedBuilding = Instantiate(buildingPrefab5, new Vector3 (gridX, 0, gridZ) * 1.0f + originPos, rotate);
+                genedBuilding.GetComponent<Building>().gridX = gridX;
+                genedBuilding.GetComponent<Building>().gridZ = gridZ;
             } else if(buildingKind == 6){
                 GameObject genedBuilding = Instantiate(buildingPrefab6, new Vector3 (gridX, 0, gridZ) * 1.0f + originPos, rotate);
+                genedBuilding.GetComponent<Building>().gridX = gridX;
+                genedBuilding.GetComponent<Building>().gridZ = gridZ;
             } else if(buildingKind == 7){
                 GameObject genedBuilding = Instantiate(buildingPrefab7, new Vector3 (gridX, 0, gridZ) * 1.0f + originPos, rotate);
+                genedBuilding.GetComponent<Building>().gridX = gridX;
+                genedBuilding.GetComponent<Building>().gridZ = gridZ;
+            }else if(buildingKind == 8){
+                GameObject genedBuilding = Instantiate(buildingPrefab8, new Vector3 (gridX, 0, gridZ) * 1.0f + originPos, rotate);
+                genedBuilding.GetComponent<Building>().gridX = gridX;
+                genedBuilding.GetComponent<Building>().gridZ = gridZ;
+            } else if(buildingKind == 9){
+                GameObject genedBuilding = Instantiate(buildingPrefab9, new Vector3 (gridX, 0, gridZ) * 1.0f + originPos, rotate);
+                genedBuilding.GetComponent<Building>().gridX = gridX;
+                genedBuilding.GetComponent<Building>().gridZ = gridZ;
             }
+            
         }
 
         for(int i = 0; i<saveLength; i++){

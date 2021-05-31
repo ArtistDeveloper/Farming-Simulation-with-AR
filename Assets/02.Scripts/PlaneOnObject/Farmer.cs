@@ -12,11 +12,11 @@ namespace PlaneOnObject
         public GameObject farmerPrefab;
         public static GameObject staticFarmer; 
 
-        // void Awake()
-        // {
-        //     ARTapToPlaceObject aRTapToPlace = GameObject.FindGameObjectWithTag("ARinteraction").GetComponent<ARTapToPlaceObject>();
-        //     aRTapToPlace.planeOnObjectDelegate += FarmerInstantiate;
-        // }        
+        void Awake()
+        {
+            ARTapToPlaceObject aRTapToPlace = GameObject.FindGameObjectWithTag("ARinteraction").GetComponent<ARTapToPlaceObject>();
+            aRTapToPlace.planeOnObjectDelegate += FarmerInstantiate;
+        }        
 
         void Start()
         {
@@ -29,10 +29,9 @@ namespace PlaneOnObject
 
         }
 
-        public static void FarmerInstantiate(Transform parentTransform)
+        public static void FarmerInstantiate(Vector3 planeTransformPosition, Quaternion rotation)
         {
-           Transform farmPlaneTransform = parentTransform;
-           Vector3 yUpperPos = farmPlaneTransform.position;
+           Vector3 yUpperPos = planeTransformPosition;
            yUpperPos.y += 0.5f;
            Instantiate(staticFarmer, yUpperPos, staticFarmer.transform.rotation); 
         }

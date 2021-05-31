@@ -17,7 +17,11 @@ public class PrefabCr : MonoBehaviour
     public GameObject anfxodzm;
 
     public GameObject ekfrwkd;
+
+    public GameObject wlq;
+    public GameObject tkdwja;
     //public GameObject
+    
 
     
     [SerializeField] private Text DiamainText;
@@ -28,6 +32,11 @@ public class PrefabCr : MonoBehaviour
     public GameObject farmPrefab;
     GameObject farm;
 
+    private InventoryUI inventoryUI;
+
+    void Start(){
+        inventoryUI = GameObject.Find("GameObject").transform.Find("UI").transform.Find("InventoryBBG").GetComponent<InventoryUI>();
+    }
     public void OnYes(){
       
        if(buildText.text=="울타리1을 설치하시겠습니까?")
@@ -138,21 +147,88 @@ public class PrefabCr : MonoBehaviour
             }
         }
 
+        if(buildText.text=="집을 설치하시겠습니까?")
+       {
+         useDia = int.Parse(DiamainText.text);
+           if(useDia>0)
+           {
+                Instantiate(wlq, new Vector3(0,0,0), Quaternion.identity); 
+                ChageDia=useDia-0;
+                DiamainText.text="";
+                DiamainText.text=ChageDia.ToString();
+                ckd.SetActive(false);
+            }
+            else
+            {
+                dkseho.SetActive(true);
+                ckd.SetActive(false); 
+            }
+        }
+
+        if(buildText.text=="상점을 설치하시겠습니까?")
+       {
+         useDia = int.Parse(DiamainText.text);
+           if(useDia>0)
+           {
+                Instantiate(tkdwja, new Vector3(0,0,0), Quaternion.identity); 
+                ChageDia=useDia-0;
+                DiamainText.text="";
+                DiamainText.text=ChageDia.ToString();
+                ckd.SetActive(false);
+            }
+            else
+            {
+                dkseho.SetActive(true);
+                ckd.SetActive(false); 
+            }
+        }
+
         //-------------------------------------------------------------
 
          if(buildText.text=="아스파라거스를 심을까요?"){
 
          useDia = int.Parse(DiamainText.text);
            if(useDia>500)
-           {
-                farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                Farm farmScript = farm.GetComponent<Farm>();
-                farmScript.GenerateFarm(1, 1, 0);
+           {    int i = 0;
+                for(i = 0; i<inventoryUI.boxCount; i=i+0){
+                    if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("Asparagus"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 0);
+                        i=inventoryUI.boxCount;
 
-                ChageDia=useDia-500;
-                DiamainText.text="";
-                DiamainText.text=ChageDia.ToString();
-                ckd.SetActive(false);
+                        ChageDia=useDia-500;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxneercan==inventoryUI.boxCount)
+                    {   
+                        inventoryUI.qnwhr.SetActive(true);
+                        i=inventoryUI.boxCount;
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("In"))
+                    {   
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 0);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-500;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                        
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                    
+               
+                } 
             }
             else
             {
@@ -165,15 +241,44 @@ public class PrefabCr : MonoBehaviour
 
          useDia = int.Parse(DiamainText.text);
            if(useDia>1000)
-           {
-                farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                Farm farmScript = farm.GetComponent<Farm>();
-                farmScript.GenerateFarm(1, 1, 1);
-                
-                ChageDia=useDia-1000;
-                DiamainText.text="";
-                DiamainText.text=ChageDia.ToString();
-                ckd.SetActive(false);
+           {    int i = 0;
+                for(i = 0; i<inventoryUI.boxCount; i=i+0){
+                    if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("Beet"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 1);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-1000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxneercan==inventoryUI.boxCount)
+                    {
+                        inventoryUI.qnwhr.SetActive(true);
+                        i=inventoryUI.boxCount;
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("In"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 1);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-1000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+               
+                } 
             }
             else
             {
@@ -186,15 +291,44 @@ public class PrefabCr : MonoBehaviour
 
          useDia = int.Parse(DiamainText.text);
            if(useDia>2000)
-           {
-                farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                Farm farmScript = farm.GetComponent<Farm>();
-                farmScript.GenerateFarm(1, 1, 2);
-                
-                ChageDia=useDia-2000;
-                DiamainText.text="";
-                DiamainText.text=ChageDia.ToString();
-                ckd.SetActive(false);
+           {    int i = 0;
+                for(i = 0; i<inventoryUI.boxCount; i=i+0){
+                    if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("Broccoli"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 2);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-2000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxneercan==inventoryUI.boxCount)
+                    {
+                        inventoryUI.qnwhr.SetActive(true);
+                        i=inventoryUI.boxCount;
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("In"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 2);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-2000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+               
+                }
             }
             else
             {
@@ -208,15 +342,44 @@ public class PrefabCr : MonoBehaviour
 
          useDia = int.Parse(DiamainText.text);
            if(useDia>3000)
-           {
-                farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                Farm farmScript = farm.GetComponent<Farm>();
-                farmScript.GenerateFarm(1, 1, 3);
-                
-                ChageDia=useDia-3000;
-                DiamainText.text="";
-                DiamainText.text=ChageDia.ToString();
-                ckd.SetActive(false);
+           {  int i = 0;
+                for(i = 0; i<inventoryUI.boxCount; i=i+0){
+                    if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("Carrot"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 3);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-3000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxneercan==inventoryUI.boxCount)
+                    {
+                        inventoryUI.qnwhr.SetActive(true);
+                        i=inventoryUI.boxCount;
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("In"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 3);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-3000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+               
+                }
             }
             else
             {
@@ -230,15 +393,44 @@ public class PrefabCr : MonoBehaviour
 
          useDia = int.Parse(DiamainText.text);
            if(useDia>4000)
-           {
-                farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                Farm farmScript = farm.GetComponent<Farm>();
-                farmScript.GenerateFarm(1, 1, 4);
-                
-                ChageDia=useDia-4000;
-                DiamainText.text="";
-                DiamainText.text=ChageDia.ToString();
-                ckd.SetActive(false);
+           {  int i = 0;
+                for(i = 0; i<inventoryUI.boxCount; i=i+0){
+                    if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("Lettuce"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 4);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-4000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxneercan==inventoryUI.boxCount)
+                    {
+                        inventoryUI.qnwhr.SetActive(true);
+                        i=inventoryUI.boxCount;
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("In"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 4);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-4000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+               
+                }
             }
             else
             {
@@ -252,15 +444,44 @@ public class PrefabCr : MonoBehaviour
 
          useDia = int.Parse(DiamainText.text);
            if(useDia>5000)
-           {
-                farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                Farm farmScript = farm.GetComponent<Farm>();
-                farmScript.GenerateFarm(1, 1, 5);
-                
-                ChageDia=useDia-5000;
-                DiamainText.text="";
-                DiamainText.text=ChageDia.ToString();
-                ckd.SetActive(false);
+           {  int i = 0;
+                for(i = 0; i<inventoryUI.boxCount; i=i+0){
+                    if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("Onion"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 5);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-5000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxneercan==inventoryUI.boxCount)
+                    {
+                        inventoryUI.qnwhr.SetActive(true);
+                        i=inventoryUI.boxCount;
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("In"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 5);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-5000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+               
+                }
             }
             else
             {
@@ -273,15 +494,44 @@ public class PrefabCr : MonoBehaviour
 
          useDia = int.Parse(DiamainText.text);
            if(useDia>6000)
-           {
-                farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                Farm farmScript = farm.GetComponent<Farm>();
-                farmScript.GenerateFarm(1, 1, 6);
-                
-                ChageDia=useDia-6000;
-                DiamainText.text="";
-                DiamainText.text=ChageDia.ToString();
-                ckd.SetActive(false);
+           {  int i = 0;
+                for(i = 0; i<inventoryUI.boxCount; i=i+0){
+                    if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("Potato"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 6);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-6000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxneercan==inventoryUI.boxCount)
+                    {
+                        inventoryUI.qnwhr.SetActive(true);
+                        i=inventoryUI.boxCount;
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("In"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 6);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-6000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+               
+                }
             }
             else
             {
@@ -294,15 +544,44 @@ public class PrefabCr : MonoBehaviour
 
          useDia = int.Parse(DiamainText.text);
            if(useDia>7000)
-           {
-                farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                Farm farmScript = farm.GetComponent<Farm>();
-                farmScript.GenerateFarm(1, 1, 7);
-                
-                ChageDia=useDia-7000;
-                DiamainText.text="";
-                DiamainText.text=ChageDia.ToString();
-                ckd.SetActive(false);
+           {    int i = 0;
+                for(i = 0; i<inventoryUI.boxCount; i=i+0){
+                    if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("Pumpkin"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 7);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-7000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxneercan==inventoryUI.boxCount)
+                    {
+                        inventoryUI.qnwhr.SetActive(true);
+                        i=inventoryUI.boxCount;
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("In"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 7);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-7000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+               
+                }
             }
             else
             {
@@ -315,15 +594,44 @@ public class PrefabCr : MonoBehaviour
 
          useDia = int.Parse(DiamainText.text);
            if(useDia>8000)
-           {
-                farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                Farm farmScript = farm.GetComponent<Farm>();
-                farmScript.GenerateFarm(1, 1, 8);
-                
-                ChageDia=useDia-8000;
-                DiamainText.text="";
-                DiamainText.text=ChageDia.ToString();
-                ckd.SetActive(false);
+           {  int i = 0;
+                for(i = 0; i<inventoryUI.boxCount; i=i+0){
+                    if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("Watermelon"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 8);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-8000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxneercan==inventoryUI.boxCount)
+                    {
+                        inventoryUI.qnwhr.SetActive(true);
+                        i=inventoryUI.boxCount;
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("In"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 8);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-8000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+               
+                }
             }
             else
             {
@@ -336,15 +644,44 @@ public class PrefabCr : MonoBehaviour
 
          useDia = int.Parse(DiamainText.text);
            if(useDia>9000)
-           {
-                farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                Farm farmScript = farm.GetComponent<Farm>();
-                farmScript.GenerateFarm(1, 1, 9);
-                 
-                ChageDia=useDia-9000;
-                DiamainText.text="";
-                DiamainText.text=ChageDia.ToString();
-                ckd.SetActive(false);
+           {  int i = 0;
+                for(i = 0; i<inventoryUI.boxCount; i=i+0){
+                    if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("Wheat"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 9);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-9000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxneercan==inventoryUI.boxCount)
+                    {
+                        inventoryUI.qnwhr.SetActive(true);
+                        i=inventoryUI.boxCount;
+                        ckd.SetActive(false);
+                    }
+                    else if(inventoryUI.boxes[i].GetComponent<Button>().CompareTag("In"))
+                    {
+                        farm = Instantiate(farmPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        Farm farmScript = farm.GetComponent<Farm>();
+                        farmScript.GenerateFarm(1, 1, 9);
+                        i=inventoryUI.boxCount;
+
+                        ChageDia=useDia-9000;
+                        DiamainText.text="";
+                        DiamainText.text=ChageDia.ToString();
+                        ckd.SetActive(false);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+               
+                }
             }
             else
             {

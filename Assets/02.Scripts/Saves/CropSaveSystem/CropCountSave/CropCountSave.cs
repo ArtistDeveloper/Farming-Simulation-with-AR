@@ -49,7 +49,7 @@ public class CropCountSave : MonoBehaviour
             watermelon_Text.text = watermelon.ToString("0");
         }else{
             watermelon_Text.text = "0";
-            Debug.Log("Watermelon PlayerPrefs 못찾음!!!");
+            //Debug.Log("Watermelon PlayerPrefs 못찾음!!!");
         }
     
     
@@ -58,7 +58,7 @@ public class CropCountSave : MonoBehaviour
             Carrot_Text.text = Carrot.ToString("0");
         }else{
             Carrot_Text.text = " 0";
-            Debug.Log("Carrot PlayerPrefs 못찾음!!!");
+            //Debug.Log("Carrot PlayerPrefs 못찾음!!!");
         }
 
 
@@ -67,7 +67,7 @@ public class CropCountSave : MonoBehaviour
             Potato_Text.text = Potato.ToString("0");
         }else{
             Potato_Text.text = "0";
-            Debug.Log("Potato PlayerPrefs 못찾음!!!");
+            //Debug.Log("Potato PlayerPrefs 못찾음!!!");
         }
 
 
@@ -76,7 +76,7 @@ public class CropCountSave : MonoBehaviour
             Asparagus_Text.text = Asparagus.ToString("0");
         }else{
             Asparagus_Text.text = "0";
-            Debug.Log("Asparagus PlayerPrefs 못찾음!!!");
+            //Debug.Log("Asparagus PlayerPrefs 못찾음!!!");
         }
     
 
@@ -85,7 +85,7 @@ public class CropCountSave : MonoBehaviour
             Beet_Text.text = Beet.ToString("0");
         }else{
             Beet_Text.text = "0";
-            Debug.Log("Beet PlayerPrefs 못찾음!!!");
+            //Debug.Log("Beet PlayerPrefs 못찾음!!!");
         }
    
 
@@ -94,7 +94,7 @@ public class CropCountSave : MonoBehaviour
             Pumkin_Text.text = Pumkin.ToString("0");
         }else{
             Pumkin_Text.text = "0";
-            Debug.Log("Pumkin PlayerPrefs 못찾음!!!");
+            //Debug.Log("Pumkin PlayerPrefs 못찾음!!!");
         }
     
 
@@ -103,7 +103,7 @@ public class CropCountSave : MonoBehaviour
             Onion_Text.text = Onion.ToString("0");
         }else{
             Onion_Text.text = "0";
-            Debug.Log("Onion PlayerPrefs 못찾음!!!");
+            //Debug.Log("Onion PlayerPrefs 못찾음!!!");
         }
     
 
@@ -112,7 +112,7 @@ public class CropCountSave : MonoBehaviour
             Lettuce_Text.text = Lettuce.ToString("0");
         }else{
             Lettuce_Text.text = "0";
-            Debug.Log("Lettuce PlayerPrefs 못찾음!!!");
+            //Debug.Log("Lettuce PlayerPrefs 못찾음!!!");
         }
 
 
@@ -121,7 +121,7 @@ public class CropCountSave : MonoBehaviour
             Wheat_Text.text = Wheat.ToString("0");
         }else{
             Wheat_Text.text = "0";
-            Debug.Log("Wheat PlayerPrefs 못찾음!!!");
+            //Debug.Log("Wheat PlayerPrefs 못찾음!!!");
         }
    
 
@@ -130,7 +130,7 @@ public class CropCountSave : MonoBehaviour
             Broccoli_Text.text = Broccoli.ToString("0");
         }else{
             Broccoli_Text.text = "0";
-            Debug.Log("Broccoli PlayerPrefs 못찾음!!!");
+            //Debug.Log("Broccoli PlayerPrefs 못찾음!!!");
         }
     }
 

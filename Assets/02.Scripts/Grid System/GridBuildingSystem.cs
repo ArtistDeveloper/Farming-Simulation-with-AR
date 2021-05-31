@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using ArIndicator;
 
@@ -9,13 +10,16 @@ using ArIndicator;
 public class GridBuildingSystem : MonoBehaviour
 {
     private Grid<GridObject> grid;
-    public int x, z;
     private Vector3 touchPosition;
-    private int touchX, touchZ;
     private GameObject saveManager;
-    public Vector3 originPos;
+    private static int buildSelectNum = 0;
+    private static int cropKindNum = 0;
 
-    // public static TouchXZpostion touchXZpostion;
+    public int x, z;
+    public Vector3 originPos;
+    public NavMeshSurface surface;
+
+
 
     // 건물 설치 방향 정하기
     private static PlacedObjectTypeSO.Dir dir = PlacedObjectTypeSO.Dir.Down; // Down이 디폴트
@@ -104,10 +108,10 @@ public class GridBuildingSystem : MonoBehaviour
         // && (EventSystem.current.IsPointerOverGameObject()==false) 
         // && !IsPointerOverUIObject(TouchAR.GetWolrdTouchPosition3D())
         // Input.GetMouseButtonDown(0)
-        if (installMode && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (installMode && Input.GetMouseButtonDown(0))
         {
             // !EventSystem.current.IsPointerOverGameObject() 컴퓨터에서는 됨.
-            if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+            if (true)
             {
                 touchPosition = TouchAR.GetWolrdTouchPosition3D(); //3D프로젝트 마우스의 포지션을 가져오기.
 
@@ -133,8 +137,9 @@ public class GridBuildingSystem : MonoBehaviour
                     Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, z) +
                         new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.CellSize;
 
-                    PlacedObjectOfBuilding placedObject = PlacedObjectOfBuilding.Create(placedObjectWorldPosition, new Vector2Int(x, z), dir, placedObjectTypeSO);
-                    
+                    PlacedObjectOfBuilding placedObject = PlacedObjectOfBuilding.Create(placedObjectWorldPosition, new Vector2Int(x, z), dir, placedObjectTypeSO, cropKindNum);
+                    surface.BuildNavMesh();
+                    Debug.Log("Create작동");
 
                     // 건물 영역만큼 건물이 설치된 부위로 set하기.      
                     // farmPlane에서 터치한 x, z좌표에 해당하는 GridOvject셀을 가져와서 gridPosition만큼 설치된 부분으로 set한다.
@@ -143,8 +148,6 @@ public class GridBuildingSystem : MonoBehaviour
                         grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlcaedObject(placedObject);
                     }
                     gridobject.SetPlcaedObject(placedObject);
-
-
                 }
             }
         }
@@ -173,9 +176,80 @@ public class GridBuildingSystem : MonoBehaviour
 
     public void SelectBuilding(int number)
     {
+        buildSelectNum = number;
         switch (number)
         {
+            // Fence Category
+            case 0:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                break;
             case 1:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                break;
+            case 2:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                break;
+
+            // Crop Category
+            case 100:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                cropKindNum = 0;
+                break;
+            case 101:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                cropKindNum = 1;
+                break;
+            case 102:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                cropKindNum = 2;
+                break;
+            case 103:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                cropKindNum = 3;
+                break;
+            case 104:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                cropKindNum = 4;
+                break;
+            case 105:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                cropKindNum = 5;
+                break;
+            case 106:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                cropKindNum = 6;
+                break;
+            case 107:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                cropKindNum = 7;
+                break;
+            case 108:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                cropKindNum = 8;
+                break;
+            case 109:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                cropKindNum = 9;
+                break;
+
+
+            // Object Category
+            case 200:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                break;
+            case 201:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                break;
+            case 202:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                break;
+            case 203:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                break;
+            case 204:
+                placedObjectTypeSO = placedObjectTypeSOList[number];
+                break;
+            case 205:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
                 break;
         }
@@ -191,6 +265,12 @@ public class GridBuildingSystem : MonoBehaviour
     {
         if (installToggle == 1) installMode = true;
         else if (installToggle == 0) installMode = false;
+        // ClearInstallPrefab();
+    }
+
+    public void ClearInstallPrefab()
+    {
+        placedObjectTypeSO = null;
     }
 
     public bool IsPointerOverUIObject(Vector2 touchPos)

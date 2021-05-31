@@ -54,11 +54,12 @@ public class Grid<TGridObject>
             for (int z = 0; z < gridArray.GetLength(1); z++)
             {
                 debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z].ToString(), planeRotation, GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, 5, Color.white, TextAnchor.MiddleCenter);
-                // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);
+                // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);       //x,z 각 셀의 위치, 100f는 얼마나 있는지 초
                 // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
             }
             // Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
             // Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+            //재준이가 신경쓸 파트는 여기까지
 
             // OnGridObjectChanged Event에 익명함수를 등록하는 것 같음.
             // OnGridObjectChanged += (object sender, OnGridObjectChangedEventArgs eventArgs) =>

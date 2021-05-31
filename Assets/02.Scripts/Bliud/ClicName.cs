@@ -15,6 +15,9 @@ public class ClicName : MonoBehaviour
     public void OnWater(){ NameText.text="물탱크를 설치하시겠습니까?"; }
     public void Onekfwkd(){ NameText.text="닭장을 설치하시겠습니까?"; }
 
+    public void Onwlq(){ NameText.text="집을 설치하시겠습니까?"; }
+    public void Ontkdwja(){ NameText.text="상점을 설치하시겠습니까?"; }
+
 
     public void Onclick0(){ NameText.text="아스파라거스를 심을까요?"; }
     public void Onclick1(){ NameText.text="사탕무를 심을까요?"; }

@@ -11,7 +11,7 @@ public class PlacedObjectOfBuilding : MonoBehaviour
     // building 짓는 함수
     // worldPosition : 터치한 곳의 월드 포지션. placedObjectTypeSO : 설치하고 싶은 building의 타입
     public static PlacedObjectOfBuilding Create(Vector3 worldPosition, Vector2Int origin, PlacedObjectTypeSO.Dir dir,
-    PlacedObjectTypeSO placedObjectTypeSO)
+    PlacedObjectTypeSO placedObjectTypeSO, int cropKindNum)
     {
         GameObject placeObjectTransform =
         Instantiate(
@@ -34,6 +34,7 @@ public class PlacedObjectOfBuilding : MonoBehaviour
             Farm farmSaveComponent = placeObjectTransform.GetComponent<Farm>();
             farmSaveComponent.takeX(origin.x);
             farmSaveComponent.takeZ(origin.y);
+            farmSaveComponent.GenerateFarm(1, 1, cropKindNum);
         }
 
         PlacedObjectOfBuilding placedObject = placeObjectTransform.GetComponent<PlacedObjectOfBuilding>();

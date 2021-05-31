@@ -28,6 +28,8 @@ public class SellCount : MonoBehaviour
     private int Sellcount;
     //계산개수
     private int Minuscount;
+
+    private InventoryUI inventoryUI;
     
 
     public void DownClick(){
@@ -64,6 +66,8 @@ public class SellCount : MonoBehaviour
         price = int.Parse(DiamondText.text);
         //ChageDia = price*Maxcount;
         DiamondText.text = price.ToString();
+        
+        inventoryUI = GameObject.Find("GameObject").transform.Find("UI").transform.Find("InventoryBBG").GetComponent<InventoryUI>();
 
     }
 
@@ -89,9 +93,7 @@ public class SellCount : MonoBehaviour
             DiamondText.text="";
             DiamondText.text=ChageDia.ToString();
         }
-              
-
-
+            
     }
 
     void Update(){
@@ -100,28 +102,90 @@ public class SellCount : MonoBehaviour
 
 
     public void WatermelonSell()
-    {
-        //수박 개수 감소
+    {   //수박 개수 감소
         Sellcount=ChageCount;
 
-        Minuscount=Maxcount-Sellcount;
+        if(Maxcount==Sellcount)
+        {
+            PlayerPrefs.SetInt("watermelon",0);
 
-        PlayerPrefs.SetInt("watermelon",Minuscount);
+            SellcountText.text="0";
 
-        SellcountText.text=Minuscount.ToString();
+            //다이아 증가
+            Diamondadd=int.Parse(DiaMain.text);
+            Diamondadd = Diamondadd+int.Parse(DiamondText.text);
+            DiaMain.text=Diamondadd.ToString();
 
-        //다이아 증가
-        Diamondadd=int.Parse(DiaMain.text);
-        Diamondadd = Diamondadd+int.Parse(DiamondText.text);
-        DiaMain.text=Diamondadd.ToString();
+            Sellckd.SetActive(false);
 
-        Sellckd.SetActive(false);
+            int j=0;
+            for(j = 0; j<inventoryUI.boxCount; j=j+0){
+                if(inventoryUI.boxes[j].GetComponent<Button>().CompareTag("watermelon")){
 
+                        inventoryUI.boxes[j].GetComponent<Button>().image.sprite=null;
+                        inventoryUI.boxes[j].GetComponent<Button>().tag="In";
+                        inventoryUI.boxneercan--;
+                        j=inventoryUI.boxCount;  
+                }
+                else
+                {
+                    j++;
+                }
+            }
+        }
+        else
+        {
+            Minuscount=Maxcount-Sellcount;
+
+            PlayerPrefs.SetInt("watermelon",Minuscount);
+
+            SellcountText.text=Minuscount.ToString();
+
+            //다이아 증가
+            Diamondadd=int.Parse(DiaMain.text);
+            Diamondadd = Diamondadd+int.Parse(DiamondText.text);
+            DiaMain.text=Diamondadd.ToString();
+
+            Sellckd.SetActive(false); 
+        }
     }
+
     public void CarrotSell()
     {
         //당근 개수 감소
         Sellcount=ChageCount;
+
+        if(Maxcount==Sellcount)
+        {
+            PlayerPrefs.SetInt("Carrot",0);
+
+            SellcountText.text="0";
+
+            //다이아 증가
+            Diamondadd=int.Parse(DiaMain.text);
+            Diamondadd = Diamondadd+int.Parse(DiamondText.text);
+            DiaMain.text=Diamondadd.ToString();
+
+            Sellckd.SetActive(false);
+
+            int j=0;
+            for(j = 0; j<inventoryUI.boxCount; j=j+0){
+                if(inventoryUI.boxes[j].GetComponent<Button>().CompareTag("Carrot")){
+
+                        inventoryUI.boxes[j].GetComponent<Button>().image.sprite=null;
+                        inventoryUI.boxes[j].GetComponent<Button>().tag="In";
+                        inventoryUI.boxneercan--;
+                        j=inventoryUI.boxCount;  
+                }
+                else
+                {
+                    j++;
+                }
+            }
+
+        }
+        else
+        {
 
         Minuscount=Maxcount-Sellcount;
 
@@ -135,13 +199,45 @@ public class SellCount : MonoBehaviour
         DiaMain.text=Diamondadd.ToString();
 
         Sellckd.SetActive(false);
-
+        }
     }
     public void PotatoSell()
     {
         //감자 개수 감소
         
         Sellcount=ChageCount;
+
+        if(Maxcount==Sellcount)
+        {
+            PlayerPrefs.SetInt("Potato",0);
+
+            SellcountText.text="0";
+
+            //다이아 증가
+            Diamondadd=int.Parse(DiaMain.text);
+            Diamondadd = Diamondadd+int.Parse(DiamondText.text);
+            DiaMain.text=Diamondadd.ToString();
+
+            Sellckd.SetActive(false);
+
+            int j=0;
+            for(j = 0; j<inventoryUI.boxCount; j=j+0){
+                if(inventoryUI.boxes[j].GetComponent<Button>().CompareTag("Potato")){
+
+                        inventoryUI.boxes[j].GetComponent<Button>().image.sprite=null;
+                        inventoryUI.boxes[j].GetComponent<Button>().tag="In";
+                        inventoryUI.boxneercan--;
+                        j=inventoryUI.boxCount;  
+                }
+                else
+                {
+                    j++;
+                }
+            }
+
+        }
+        else
+        {
 
         Minuscount=Maxcount-Sellcount;
 
@@ -155,6 +251,7 @@ public class SellCount : MonoBehaviour
         DiaMain.text=Diamondadd.ToString();
 
         Sellckd.SetActive(false);
+        }
 
     }
     public void AsparagusSell()
@@ -162,6 +259,37 @@ public class SellCount : MonoBehaviour
         //아스파 개수 감소
         Sellcount=ChageCount;
 
+        if(Maxcount==Sellcount)
+        {
+            PlayerPrefs.SetInt("Asparagus",0);
+
+            SellcountText.text="0";
+
+            //다이아 증가
+            Diamondadd=int.Parse(DiaMain.text);
+            Diamondadd = Diamondadd+int.Parse(DiamondText.text);
+            DiaMain.text=Diamondadd.ToString();
+
+            Sellckd.SetActive(false);
+
+            int j=0;
+            for(j = 0; j<inventoryUI.boxCount; j=j+0){
+                if(inventoryUI.boxes[j].GetComponent<Button>().CompareTag("Asparagus")){
+
+                        inventoryUI.boxes[j].GetComponent<Button>().image.sprite=null;
+                        inventoryUI.boxes[j].GetComponent<Button>().tag="In";
+                        inventoryUI.boxneercan--;
+                        j=inventoryUI.boxCount;  
+                }
+                else
+                {
+                    j++;
+                }
+            }
+
+        }
+        else
+        {
         Minuscount=Maxcount-Sellcount;
 
         PlayerPrefs.SetInt("Asparagus",Minuscount);
@@ -174,6 +302,7 @@ public class SellCount : MonoBehaviour
         DiaMain.text=Diamondadd.ToString();
 
         Sellckd.SetActive(false);
+        }
 
     }
     public void BeetSell()
@@ -181,6 +310,37 @@ public class SellCount : MonoBehaviour
         //사탕무 개수 감소
         Sellcount=ChageCount;
 
+        if(Maxcount==Sellcount)
+        {
+            PlayerPrefs.SetInt("Beet",0);
+
+            SellcountText.text="0";
+
+            //다이아 증가
+            Diamondadd=int.Parse(DiaMain.text);
+            Diamondadd = Diamondadd+int.Parse(DiamondText.text);
+            DiaMain.text=Diamondadd.ToString();
+
+            Sellckd.SetActive(false);
+
+            int j=0;
+            for(j = 0; j<inventoryUI.boxCount; j=j+0){
+                if(inventoryUI.boxes[j].GetComponent<Button>().CompareTag("Beet")){
+
+                        inventoryUI.boxes[j].GetComponent<Button>().image.sprite=null;
+                        inventoryUI.boxes[j].GetComponent<Button>().tag="In";
+                        inventoryUI.boxneercan--;
+                        j=inventoryUI.boxCount;  
+                }
+                else
+                {
+                    j++;
+                }
+            }
+
+        }
+        else
+        {
         Minuscount=Maxcount-Sellcount;
 
         PlayerPrefs.SetInt("Beet",Minuscount);
@@ -193,12 +353,44 @@ public class SellCount : MonoBehaviour
         DiaMain.text=Diamondadd.ToString();
 
         Sellckd.SetActive(false);
-
+        }
     }
     public void PumkinSell()
     {
         //호박 개수 감소
         Sellcount=ChageCount;
+
+        if(Maxcount==Sellcount)
+        {
+            PlayerPrefs.SetInt("Pumpkin",0);
+
+            SellcountText.text="0";
+
+            //다이아 증가
+            Diamondadd=int.Parse(DiaMain.text);
+            Diamondadd = Diamondadd+int.Parse(DiamondText.text);
+            DiaMain.text=Diamondadd.ToString();
+
+            Sellckd.SetActive(false);
+
+            int j=0;
+            for(j = 0; j<inventoryUI.boxCount; j=j+0){
+                if(inventoryUI.boxes[j].GetComponent<Button>().CompareTag("Pumpkin")){
+
+                        inventoryUI.boxes[j].GetComponent<Button>().image.sprite=null;
+                        inventoryUI.boxes[j].GetComponent<Button>().tag="In";
+                        inventoryUI.boxneercan--;
+                        j=inventoryUI.boxCount;  
+                }
+                else
+                {
+                    j++;
+                }
+            }
+
+        }
+        else
+        {
 
         Minuscount=Maxcount-Sellcount;
 
@@ -212,12 +404,45 @@ public class SellCount : MonoBehaviour
         DiaMain.text=Diamondadd.ToString();
 
         Sellckd.SetActive(false);
+        }
 
     }
     public void OnionSell()
     {
         //양파 개수 감소
         Sellcount=ChageCount;
+
+        if(Maxcount==Sellcount)
+        {
+            PlayerPrefs.SetInt("Onion",0);
+
+            SellcountText.text="0";
+
+            //다이아 증가
+            Diamondadd=int.Parse(DiaMain.text);
+            Diamondadd = Diamondadd+int.Parse(DiamondText.text);
+            DiaMain.text=Diamondadd.ToString();
+
+            Sellckd.SetActive(false);
+
+            int j=0;
+            for(j = 0; j<inventoryUI.boxCount; j=j+0){
+                if(inventoryUI.boxes[j].GetComponent<Button>().CompareTag("Onion")){
+
+                        inventoryUI.boxes[j].GetComponent<Button>().image.sprite=null;
+                        inventoryUI.boxes[j].GetComponent<Button>().tag="In";
+                        inventoryUI.boxneercan--;
+                        j=inventoryUI.boxCount;  
+                }
+                else
+                {
+                    j++;
+                }
+            }
+
+        }
+        else
+        {
 
         Minuscount=Maxcount-Sellcount;
 
@@ -231,12 +456,45 @@ public class SellCount : MonoBehaviour
         DiaMain.text=Diamondadd.ToString();
 
         Sellckd.SetActive(false);
+        }
 
     }
     public void LettuceSell()
     {
         //양상추 개수 감소
         Sellcount=ChageCount;
+
+        if(Maxcount==Sellcount)
+        {
+            PlayerPrefs.SetInt("Lettuce",0);
+
+            SellcountText.text="0";
+
+            //다이아 증가
+            Diamondadd=int.Parse(DiaMain.text);
+            Diamondadd = Diamondadd+int.Parse(DiamondText.text);
+            DiaMain.text=Diamondadd.ToString();
+
+            Sellckd.SetActive(false);
+
+            int j=0;
+            for(j = 0; j<inventoryUI.boxCount; j=j+0){
+                if(inventoryUI.boxes[j].GetComponent<Button>().CompareTag("Lettuce")){
+
+                        inventoryUI.boxes[j].GetComponent<Button>().image.sprite=null;
+                        inventoryUI.boxes[j].GetComponent<Button>().tag="In";
+                        inventoryUI.boxneercan--;
+                        j=inventoryUI.boxCount;  
+                }
+                else
+                {
+                    j++;
+                }
+            }
+
+        }
+        else
+        {
 
         Minuscount=Maxcount-Sellcount;
 
@@ -250,12 +508,44 @@ public class SellCount : MonoBehaviour
         DiaMain.text=Diamondadd.ToString();
 
         Sellckd.SetActive(false);
+        }
 
     }
     public void WheatSell()
     {
         //밀 개수 감소
         Sellcount=ChageCount;
+        if(Maxcount==Sellcount)
+        {
+            PlayerPrefs.SetInt("Wheat",0);
+
+            SellcountText.text="0";
+
+            //다이아 증가
+            Diamondadd=int.Parse(DiaMain.text);
+            Diamondadd = Diamondadd+int.Parse(DiamondText.text);
+            DiaMain.text=Diamondadd.ToString();
+
+            Sellckd.SetActive(false);
+
+            int j=0;
+            for(j = 0; j<inventoryUI.boxCount; j=j+0){
+                if(inventoryUI.boxes[j].GetComponent<Button>().CompareTag("Wheat")){
+
+                        inventoryUI.boxes[j].GetComponent<Button>().image.sprite=null;
+                        inventoryUI.boxes[j].GetComponent<Button>().tag="In";
+                        inventoryUI.boxneercan--;
+                        j=inventoryUI.boxCount;  
+                }
+                else
+                {
+                    j++;
+                }
+            }
+
+        }
+        else
+        {
 
         Minuscount=Maxcount-Sellcount;
 
@@ -269,12 +559,45 @@ public class SellCount : MonoBehaviour
         DiaMain.text=Diamondadd.ToString();
 
         Sellckd.SetActive(false);
+        }
 
     }
     public void BroccoliSell()
     {
         //브로콜리 개수 감소
         Sellcount=ChageCount;
+
+        if(Maxcount==Sellcount)
+        {
+            PlayerPrefs.SetInt("Broccoli",0);
+
+            SellcountText.text="0";
+
+            //다이아 증가
+            Diamondadd=int.Parse(DiaMain.text);
+            Diamondadd = Diamondadd+int.Parse(DiamondText.text);
+            DiaMain.text=Diamondadd.ToString();
+
+            Sellckd.SetActive(false);
+
+            int j=0;
+            for(j = 0; j<inventoryUI.boxCount; j=j+0){
+                if(inventoryUI.boxes[j].GetComponent<Button>().CompareTag("Broccoli")){
+
+                        inventoryUI.boxes[j].GetComponent<Button>().image.sprite=null;
+                        inventoryUI.boxes[j].GetComponent<Button>().tag="In";
+                        inventoryUI.boxneercan--;
+                        j=inventoryUI.boxCount;  
+                }
+                else
+                {
+                    j++;
+                }
+            }
+
+        }
+        else
+        {
 
         Minuscount=Maxcount-Sellcount;
 
@@ -288,6 +611,7 @@ public class SellCount : MonoBehaviour
         DiaMain.text=Diamondadd.ToString();
 
         Sellckd.SetActive(false);
+        }
 
     }
 

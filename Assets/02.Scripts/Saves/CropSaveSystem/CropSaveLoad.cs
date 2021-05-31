@@ -15,8 +15,8 @@ public class CropSaveLoad : MonoBehaviour
         AllCropsData save = CropSaveManager.Load();
         //태그 해줘야함! - 어려운거 아니니까 까먹지 말쟈~!
         GameObject[] crops = GameObject.FindGameObjectsWithTag("Crop");
-        Debug.Log("cropSaveDatas : "+save.cropSaveDatas.Length);        //20
-        Debug.Log("crops : "+ crops.Length);            //20 - 맞음.
+        //Debug.Log("cropSaveDatas : "+save.cropSaveDatas.Length);        //20
+        //Debug.Log("crops : "+ crops.Length);            //20 - 맞음.
 
         for(int i=0; i<=save.cropSaveDatas.Length-1; i++){      //int i=save.farmSaveDatas.Length-1; i>=0; i--  //int i=0; i<=save.cropSaveDatas.Length-1; i++
             CropGrowTime cropGrowTime = crops[i].GetComponent<CropGrowTime>();
@@ -29,7 +29,7 @@ public class CropSaveLoad : MonoBehaviour
                 //Debug.Log("이름 다름!!");
             }
         }
-        Debug.Log("CropSaveLoad의 Load 끝 즉 remainGrowTime이 Crop에 전해짐.");
+        //Debug.Log("CropSaveLoad의 Load 끝 즉 remainGrowTime이 Crop에 전해짐.");
     }
 
 }

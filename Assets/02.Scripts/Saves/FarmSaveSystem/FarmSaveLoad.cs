@@ -58,8 +58,8 @@ public class FarmSaveLoad : MonoBehaviour
 
             int gridX = save.farmSaveDatas[i].gridX;
             int gridZ = save.farmSaveDatas[i].gridZ;
-            Vector3 originPos = new Vector3(1, 1, 1);
-            originPos = GameObject.FindObjectOfType<GridBuildingSystem>().GetComponent<GridBuildingSystem>().originPos;
+            Vector3 originPos = originPos = GameObject.FindObjectOfType<GridBuildingSystem>().GetComponent<GridBuildingSystem>().originPos;
+            Debug.Log("originPos: " + originPos);
 
             int farmKindNumber = save.farmSaveDatas[i].saveFarmKindNumber;      //이렇게 해서 어떤 종류의 crop인지 들고옴.
             //Debug.Log("Load에서 farmKindNum: "+farmKindNumber);
@@ -71,6 +71,9 @@ public class FarmSaveLoad : MonoBehaviour
             //Debug.Log("복사 됌");
             Farm genManager = genedFarm.GetComponent<Farm>();           //복사된 Farm의 Farm 스크립트를 들고옴.
             genManager.isDistroy = save.farmSaveDatas[i].isDistroy;
+            genManager.saveFarmKindNumber = farmKindNumber;
+            genManager.gridX = gridX;
+            genManager.gridZ = gridZ;
             genManager.GenerateFarm(1, 1, farmKindNumber);
         }
 

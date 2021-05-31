@@ -65,6 +65,7 @@ namespace ArIndicator
                 farmPlane = Instantiate(objectToPlacePrefab, paramPlaneTransformPosition, Quaternion.identity); 
                 farmPlaneTransform = farmPlane.GetComponent<Transform>();
                 planeOnObjectDelegate.Invoke(paramPlaneTransformPosition, Quaternion.identity);
+                Handheld.Vibrate();
                 DisableIndicator();
             }
         }

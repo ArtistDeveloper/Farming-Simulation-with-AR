@@ -45,9 +45,9 @@ public class CropState : MonoBehaviour
                 canHarvest = true;
             }
         }
-
-        if(canHarvest && Input.GetKeyDown(KeyCode.Q) && inventoryUI.boxneercan<inventoryUI.boxCount+1){  
-
+        if(canHarvest && Input.GetKeyDown(KeyCode.Q))
+        { 
+        
             if(PlayerPrefs.HasKey(cropKind + "_Count")){
 
                 //Debug.Log("PlayerPrefs 있음");
@@ -58,19 +58,20 @@ public class CropState : MonoBehaviour
                 
                 Destroy(gameObject);        //된다.                 
 
-            }else{
+            }
+            else
+            {
 
                 //Debug.Log("PlayerPrefs 없음");
                 PlayerPrefs.SetInt(cropKind + "_Count", 1);
                 Debug.Log(PlayerPrefs.GetInt(cropKind+"_Count"));
                 Destroy(gameObject);
                 
-            }           
+            } 
+                
         }
-        else if(inventoryUI.boxneercan==inventoryUI.boxCount+1)
-        {   
-            inventoryUI.qnwhr.SetActive(true);
-        }
+        
+        
     }
 
     
