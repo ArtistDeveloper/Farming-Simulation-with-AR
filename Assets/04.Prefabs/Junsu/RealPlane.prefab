@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 593282755026931265}
   - component: {fileID: 3971930999065088237}
   - component: {fileID: 8345480921186115877}
+  - component: {fileID: 7775047783027587823}
   m_Layer: 0
   m_Name: RealPlane
   m_TagString: Untagged
@@ -447,6 +448,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20.738585, y: 0.1, z: 19.22613}
   m_Center: {x: -0.0000019073486, y: 0.23215316, z: 0}
+--- !u!114 &7775047783027587823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406459920354990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61605506362a2404885f68ff8f47c33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  surface: {fileID: 3640524442932225129, guid: 40809448e2d12d248bac47d2ef027002, type: 3}
 --- !u!1 &135210610203456149
 GameObject:
   m_ObjectHideFlags: 0

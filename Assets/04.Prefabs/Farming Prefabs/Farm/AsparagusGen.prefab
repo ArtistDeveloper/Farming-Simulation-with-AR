@@ -51,6 +51,8 @@ MonoBehaviour:
   height: 1
   blockIndex: 0
   isDistroy: 0
+  saveFarmKindNumber: 0
+  gridX: 0
+  gridZ: 0
   cropTypes:
   - {fileID: 11400000, guid: 0ac46f73f94135a4ea2b93b92bd7e72f, type: 2}
-  - {fileID: 0}

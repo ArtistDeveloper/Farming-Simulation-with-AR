@@ -7,7 +7,7 @@ public class PlacedObjectTypeSO : ScriptableObject
 {
     public string nameString;
     public GameObject prefab;
-    public Transform visual;
+    public GameObject preview;
     public int width;
     public int height;
 

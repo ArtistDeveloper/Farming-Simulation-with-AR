@@ -20,8 +20,8 @@ public class Grid<TGridObject>
     private Vector3 originPosition; //Grid의 시작점이 [0,0]이 아닐수도 있어서 사용하는 변수.
     private TGridObject[,] gridArray;
     private TextMesh[,] debugTextArray;
-    // private Transform planeTransform;
     private Quaternion planeRotation;
+    // private Transform planeTransform;
 
 
     // Func<in T1, in T2, in T3, out TResult>(T1 arg1, T2 arg2, T3 arg3)
@@ -54,9 +54,14 @@ public class Grid<TGridObject>
             for (int z = 0; z < gridArray.GetLength(1); z++)
             {
                 debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z].ToString(), planeRotation, GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, 5, Color.white, TextAnchor.MiddleCenter);
+
+                DrawLine(GetWorldPosition(x,z), GetWorldPosition(x, z+1));
+                DrawLine(GetWorldPosition(x,z), GetWorldPosition(x+1, z));
                 // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);       //x,z 각 셀의 위치, 100f는 얼마나 있는지 초
                 // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
             }
+            DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height));
+            DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height));
             // Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
             // Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
             //재준이가 신경쓸 파트는 여기까지
@@ -134,4 +139,17 @@ public class Grid<TGridObject>
             Mathf.Clamp(gridPosition.y, 0, height - 1)
         );
     }
+
+    //라인 그리기
+    void DrawLine(Vector3 start, Vector3 end)
+        {
+            GameObject myLine = new GameObject();
+            myLine.transform.position = start;
+            myLine.AddComponent<LineRenderer>();
+            LineRenderer lineRenderer = myLine.GetComponent<LineRenderer>();
+            lineRenderer.material = new Material(Shader.Find("Custom/NewSurfaceShader"));
+            lineRenderer.SetWidth(0.05f, 0.05f);
+            lineRenderer.SetPosition(0, start);
+            lineRenderer.SetPosition(1, end);
+        }
 }

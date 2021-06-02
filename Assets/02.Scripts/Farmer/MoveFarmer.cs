@@ -13,6 +13,12 @@ public class MoveFarmer : MonoBehaviour
     private Animator animator;
     //private readonly int isMove = Animator.StringToHash("isMove");
 
+    public NavMeshAgent Farmer
+    {
+        get { return farmer; }
+        set { farmer = value; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

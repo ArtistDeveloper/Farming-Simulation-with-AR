@@ -3328,6 +3328,7 @@ GameObject:
   - component: {fileID: 1670765123410339750}
   - component: {fileID: -4785274464368531352}
   - component: {fileID: 2604278254019043279}
+  - component: {fileID: -7770797098477956178}
   - component: {fileID: 7967129354166743846}
   m_Layer: 0
   m_Name: Farmer
@@ -3417,6 +3418,18 @@ MonoBehaviour:
   wayPoints: []
   nextIdx: 0
   moveSpeed: 1
+--- !u!114 &-7770797098477956178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513211147927268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a4e3ec3bb846a64c965650d8b56e77f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &7967129354166743846
 NavMeshAgent:
   m_ObjectHideFlags: 0

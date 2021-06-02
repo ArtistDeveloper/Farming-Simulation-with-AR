@@ -19,8 +19,6 @@ public class GridBuildingSystem : MonoBehaviour
     public Vector3 originPos;
     public NavMeshSurface surface;
 
-
-
     // 건물 설치 방향 정하기
     private static PlacedObjectTypeSO.Dir dir = PlacedObjectTypeSO.Dir.Down; // Down이 디폴트
 
@@ -105,65 +103,72 @@ public class GridBuildingSystem : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // && (EventSystem.current.IsPointerOverGameObject()==false) 
-        // && !IsPointerOverUIObject(TouchAR.GetWolrdTouchPosition3D())
-        // Input.GetMouseButtonDown(0)
-        if (installMode && Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            // !EventSystem.current.IsPointerOverGameObject() 컴퓨터에서는 됨.
-            if (true)
+            if (!IsPointerOverUIObject())
             {
-                touchPosition = TouchAR.GetWolrdTouchPosition3D(); //3D프로젝트 마우스의 포지션을 가져오기.
-
-                grid.GetXZ(touchPosition, out x, out z);
-
-                List<Vector2Int> gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x, z), dir);
-
-                bool canBuild = true;
-                foreach (Vector2Int gridPosition in gridPositionList)
+                if (installMode)
                 {
-                    // GridObject셀을 터치했을 때 그 오프셋부터 다른 범위부분에 Build할 수 없는 부분이 있으면 터치했던 GridObject셀은 false값으로 바뀌게 되어 instantiate하지 못하게 된다.
-                    if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanBuild())
-                    {
-                        canBuild = false;
-                        break;
-                    }
-                }
+                    touchPosition = TouchAR.GetWolrdTouchPosition3D(); //3D프로젝트 마우스의 포지션을 가져오기.
 
-                GridObject gridobject = grid.GetGridObject(x, z);
-                if (canBuild)
-                {
-                    Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);
-                    Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, z) +
-                        new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.CellSize;
+                    grid.GetXZ(touchPosition, out x, out z);
 
-                    PlacedObjectOfBuilding placedObject = PlacedObjectOfBuilding.Create(placedObjectWorldPosition, new Vector2Int(x, z), dir, placedObjectTypeSO, cropKindNum);
-                    surface.BuildNavMesh();
-                    Debug.Log("Create작동");
+                    List<Vector2Int> gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x, z), dir);
 
-                    // 건물 영역만큼 건물이 설치된 부위로 set하기.      
-                    // farmPlane에서 터치한 x, z좌표에 해당하는 GridOvject셀을 가져와서 gridPosition만큼 설치된 부분으로 set한다.
+                    bool canBuild = true;
                     foreach (Vector2Int gridPosition in gridPositionList)
                     {
-                        grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlcaedObject(placedObject);
+                        // GridObject셀을 터치했을 때 그 오프셋부터 다른 범위부분에 Build할 수 없는 부분이 있으면 터치했던 GridObject셀은 false값으로 바뀌게 되어 instantiate하지 못하게 된다.
+                        if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanBuild())
+                        {
+                            canBuild = false;
+                            break;
+                        }
                     }
-                    gridobject.SetPlcaedObject(placedObject);
+
+                    // BuildingPreview();
+
+                    GridObject gridobject = grid.GetGridObject(x, z);
+                    // 건물 설치 버튼 누를 때 실행시키기. canbuild && buildingPreview Return값이 true면 설치하는 것으로.
+                    // 아니면 그냥 Build꺼 instantiate시킨다음, destroy시키고 설치되게 하기.
+                    if (canBuild)
+                    {
+                        Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);
+                        Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, z) +
+                            new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.CellSize;
+
+                        PlacedObjectOfBuilding placedObject = PlacedObjectOfBuilding.Create(placedObjectWorldPosition, new Vector2Int(x, z), dir, placedObjectTypeSO, cropKindNum);
+                        surface.BuildNavMesh();
+                        Debug.Log("Create작동");
+
+                        // 건물 영역만큼 건물이 설치된 부위로 set하기.      
+                        // farmPlane에서 터치한 x, z좌표에 해당하는 GridOvject셀을 가져와서 gridPosition만큼 설치된 부분으로 set한다.
+                        foreach (Vector2Int gridPosition in gridPositionList)
+                        {
+                            grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlcaedObject(placedObject);
+                        }
+                        gridobject.SetPlcaedObject(placedObject);
+                    }
+                }
+
+                if (removeMode)
+                {
+                    GridObject gridObject = grid.GetGridObject(TouchAR.GetWolrdTouchPosition3D());
+                    PlacedObjectOfBuilding placedObject = gridObject.GetPlacedObject();
+                    if (placedObject != null)
+                    {
+                        placedObject.DestroySelf();
+                        List<Vector2Int> gridPositionList = placedObject.GetGridPositionList();
+                        foreach (Vector2Int gridPosition in gridPositionList)
+                        {
+                            grid.GetGridObject(gridPosition.x, gridPosition.y).ClearPlacedObject();
+                        }
+                    }
                 }
             }
-        }
-
-        if (removeMode && Input.GetMouseButtonDown(0))
-        {
-            GridObject gridObject = grid.GetGridObject(TouchAR.GetWolrdTouchPosition3D());
-            PlacedObjectOfBuilding placedObject = gridObject.GetPlacedObject();
-            if (placedObject != null)
+            else
             {
-                placedObject.DestroySelf();
-                List<Vector2Int> gridPositionList = placedObject.GetGridPositionList();
-                foreach (Vector2Int gridPosition in gridPositionList)
-                {
-                    grid.GetGridObject(gridPosition.x, gridPosition.y).ClearPlacedObject();
-                }
+                return;
             }
         }
     }
@@ -255,17 +260,22 @@ public class GridBuildingSystem : MonoBehaviour
         }
     }
 
+    // Remove 버튼 누를 때 호출됨.
     public void RemoveModeSelecter()
     {
         if (removeMode == false) removeMode = true;
         else if (removeMode == true) removeMode = false;
     }
 
+    // Building아이콘 누를 때, x버튼을 누를 때 호출 됨
     public void InstallModeSelecter(int installToggle)
     {
         if (installToggle == 1) installMode = true;
-        else if (installToggle == 0) installMode = false;
-        // ClearInstallPrefab();
+        else if (installToggle == 0) 
+        {
+            installMode = false;
+            ClearInstallPrefab();
+        }
     }
 
     public void ClearInstallPrefab()
@@ -273,15 +283,17 @@ public class GridBuildingSystem : MonoBehaviour
         placedObjectTypeSO = null;
     }
 
-    public bool IsPointerOverUIObject(Vector2 touchPos)
+    private bool IsPointerOverUIObject()
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
-
-        eventDataCurrentPosition.position = touchPos;
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         List<RaycastResult> results = new List<RaycastResult>();
-
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-
         return results.Count > 0;
+    }
+
+    public void BuildingPreview()
+    {
+
     }
 }
