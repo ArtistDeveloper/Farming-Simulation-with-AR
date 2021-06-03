@@ -35,6 +35,7 @@ public class InventoryUI : MonoBehaviour
   
     public void Start()
     {
+        gameObject.SetActive(false);
         inven=Inventory.instance;  
         boxes = boxHolder.GetComponentsInChildren<Box>();
        
@@ -45,9 +46,10 @@ public class InventoryUI : MonoBehaviour
                 boxes[i].GetComponent<Button>().interactable=false;
             }
         }
-        boxneercan=0;
-        
+        boxneercan=0; 
+        Debug.Log("불러와짐");
     }
+
 
     public void BoxUpdate()
     {

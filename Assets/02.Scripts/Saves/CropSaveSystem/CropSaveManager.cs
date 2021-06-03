@@ -12,7 +12,7 @@ public static class CropSaveManager
 {
     public static void Save(CropGrowTime[] crops){ 
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Path.Combine(Application.dataPath, "Crop Save.bin");
+        string path = Path.Combine(Application.persistentDataPath, "Crop Save.bin");
         
         FileStream stream =File.Create(path);
 
@@ -31,7 +31,7 @@ public static class CropSaveManager
     public static AllCropsData Load(){
         try{
             BinaryFormatter formatter = new BinaryFormatter();
-            string path = Path.Combine(Application.dataPath, "Crop Save.bin");
+            string path = Path.Combine(Application.persistentDataPath, "Crop Save.bin");
             FileStream stream = File.OpenRead(path);
             AllCropsData data = (AllCropsData)formatter.Deserialize(stream);
             stream.Close();

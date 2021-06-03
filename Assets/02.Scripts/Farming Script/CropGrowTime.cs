@@ -28,7 +28,7 @@ public class CropGrowTime : MonoBehaviour
     }
 
     void OnApplicationFocus(bool value){
-        Debug.Log("CropGrowTime의 OnApplication 실행");
+        //Debug.Log("CropGrowTime의 OnApplication 실행");
         if (value)
         {   
             set_check = true;
@@ -80,12 +80,9 @@ public class CropGrowTime : MonoBehaviour
 
         m_AppQuitTime = cropTime.GetComponent<CropTime>().get_m_AppQuitTime();
         
-        if(remainGrowTime != timeMaxGrowInterval){     
-            Debug.Log("킹준수 m_AppQuitTime이야: "+ m_AppQuitTime);     // - 이게 지금 초기값으로 들어옴.
-            var timeDifferenceInSec = (int)((DateTime.Now.ToLocalTime() - m_AppQuitTime).TotalSeconds);    //지금 시간이랑 앱을 껐을 떄의 시간을 뺀 값이 들어가게 된다.
-            Debug.Log("킹준수 timeDiff계산해서 나온 timediff 이야  " + timeDifferenceInSec);
+        if(remainGrowTime != timeMaxGrowInterval){               
+            var timeDifferenceInSec = (int)((DateTime.Now.ToLocalTime() - m_AppQuitTime).TotalSeconds);    //지금 시간이랑 앱을 껐을 떄의 시간을 뺀 값이 들어가게 된다.            
             var remainTime = remainGrowTime - timeDifferenceInSec;  
-            Debug.Log("킹준수 timeDiff계산해서 나온 remainTime이야  " + remainTime);
             if (remainTime <= timeMaxGrowInterval)      
             {
                 //Debug.Log("DoRechargeTimer 진입 전");
@@ -126,7 +123,7 @@ public class CropGrowTime : MonoBehaviour
             if(cropState != null){
                 cropState.GrowDone();         
             }else{
-                Debug.Log("cropState를 들고오지 못함");     //못들고온다 왜? - 이제 들고옴 - Awake에서 들고왔기 때문임.
+                Debug.Log("cropState를 들고오지 못함");    
             }
         }
     }

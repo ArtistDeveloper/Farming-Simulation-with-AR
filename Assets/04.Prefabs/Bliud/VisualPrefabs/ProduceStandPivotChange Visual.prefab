@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3313203237086046364}
   m_Layer: 0
   m_Name: ProduceStandPivotChange Visual
-  m_TagString: Building
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7122778901548558016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.06, y: 0, z: 0.35}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.9}
   m_Children:
   - {fileID: 4768642638107866646}
   m_Father: {fileID: 0}
@@ -72,11 +72,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 1.5, y: 0.5, z: 1.5}
+  m_Extents: {x: 1.15, y: 0.5, z: 1.15}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
-  m_Center: {x: 1.3, y: 1, z: 0.8}
+  m_Center: {x: 1, y: 0.5, z: 0.8}
   m_TimeToStationary: 0.5
 --- !u!1001 &4765399367080315004
 PrefabInstance:
@@ -95,7 +95,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4369799291534954, guid: 5864fffc51438544482a8dea4e82b216, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4369799291534954, guid: 5864fffc51438544482a8dea4e82b216, type: 3}
       propertyPath: m_LocalScale.z
@@ -103,7 +103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4369799291534954, guid: 5864fffc51438544482a8dea4e82b216, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.1
+      value: 0.92
       objectReference: {fileID: 0}
     - target: {fileID: 4369799291534954, guid: 5864fffc51438544482a8dea4e82b216, type: 3}
       propertyPath: m_LocalPosition.y
@@ -141,6 +141,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23787437520110124, guid: 5864fffc51438544482a8dea4e82b216, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31af1ce3ff418234a95af2efa35f0aac, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5864fffc51438544482a8dea4e82b216, type: 3}
 --- !u!4 &4768642638107866646 stripped

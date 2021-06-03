@@ -32,7 +32,6 @@ public class Grid<TGridObject>
         this.height = height;
         this.cellSize = cellSize; //셀 사이즈를 통해 각 인덱스를 땅위에 올리기 위한 WorldPosition을 계산할 수 있다. // 2 (즉 한칸당 size를 2씩 차지함. 그러면 10x10해서 총 100개 들어감) 
         this.originPosition = originPosition;
-        // this.planeTransform = planeTransform;
         this.planeRotation = planeRotation;
 
         debugTextArray = new TextMesh[width, height]; //World에 뜨는 숫자
@@ -53,17 +52,14 @@ public class Grid<TGridObject>
         {
             for (int z = 0; z < gridArray.GetLength(1); z++)
             {
-                debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z].ToString(), planeRotation, GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, 5, Color.white, TextAnchor.MiddleCenter);
+                // debugTextArray[x, z] = UtilsClass.CreateWorldText(gridArray[x, z].ToString(), planeRotation, GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f, 5, Color.white, TextAnchor.MiddleCenter);
 
-                DrawLine(GetWorldPosition(x,z), GetWorldPosition(x, z+1));
-                DrawLine(GetWorldPosition(x,z), GetWorldPosition(x+1, z));
-                // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), Color.white, 100f);       //x,z 각 셀의 위치, 100f는 얼마나 있는지 초
-                // Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
+                DrawLine(GetWorldPosition(x, z) + new Vector3 (0, 0.355f, 0), GetWorldPosition(x, z + 1)  + new Vector3 (0, 0.355f, 0));
+                DrawLine(GetWorldPosition(x, z) + new Vector3 (0, 0.355f, 0), GetWorldPosition(x + 1, z) + new Vector3 (0, 0.355f, 0));
             }
-            DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height));
-            DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height));
-            // Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-            // Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+            DrawLine(GetWorldPosition(0, height) + new Vector3 (0, 0.355f, 0) , GetWorldPosition(width, height) + new Vector3 (0, 0.355f, 0) );
+            DrawLine(GetWorldPosition(width, 0) + new Vector3 (0, 0.355f, 0) , GetWorldPosition(width, height) + new Vector3 (0, 0.355f, 0));
+
             //재준이가 신경쓸 파트는 여기까지
 
             // OnGridObjectChanged Event에 익명함수를 등록하는 것 같음.
@@ -73,7 +69,7 @@ public class Grid<TGridObject>
             //     // debugTextArray[eventArgs.x, eventArgs.z].text = gridArray[eventArgs.x, eventArgs.z]?.ToString();
             // };
         }
-        // SetValue(2, 1, 56); //혹시 NullReference가 난다면, TextMesh값이 debugTextArray에 들어가지 않아서 그런 F것.
+        // SetValue(2, 1, 56); //혹시 NullReference가 난다면, TextMesh값이 debugTextArray에 들어가지 않아서 그런 것.
     }
 
     public float CellSize
@@ -142,14 +138,14 @@ public class Grid<TGridObject>
 
     //라인 그리기
     void DrawLine(Vector3 start, Vector3 end)
-        {
-            GameObject myLine = new GameObject();
-            myLine.transform.position = start;
-            myLine.AddComponent<LineRenderer>();
-            LineRenderer lineRenderer = myLine.GetComponent<LineRenderer>();
-            lineRenderer.material = new Material(Shader.Find("Custom/NewSurfaceShader"));
-            lineRenderer.SetWidth(0.05f, 0.05f);
-            lineRenderer.SetPosition(0, start);
-            lineRenderer.SetPosition(1, end);
-        }
+    {
+        GameObject myLine = new GameObject();
+        myLine.transform.position = start;
+        myLine.AddComponent<LineRenderer>();
+        LineRenderer lineRenderer = myLine.GetComponent<LineRenderer>();
+        lineRenderer.material = new Material(Shader.Find("Custom/NewSurfaceShader"));
+        lineRenderer.SetWidth(0.05f, 0.05f);
+        lineRenderer.SetPosition(0, start);
+        lineRenderer.SetPosition(1, end);
+    }
 }

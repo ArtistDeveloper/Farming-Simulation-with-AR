@@ -9,7 +9,7 @@ public class Diamond : MonoBehaviour
 
     void Start()
     {
-        DiamainText.text="100000";
+        // DiamainText.text="100000";
     }
 
     // Update is called once per frame
@@ -17,6 +17,4 @@ public class Diamond : MonoBehaviour
     {
         
     }
-
-
 }

@@ -3,28 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using ArIndicator;
 
 // GridBuildSystem.cs : 
 // Grid를 생성함. Grid를 생성할 때 GridObject 타입의 값도 생성자 파라미터에 넘어감.
 public class GridBuildingSystem : MonoBehaviour
 {
-    private Grid<GridObject> grid;
+    private static Grid<GridObject> grid;
     private Vector3 touchPosition;
     private GameObject saveManager;
     private static int buildSelectNum = 0;
     private static int cropKindNum = 0;
 
-    public int x, z;
+    // Buiild함수에서 필요한 변수 Build함수를 사용할 떄는 체크버튼을 누르는데, 아래 변수들이 다 세팅되있을 수 밖에 없는 환경이다.
+    private static List<Vector2Int> gridPositionList;
+    private static GridObject gridObject;
+    private static Vector3 placedObjectWorldPosition; // static 선언안하면 값 사라져서 오류남.
+
+    public static int x, z;
     public Vector3 originPos;
     public NavMeshSurface surface;
 
     // 건물 설치 방향 정하기
     private static PlacedObjectTypeSO.Dir dir = PlacedObjectTypeSO.Dir.Down; // Down이 디폴트
 
-    // mode selecter
+    // Preview 건물을 담을 GameObject 변수
+    private static GameObject previewGameObject = null;
+
+    // Mode selecter
     private static bool removeMode = false;
     private static bool installMode = false;
+
+    // Button Click Event
+    private static bool installCheckButton = false;
+
+    // Building가격
+    private static int buildingCost;
+    public Text money_Text;
+    public int money;
 
     // prefab
     [SerializeField] private GameObject housePrefab;
@@ -37,6 +54,14 @@ public class GridBuildingSystem : MonoBehaviour
         aRTapToPlace.planeOnObjectDelegate += GirdValueInstantiate;
 
         placedObjectTypeSO = placedObjectTypeSOList[0];
+    }
+
+    private void Start()
+    {
+        money = PlayerPrefs.GetInt("Money", 0);
+        money_Text = GameObject.Find("DiamainText").GetComponent<Text>();
+        money_Text.text = money.ToString();
+        //Debug.Log("Money에 들어있는 돈: " + PlayerPrefs.GetInt("Money"));
     }
 
     // GridObject에는 생성된 Grid에서 셀에 해당하는 x, z값을 들고있음. struct와 비슷한 개념으로 사용함.
@@ -103,17 +128,18 @@ public class GridBuildingSystem : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        // Input.GetMouseButtonDown(0)
+        // Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began
+        if (Input.GetMouseButtonDown(0))
         {
             if (!IsPointerOverUIObject())
             {
                 if (installMode)
                 {
-                    touchPosition = TouchAR.GetWolrdTouchPosition3D(); //3D프로젝트 마우스의 포지션을 가져오기.
-
+                    touchPosition = TouchAR.GetWolrdTouchPosition3D();
                     grid.GetXZ(touchPosition, out x, out z);
 
-                    List<Vector2Int> gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x, z), dir);
+                    gridPositionList = placedObjectTypeSO.GetGridPositionList(new Vector2Int(x, z), dir);
 
                     bool canBuild = true;
                     foreach (Vector2Int gridPosition in gridPositionList)
@@ -122,37 +148,26 @@ public class GridBuildingSystem : MonoBehaviour
                         if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanBuild())
                         {
                             canBuild = false;
+                            Debug.Log("설치안된!");
                             break;
                         }
                     }
 
-                    // BuildingPreview();
-
-                    GridObject gridobject = grid.GetGridObject(x, z);
+                    gridObject = grid.GetGridObject(x, z);
                     // 건물 설치 버튼 누를 때 실행시키기. canbuild && buildingPreview Return값이 true면 설치하는 것으로.
                     // 아니면 그냥 Build꺼 instantiate시킨다음, destroy시키고 설치되게 하기.
                     if (canBuild)
                     {
                         Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);
-                        Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, z) +
-                            new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.CellSize;
+                        placedObjectWorldPosition = grid.GetWorldPosition(x, z) + new Vector3(rotationOffset.x, 0, rotationOffset.y) * grid.CellSize;
 
-                        PlacedObjectOfBuilding placedObject = PlacedObjectOfBuilding.Create(placedObjectWorldPosition, new Vector2Int(x, z), dir, placedObjectTypeSO, cropKindNum);
-                        surface.BuildNavMesh();
-                        Debug.Log("Create작동");
-
-                        // 건물 영역만큼 건물이 설치된 부위로 set하기.      
-                        // farmPlane에서 터치한 x, z좌표에 해당하는 GridOvject셀을 가져와서 gridPosition만큼 설치된 부분으로 set한다.
-                        foreach (Vector2Int gridPosition in gridPositionList)
-                        {
-                            grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlcaedObject(placedObject);
-                        }
-                        gridobject.SetPlcaedObject(placedObject);
+                        PreviewBuilding(placedObjectWorldPosition, gridPositionList, gridObject);
                     }
                 }
 
                 if (removeMode)
                 {
+                    Debug.Log("나 작동하고있음");
                     GridObject gridObject = grid.GetGridObject(TouchAR.GetWolrdTouchPosition3D());
                     PlacedObjectOfBuilding placedObject = gridObject.GetPlacedObject();
                     if (placedObject != null)
@@ -176,7 +191,7 @@ public class GridBuildingSystem : MonoBehaviour
     public void RotateBuilding()
     {
         dir = PlacedObjectTypeSO.GetNextDir(dir);
-        GameObject.Find("UI").transform.FindChild("DebugText").gameObject.SetActive(true);
+        // GameObject.Find("UI").transform.FindChild("DebugText").gameObject.SetActive(true);
     }
 
     public void SelectBuilding(int number)
@@ -187,53 +202,66 @@ public class GridBuildingSystem : MonoBehaviour
             // Fence Category
             case 0:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 1000;
                 break;
             case 1:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 2000;
                 break;
             case 2:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 3000;
                 break;
 
             // Crop Category
             case 100:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 500;
                 cropKindNum = 0;
                 break;
             case 101:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 1000;
                 cropKindNum = 1;
                 break;
             case 102:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 2000;
                 cropKindNum = 2;
                 break;
             case 103:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 3000;
                 cropKindNum = 3;
                 break;
             case 104:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 4000;
                 cropKindNum = 4;
                 break;
             case 105:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 5000;
                 cropKindNum = 5;
                 break;
             case 106:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 6000;
                 cropKindNum = 6;
                 break;
             case 107:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 7000;
                 cropKindNum = 7;
                 break;
             case 108:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 8000;
                 cropKindNum = 8;
                 break;
             case 109:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 9000;
                 cropKindNum = 9;
                 break;
 
@@ -241,21 +269,27 @@ public class GridBuildingSystem : MonoBehaviour
             // Object Category
             case 200:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 0;
                 break;
             case 201:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 0;
                 break;
             case 202:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 5000;
                 break;
             case 203:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 50000;
                 break;
             case 204:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 200000;
                 break;
             case 205:
                 placedObjectTypeSO = placedObjectTypeSOList[number];
+                buildingCost = 5000;
                 break;
         }
     }
@@ -263,15 +297,23 @@ public class GridBuildingSystem : MonoBehaviour
     // Remove 버튼 누를 때 호출됨.
     public void RemoveModeSelecter()
     {
-        if (removeMode == false) removeMode = true;
-        else if (removeMode == true) removeMode = false;
+        if (removeMode == false)
+        {
+            removeMode = true;
+            Debug.Log("RemoveMode활성화");
+        }
+        else if (removeMode == true)
+        {
+            removeMode = false;
+            Debug.Log("RemoveMode비활성화");
+        }
     }
 
     // Building아이콘 누를 때, x버튼을 누를 때 호출 됨
     public void InstallModeSelecter(int installToggle)
     {
         if (installToggle == 1) installMode = true;
-        else if (installToggle == 0) 
+        else if (installToggle == 0)
         {
             installMode = false;
             ClearInstallPrefab();
@@ -292,8 +334,59 @@ public class GridBuildingSystem : MonoBehaviour
         return results.Count > 0;
     }
 
-    public void BuildingPreview()
+    private void PreviewBuilding(Vector3 placedObjectWorldPosition, List<Vector2Int> gridPositionList, GridObject gridObject)
     {
+        Debug.Log("BuildingPreview작동");
+        UtilsClass.GetBuildngSystemIcon().SetActive(true);
 
+        if (previewGameObject != null)
+        {
+            Destroy(previewGameObject);
+            previewGameObject = null; // Fake Null 방지
+            previewGameObject = Instantiate(placedObjectTypeSO.preview, placedObjectWorldPosition, Quaternion.Euler(0, placedObjectTypeSO.GetRotationAngle(dir), 0));
+        }
+        else
+        {
+            previewGameObject = Instantiate(placedObjectTypeSO.preview, placedObjectWorldPosition, Quaternion.Euler(0, placedObjectTypeSO.GetRotationAngle(dir), 0));
+        }
+
+        // if (insatll) Build();
+    }
+
+    private void DestroyPreviewGameObject()
+    {
+        Destroy(previewGameObject);
+        previewGameObject = null;
+    }
+
+    public void Build()
+    {
+        PlacedObjectOfBuilding placedObject = PlacedObjectOfBuilding.Create(placedObjectWorldPosition, new Vector2Int(x, z), dir, placedObjectTypeSO, cropKindNum);
+        surface.BuildNavMesh();
+        
+        // 건물 영역만큼 건물이 설치된 부위로 set하기.      
+        // farmPlane에서 터치한 x, z좌표에 해당하는 GridOvject셀을 가져와서 gridPosition만큼 설치된 부분으로 set한다.
+        foreach (Vector2Int gridPosition in gridPositionList)
+        {
+            grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlcaedObject(placedObject); // 이게 안되서 CanBuild가 제대로 작동안하는 것 같은데.
+        }
+
+        // 이 타이밍에는 previewGameObject가 남아있을 거임.
+        DestroyPreviewGameObject();
+        DeductMoney();
+    }
+
+    public void CancleBuildingInstall()
+    {
+        DestroyPreviewGameObject();
+        UtilsClass.GetBuildngSystemIcon().SetActive(false);
+    }
+
+    private void DeductMoney()
+    {
+        PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money") - buildingCost);
+        money_Text = GameObject.Find("DiamainText").GetComponent<Text>();
+        money = PlayerPrefs.GetInt("Money", 0);
+        money_Text.text = money.ToString("0");
     }
 }

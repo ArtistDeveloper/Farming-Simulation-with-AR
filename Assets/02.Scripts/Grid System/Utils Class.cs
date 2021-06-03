@@ -37,4 +37,9 @@ public class UtilsClass
         textMesh.GetComponent<MeshRenderer>().sortingOrder = sortingOrder;
         return textMesh;
     }
+
+    public static GameObject GetBuildngSystemIcon()
+    {
+        return GameObject.FindWithTag("ingameObject").transform.Find("UI").transform.Find("Building System Icon").gameObject;
+    }
 }

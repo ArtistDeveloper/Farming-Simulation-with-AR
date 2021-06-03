@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameString: Building
   prefab: {fileID: 4394757173609963674, guid: 3f68dda53ab9cd14dbacb742c9fcfc3b, type: 3}
-  visual: {fileID: 0}
+  preview: {fileID: 4394757173609963674, guid: c6549b9dc63ca7a4b9fee080fbd71960, type: 3}
   width: 1
   height: 1

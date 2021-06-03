@@ -9,7 +9,7 @@ public class BuildingSaveManager : MonoBehaviour
 {
     public static void Save(Building[] buildings){
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Path.Combine(Application.dataPath, "Building Save.bin");
+        string path = Path.Combine(Application.persistentDataPath, "Building Save.bin");
         FileStream stream =File.Create(path);
 
         //교체 사항
@@ -27,7 +27,7 @@ public class BuildingSaveManager : MonoBehaviour
     public static AllBuildingData Load(){
         try{
          BinaryFormatter formatter = new BinaryFormatter();
-         string path = Path.Combine(Application.dataPath, "Building Save.bin");
+         string path = Path.Combine(Application.persistentDataPath, "Building Save.bin");
          FileStream stream = File.OpenRead(path);
          AllBuildingData data = (AllBuildingData)formatter.Deserialize(stream);
          stream.Close();

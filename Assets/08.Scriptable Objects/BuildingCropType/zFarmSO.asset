@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: zFarmSO
   m_EditorClassIdentifier: 
   nameString: 
-  prefab: {fileID: 459131458093152154, guid: cd3840900e3332147827ef45bf9e93b6, type: 3}
-  visual: {fileID: 0}
+  prefab: {fileID: 7122778901548558016, guid: 14a9931b5cdf52242a8b9915265da629, type: 3}
+  preview: {fileID: 347773054363317112, guid: 7a5238df46b766a4799a5961f29a16e4, type: 3}
   width: 4
   height: 5

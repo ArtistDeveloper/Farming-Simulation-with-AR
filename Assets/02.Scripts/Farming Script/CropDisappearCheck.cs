@@ -8,7 +8,7 @@ public class CropDisappearCheck : MonoBehaviour
     //거기의 값을 바꿔줘서 
     private bool isCropDisappear = false;
     void Start(){
-        transform.localPosition = new Vector3 (5, 0, 0);
+        transform.localPosition = new Vector3 (0, 0.355f, 0);
     }
     
     void Update()

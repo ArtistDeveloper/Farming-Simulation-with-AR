@@ -14,13 +14,13 @@ public class DirtBlock : MonoBehaviour
     public Material dryTexture;
 
     public GameObject crop ;
-    private CropLogic cropLogic;
+    //private CropLogic cropLogic;
 
     void Start()
     {
         //물을 준 상태
         waterLevel = maxWater;
-        cropLogic = transform.parent.GetComponentInChildren<CropLogic>();       
+        //cropLogic = transform.parent.GetComponentInChildren<CropLogic>();       
     }
 
     void Update()
@@ -39,12 +39,12 @@ public class DirtBlock : MonoBehaviour
 
         GetComponent<MeshRenderer>().material.Lerp(wetTexture, dryTexture, fadeLevel);
 
-        if(waterLevel <= 0)
-        {
-            if(cropLogic != null){
-               cropLogic.StartWither();
-            }
-        }
+        // if(waterLevel <= 0)
+        // {
+        //     if(cropLogic != null){
+        //        cropLogic.StartWither();
+        //     }
+        // }
 
         if(cropDestroy){
             //List안에 썩지 않은 Crop들을 다 넣어서 한번에 없애기 위해 이렇게 작성을 했음.
@@ -61,14 +61,14 @@ public class DirtBlock : MonoBehaviour
 
         //w를 누르면 물을 주는 것임.
         //그래서 현재 w를 누르면 땅이 물을 뿌린것 처럼 약간 까매지고 다시 fade out 되서 drt된다. 
-        if(Input.GetKeyDown(KeyCode.W)){
-            waterLevel = maxWater;
-            fadeLevel = 0;
+        // if(Input.GetKeyDown(KeyCode.W)){
+        //     waterLevel = maxWater;
+        //     fadeLevel = 0;
 
-            if(cropLogic != null){
-                cropLogic.StopWither();
-            }
-        }
+        //     if(cropLogic != null){
+        //         cropLogic.StopWither();
+        //     }
+        // }
     }
 
     public void CropWither()

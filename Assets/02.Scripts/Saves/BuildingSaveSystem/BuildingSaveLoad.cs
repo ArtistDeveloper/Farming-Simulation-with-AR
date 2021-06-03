@@ -9,9 +9,9 @@ public class BuildingSaveLoad : MonoBehaviour
     private AllBuildingData save;
     private int saveLength;
     void Start(){       //원래 Awake
-        Debug.Log("LoadBuilding 시작.");
+        //Debug.Log("LoadBuilding 시작.");
         LoadBuilding();
-        Debug.Log("LoadBuilding 완료");
+        //Debug.Log("LoadBuilding 완료");
     }
 
     public void OnApplicationFocus(bool value){
@@ -42,8 +42,11 @@ public class BuildingSaveLoad : MonoBehaviour
     public void LoadBuilding(){
         save = BuildingSaveManager.Load();
         GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
-        //Debug.Log("Building Load에서 찾은 Building의 개수 - 복사하는 개수: " + buildings.Length);
-        //Debug.Log("그럼 building Load에 있는 save의 데이터 개수: "+ save.buildingSaveDatas.Length);
+        for(int i = 0; i<saveLength; i++){
+            Destroy(buildings[i]);              // 이건 된다.
+        }
+        Debug.Log("Building Load에서 찾은 Building의 개수 - 복사하는 개수: " + buildings.Length);
+        Debug.Log("그럼 building Load에 있는 save의 데이터 개수: "+ save.buildingSaveDatas.Length);
         saveLength = buildings.Length;
 
         //태그 해줘야함! - 어려운거 아니니까 까먹지 말쟈~!
@@ -56,7 +59,7 @@ public class BuildingSaveLoad : MonoBehaviour
             int gridX = save.buildingSaveDatas[i].gridX;
             int gridZ = save.buildingSaveDatas[i].gridZ;
             Vector3 originPos = GameObject.FindObjectOfType<GridBuildingSystem>().GetComponent<GridBuildingSystem>().originPos;
-            Debug.Log("Building originPos: " + originPos);
+            //Debug.Log("Building originPos: " + originPos);
 
             Quaternion rotate = Quaternion.identity;
             rotate.eulerAngles = new Vector3(save.buildingSaveDatas[i].rotateX, save.buildingSaveDatas[i].rotateY, save.buildingSaveDatas[i].rotateZ); 
@@ -102,8 +105,6 @@ public class BuildingSaveLoad : MonoBehaviour
             
         }
 
-        for(int i = 0; i<saveLength; i++){
-            Destroy(buildings[i]);              // 이건 된다.
-        }
+        
     }
 }

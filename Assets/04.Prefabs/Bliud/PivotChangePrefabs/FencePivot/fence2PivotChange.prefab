@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4394757173609963674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.42, y: 1, z: 0.5}
   m_Children:
   - {fileID: 3189096879988109682}
   m_Father: {fileID: 0}
@@ -72,11 +72,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 1.2, y: 0.5, z: 0.15}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 0
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 1.3, y: 0.7, z: 0.1}
   m_TimeToStationary: 0.5
 --- !u!1001 &3193305607167945730
 PrefabInstance:
@@ -88,6 +88,10 @@ PrefabInstance:
     - target: {fileID: 1074158097585824, guid: fc3a1be4d0840704c87a581eca5dd285, type: 3}
       propertyPath: m_Name
       value: fence2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074158097585824, guid: fc3a1be4d0840704c87a581eca5dd285, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4807274677493104, guid: fc3a1be4d0840704c87a581eca5dd285, type: 3}
       propertyPath: m_RootOrder
@@ -133,7 +137,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -89217252152591070, guid: fc3a1be4d0840704c87a581eca5dd285, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fc3a1be4d0840704c87a581eca5dd285, type: 3}
 --- !u!4 &3189096879988109682 stripped
 Transform:

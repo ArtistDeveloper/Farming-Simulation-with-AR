@@ -23,6 +23,8 @@ TagManager:
   - Building
   - Pumpkin
   - SaveManagerParent
+  - CropGood
+  - ingameObject
   layers:
   - Default
   - TransparentFX

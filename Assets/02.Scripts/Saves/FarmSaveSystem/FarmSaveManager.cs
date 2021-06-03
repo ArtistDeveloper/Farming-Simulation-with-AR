@@ -14,7 +14,7 @@ public static class FarmSaveManager
         
 
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Path.Combine(Application.dataPath, "Farm Save.bin ");
+        string path = Path.Combine(Application.persistentDataPath, "Farm Save.bin ");
         FileStream stream =File.Create(path);
 
         //교체 사항
@@ -32,7 +32,7 @@ public static class FarmSaveManager
     public static AllFarmsData Load(){
         try{
          BinaryFormatter formatter = new BinaryFormatter();
-         string path = Path.Combine(Application.dataPath, "Farm Save.bin");
+         string path = Path.Combine(Application.persistentDataPath, "Farm Save.bin");
          FileStream stream = File.OpenRead(path);
          AllFarmsData data = (AllFarmsData)formatter.Deserialize(stream);
 

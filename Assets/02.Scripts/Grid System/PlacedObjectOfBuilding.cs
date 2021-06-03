@@ -35,6 +35,7 @@ public class PlacedObjectOfBuilding : MonoBehaviour
             farmSaveComponent.takeX(origin.x);
             farmSaveComponent.takeZ(origin.y);
             farmSaveComponent.GenerateFarm(1, 1, cropKindNum);
+            //Debug.Log("CropKind: " + cropKindNum);
         }
 
         PlacedObjectOfBuilding placedObject = placeObjectTransform.GetComponent<PlacedObjectOfBuilding>();

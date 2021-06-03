@@ -12,7 +12,7 @@ public static class PlayerSaveManager
 {
     public static void Save(Player[] players){
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Path.Combine(Application.dataPath, "Player Save.bin ");
+        string path = Path.Combine(Application.persistentDataPath, "Player Save.bin ");
         FileStream stream =File.Create(path);
 
         //교체 사항
@@ -29,7 +29,7 @@ public static class PlayerSaveManager
     public static AllPlayersData Load(){
         try{
          BinaryFormatter formatter = new BinaryFormatter();
-         string path = Path.Combine(Application.dataPath, "Player Save.bin");
+         string path = Path.Combine(Application.persistentDataPath, "Player Save.bin");
          FileStream stream = File.OpenRead(path);
          AllPlayersData data = (AllPlayersData)formatter.Deserialize(stream);
          //AllPlayersData data = formatter.Deserialize(stream) as AllPlayersData;

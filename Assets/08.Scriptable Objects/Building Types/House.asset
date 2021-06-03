@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameString: House
   prefab: {fileID: 4394757173609963674, guid: de759d2253c57994a9afbf6701313956, type: 3}
-  visual: {fileID: 0}
-  width: 4
-  height: 4
+  preview: {fileID: 4394757173609963674, guid: 51fb5c43be584354aa836a4ea415e4c7, type: 3}
+  width: 5
+  height: 5

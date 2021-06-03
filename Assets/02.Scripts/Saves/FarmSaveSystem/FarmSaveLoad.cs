@@ -43,23 +43,23 @@ public class FarmSaveLoad : MonoBehaviour
     public void LoadFarm(){
         save = FarmSaveManager.Load();
         GameObject[] farms = GameObject.FindGameObjectsWithTag("Farm");
-        //Debug.Log("Farm Load에서 찾은 Farm의 개수 - 복사하는 개수: " + farms.Length);
-        //Debug.Log("그럼 farm Load에 있는 save의 데이터 개수: "+ save.farmSaveDatas.Length);
+        Debug.Log("Farm Load에서 찾은 Farm의 개수 - 복사하는 개수: " + farms.Length);
+        Debug.Log("그럼 farm Load에 있는 save의 데이터 개수: "+ save.farmSaveDatas.Length);
         saveLength = farms.Length;
 
         
-        //태그 해줘야함! - 어려운거 아니니까 까먹지 말쟈~!
+        //태그 해줘야함!
         //Debug.Log("Load for문 돌리는 길이: "+ save.farmSaveDatas.Length);
         for(int i=save.farmSaveDatas.Length-1; i>=0; i--){       //int i=0; i <= save.cropSaveDatas.Length -1; i++    //int i=save.farmSaveDatas.Length-1; i>=0; i--
             // Vector3 position;
             // position.x = save.farmSaveDatas[i].x;        //Mathf.Abs(i - save.farmSaveDatas.Length)
             // position.y = save.farmSaveDatas[i].y;
-            // position.z = save.farmSaveDatas[i].z;       //포지션 지정.
+            // position.z = save.farmSaveDatas[i].z;       //포지션 지정.S
 
             int gridX = save.farmSaveDatas[i].gridX;
             int gridZ = save.farmSaveDatas[i].gridZ;
             Vector3 originPos = originPos = GameObject.FindObjectOfType<GridBuildingSystem>().GetComponent<GridBuildingSystem>().originPos;
-            Debug.Log("originPos: " + originPos);
+            //Debug.Log("originPos: " + originPos);
 
             int farmKindNumber = save.farmSaveDatas[i].saveFarmKindNumber;      //이렇게 해서 어떤 종류의 crop인지 들고옴.
             //Debug.Log("Load에서 farmKindNum: "+farmKindNumber);
