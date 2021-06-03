@@ -1,16 +1,17 @@
+작성중입니다.
+
 # **Farming Simulation with AR**
 
 **Unity version : 2020.2.6fl**
 AR Foundation Version : 4.0.x
 
+---
 
+## 게임 내 기능
 
-
-
-
-
-
-
+직렬화를 통한 저장기능
+평면인식과 평면설치
+평면 설치된 곳 위에 그리드를 적용
 
 
 
