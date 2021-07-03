@@ -1,5 +1,3 @@
-![five-state-model](https://user-images.githubusercontent.com/40491724/122676586-a473cd00-d219-11eb-8a33-22412f792855.png)
-![five-state-model](https://user-images.githubusercontent.com/40491724/122676591-a9d11780-d219-11eb-87bb-ed0685a93ec0.png)
 작성중입니다.
 
 # **Farming Simulation with AR**
