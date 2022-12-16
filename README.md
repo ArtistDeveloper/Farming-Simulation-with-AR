@@ -1,5 +1,3 @@
-작성중입니다.
-
 # **Farming Simulation with AR**
 
 **Unity version : 2020.2.6fl**
